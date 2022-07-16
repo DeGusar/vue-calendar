@@ -1,36 +1,36 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import MainPage from '../views/MainPage.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import MainPage from '../views/MainPage.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    component: MainPage,
+    component: MainPage
   },
   {
     path: '/login',
-    component: () => import('../views/LoginPage.vue'),
+    component: () => import('../views/LoginPage.vue')
   },
   {
     path: '/registration',
-    component: () => import('../views/RegistrationPage.vue'),
+    component: () => import('../views/RegistrationPage.vue')
   },
   {
     path: '/statistic',
-    component: () => import('../views/StatisticPage.vue'),
+    component: () => import('../views/StatisticPage.vue')
   },
   {
     path: '/user',
-    component: () => import('../views/UserPage.vue'),
-  },
+    component: () => import('../views/UserPage.vue')
+  }
 
-];
+]
 
 const router = new VueRouter({
   mode: 'history',
-  routes,
-});
+  routes
+})
 
-export default router;
+export default router
