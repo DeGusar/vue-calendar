@@ -1,29 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MainPage from '../views/MainPage.vue'
+import MainPage from '@/views/MainPage'
+import { urlNames } from '@/utils/constants/urlNames'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    name: urlNames.MAIN_PAGE,
     component: MainPage
   },
   {
     path: '/login',
-    component: () => import('../views/LoginPage.vue')
+    name: urlNames.LOGIN_PAGE,
+    component: () => import('@/views/LoginPage')
   },
   {
     path: '/registration',
-    component: () => import('../views/RegistrationPage.vue')
+    name: urlNames.REGISTRATION_PAGE,
+    component: () => import('@/views/RegistrationPage')
   },
   {
     path: '/statistic',
-    component: () => import('../views/StatisticPage.vue')
+    name: urlNames.STATISTIC_PAGE,
+    component: () => import('@/views/StatisticPage')
   },
   {
     path: '/user',
-    component: () => import('../views/UserPage.vue')
+    name: urlNames.USER_PAGE,
+    component: () => import('@/views/UserPage')
   }
 
 ]
