@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { urlNames } from '@/utils/constants/urlNames'
+import urlNames from '@/utils/constants/urlNames'
 export default {
   data: () => ({
     urlNames

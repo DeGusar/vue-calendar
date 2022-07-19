@@ -1,4 +1,4 @@
-export const urlNames = {
+export default {
   MAIN_PAGE: 'mainPage',
   LOGIN_PAGE: 'loginPage',
   REGISTRATION_PAGE: 'registrationPage',
