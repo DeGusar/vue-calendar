@@ -8,7 +8,6 @@
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   width:  100%;
-  width:  100%;
 }
 
 </style>

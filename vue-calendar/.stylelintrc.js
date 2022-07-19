@@ -7,5 +7,8 @@ module.exports = {
       }
     ]
   ],
-  extends: ['stylelint-config-recommended', 'stylelint-config-standard-scss', 'stylelint-config-recommended-vue/scss']
+  extends: ['stylelint-config-recommended'],
+  rules: {
+    'no-empty-source': null,
+  }
 }

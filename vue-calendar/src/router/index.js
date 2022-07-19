@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainPage from '@/views/MainPage'
-import urlNames from '@/utils/constants/urlNames'
+import { urlNames } from '@/utils/constants'
 
 Vue.use(VueRouter)
 
