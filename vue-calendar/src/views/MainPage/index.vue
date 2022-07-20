@@ -1,9 +1,17 @@
 <template>
   <div class="main-page">
-      <router-link :to="routeLoginPage">Login</router-link>
-      <router-link :to="routeRegistrationPage">Registration</router-link>
-      <router-link :to="routeStatisticPage">Statistic</router-link>
-      <router-link :to="routeUserPage">User</router-link>
+    <router-link :to="routeLoginPage">
+      Login
+    </router-link>
+    <router-link :to="routeRegistrationPage">
+      Registration
+    </router-link>
+    <router-link :to="routeStatisticPage">
+      Statistic
+    </router-link>
+    <router-link :to="routeUserPage">
+      User
+    </router-link>
   </div>
 </template>
 

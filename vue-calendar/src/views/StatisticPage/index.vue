@@ -1,7 +1,9 @@
 <template>
   <div class="statistic-page">
     <p>Statistic</p>
-    <router-link :to="routeMainPage">Home</router-link>
+    <router-link :to="routeMainPage">
+      Home
+    </router-link>
   </div>
 </template>
 

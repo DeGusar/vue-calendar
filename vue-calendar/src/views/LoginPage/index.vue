@@ -1,7 +1,9 @@
 <template>
   <div class="login-page">
     <p>Login</p>
-    <router-link :to="routeMainPage">Home</router-link>
+    <router-link :to="routeMainPage">
+      Home
+    </router-link>
   </div>
 </template>
 
