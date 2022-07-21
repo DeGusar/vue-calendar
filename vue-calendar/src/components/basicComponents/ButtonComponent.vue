@@ -10,6 +10,7 @@
 <script>
 export default {
   name: 'ButtonComponent',
+
   props: {
     onClick: {
       type: Function,
@@ -26,7 +27,7 @@ export default {
     color: rgb(68 71 145);
     padding: 5px 10px;
     text-transform: uppercase;
-    border: 2px solid rgb(68 71 145);
+    border: 1px solid rgb(68 71 145);
 
     &:hover {
       background-color: rgb(68 71 145);
