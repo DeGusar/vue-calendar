@@ -1,18 +1,18 @@
 <template>
   <div class="header">
-    <div class="wrapper">
+    <div class="header__wrapper">
       <router-link
-        class="title"
+        class="header__title"
         :to="routeMainPage"
       >
         Vue calendar
       </router-link>
-      <nav class="nav">
+      <nav class="header__nav">
         <router-link
           v-for="{routeName, text} in navRoutes"
           :key="text"
           :to="routeName"
-          class="nav-link"
+          class="header__nav__nav-link"
         >
           {{ text }}
         </router-link>
@@ -57,12 +57,12 @@ export default {
     padding: 10px 0;
     color: white;
 
-    & .title {
+    &__title {
       color: white;
       text-decoration: none;
     }
 
-    & .wrapper {
+    &__wrapper {
       max-width: 1600px;
       display: flex;
       align-items: center;
@@ -70,11 +70,11 @@ export default {
       margin: 0 auto;
     }
 
-    & .nav {
+    &__nav {
       display: flex;
       column-gap: 15px;
 
-      & .nav-link {
+      &__nav-link {
         color: white;
         text-decoration: none;
         font-size: 1.8rem;

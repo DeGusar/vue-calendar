@@ -5,36 +5,21 @@
     >
       Home
     </router-link>
-    <input-component
-      v-model="inputValue"
-      :type="inputType"
-      :value="inputValue"
-    />
-    <button-component :on-click="submitLoginForm">
-      Login
-    </button-component>
+    <LoginPageForm />
   </div>
 </template>
 
 <script>
 import { urlNames } from '@/utils/constants'
-import { ButtonComponent, InputComponent } from '@/components'
+import LoginPageForm from './LoginPageForm'
 
 export default {
   name: 'LoginPage',
-  components: { ButtonComponent, InputComponent },
+  components: { LoginPageForm },
 
   data: () => ({
-    routeMainPage: { name: urlNames.MAIN_PAGE },
-    inputType: 'date',
-    inputValue: ''
-  }),
-
-  methods: {
-    submitLoginForm () {
-      this.inputValue = ''
-    }
-  }
+    routeMainPage: { name: urlNames.MAIN_PAGE }
+  })
 }
 </script>
 

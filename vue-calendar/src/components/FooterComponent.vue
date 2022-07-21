@@ -1,15 +1,15 @@
 <template>
   <div class="footer">
-    <div class="wrapper">
+    <div class="footer__wrapper">
       <a
         href="https://github.com/DeGusar"
         target="_blank"
-        class="github-logo"
+        class="footer__github-logo"
       />
-      <p class="name">
+      <p class="footer__name">
         Denis Gusar
       </p>
-      <p class="year">
+      <p class="footer__year">
         2022
       </p>
     </div>
@@ -30,7 +30,7 @@ export default {
     color: white;
     font-size: 1.8rem;
 
-    & .wrapper {
+    &__wrapper {
       max-width: 1600px;
       display: flex;
       align-items: center;
@@ -38,7 +38,7 @@ export default {
       margin: 0 auto;
     }
 
-    & .github-logo {
+    &__github-logo {
       width: 35px;
       height: 35px;
       background: url("https://res.cloudinary.com/rss-collection/image/upload/v1652345776/github_ke79xc.svg");

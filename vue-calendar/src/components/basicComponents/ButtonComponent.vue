@@ -1,7 +1,8 @@
 <template>
   <button
     class="button"
-    @click="onClick"
+    :type="type"
+    @click="$emit('click', $event)"
   >
     <slot />
   </button>
@@ -10,11 +11,10 @@
 <script>
 export default {
   name: 'ButtonComponent',
-
   props: {
-    onClick: {
-      type: Function,
-      required: true
+    type: {
+      type: String,
+      default: 'button'
     }
   }
 }
