@@ -1,7 +1,11 @@
-import FooterComponent from './FooterComponent.vue'
-import HeaderComponent from './HeaderComponent.vue'
+import FooterComponent from './FooterComponent'
+import HeaderComponent from './HeaderComponent'
+import ButtonComponent from './basicComponents/ButtonComponent'
+import InputComponent from './basicComponents/InputComponent'
 
 export {
   FooterComponent,
-  HeaderComponent
+  HeaderComponent,
+  ButtonComponent,
+  InputComponent
 }
