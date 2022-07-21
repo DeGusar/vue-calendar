@@ -31,7 +31,7 @@ export default {
   }),
 
   methods: {
-    submitLoginForm (e) {
+    submitLoginForm () {
       this.inputValue = ''
     }
   }

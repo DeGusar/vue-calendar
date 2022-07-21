@@ -26,6 +26,7 @@ import { urlNames } from '@/utils/constants'
 
 export default {
   name: 'HeaderComponent',
+
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE },
     navRoutes: [
