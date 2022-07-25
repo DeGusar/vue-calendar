@@ -9,5 +9,12 @@ module.exports = defineConfig({
         files: ['**/*.{vue,scss}']
       })
     ]
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: '@import "@/assets/styles/variables.scss";'
+      }
+    }
   }
 })

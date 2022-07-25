@@ -37,9 +37,9 @@ export default {
     height: 45px;
     padding-right: 10px;
     padding-left: 10px;
-    font-size: 1.8rem;
+    font-size: $font-size-large;
     line-height: 2.1rem;
-    color: rgb(3 3 3);
-    border: 1px solid rgb(3 3 3);
+    color: $color-black;
+    border: 1px solid $color-purple-dark;
   }
 </style>

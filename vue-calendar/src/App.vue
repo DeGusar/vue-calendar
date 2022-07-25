@@ -7,17 +7,15 @@
 </template>
 
 <script>
-import { HeaderComponent, FooterComponent } from '@/components/index'
+import { HeaderComponent, FooterComponent } from '@/components'
 
 export default {
   components: { HeaderComponent, FooterComponent }
 }
 </script>
 
-<style lang="scss">
-html {
-  font-size: 10px;
-}
+<style lang="scss" >
+@import "./assets/styles/reset";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

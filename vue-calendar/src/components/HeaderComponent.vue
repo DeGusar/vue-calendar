@@ -53,17 +53,18 @@ export default {
 
 <style lang="scss">
   .header {
-    background-color: rgb(68 71 145);
+    background-color: $color-purple;
     padding: 10px 0;
     color: white;
 
     &__title {
       color: white;
       text-decoration: none;
+      font-size: $font-size-large;
     }
 
     &__wrapper {
-      max-width: 1600px;
+      max-width: $content-width;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -77,7 +78,7 @@ export default {
       &__nav-link {
         color: white;
         text-decoration: none;
-        font-size: 1.8rem;
+        font-size: $font-size-base;
       }
     }
   }
