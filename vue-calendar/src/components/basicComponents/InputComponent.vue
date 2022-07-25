@@ -33,13 +33,14 @@ export default {
   .input {
     display: flex;
     align-items: center;
-    width: 355px;
-    height: 45px;
-    padding-right: 10px;
-    padding-left: 10px;
-    font-size: $font-size-large;
+    width: 100%;
+    height: 55px;
+    max-width: 500px;
+    padding: 16.5px 14px;
+    font-size: $font-size-base;
     line-height: 2.1rem;
     color: $color-black;
-    border: 1px solid $color-purple-dark;
+    border: 1px solid $color-black-light;
+    border-radius: 4px;
   }
 </style>

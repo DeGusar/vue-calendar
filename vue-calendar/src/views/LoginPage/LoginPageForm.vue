@@ -16,6 +16,7 @@
 
 <script>
 import { ButtonComponent, InputComponent } from '@/components'
+import { db } from '@/store/localBase/localBase'
 
 export default {
   name: 'LoginPageForm',
@@ -30,6 +31,11 @@ export default {
   methods: {
     submitLoginForm () {
       this.inputValue = ''
+      db.collection('users').add({
+        id: 1,
+        name: 'Bill',
+        age: 47
+      })
     }
   }
 }

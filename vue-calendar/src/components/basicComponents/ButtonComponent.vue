@@ -25,9 +25,10 @@ export default {
     background-color: $color-white;
     font-size: $font-size-base;
     color: $color-purple;
-    padding: 5px 10px;
+    padding: 6px 10px;
     text-transform: uppercase;
     border: 1px solid $color-purple;
+    border-radius: 4px;
 
     &:hover {
       background-color: $color-purple-dark;
