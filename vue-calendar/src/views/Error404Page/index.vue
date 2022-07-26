@@ -1,19 +1,21 @@
 <template>
   <div class="error404-page">
-    <router-link
+    <RouterLinkComponent
       :to="routeMainPage"
     >
       Home
-    </router-link>
+    </RouterLinkComponent>
     <h2>Error404</h2>
   </div>
 </template>
 
 <script>
 import { urlNames } from '@/utils/constants'
+import { RouterLinkComponent } from '@/components'
 
 export default {
   name: 'Error404Page',
+  components: { RouterLinkComponent },
 
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }

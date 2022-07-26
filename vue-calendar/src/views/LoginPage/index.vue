@@ -1,10 +1,10 @@
 <template>
   <div class="login-page">
-    <router-link
+    <RouterLinkComponent
       :to="routeMainPage"
     >
       Home
-    </router-link>
+    </RouterLinkComponent>
     <LoginPageForm />
   </div>
 </template>
@@ -12,10 +12,11 @@
 <script>
 import { urlNames } from '@/utils/constants'
 import LoginPageForm from './LoginPageForm'
+import { RouterLinkComponent } from '@/components'
 
 export default {
   name: 'LoginPage',
-  components: { LoginPageForm },
+  components: { LoginPageForm, RouterLinkComponent },
 
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }

@@ -1,17 +1,20 @@
 <template>
   <div class="user-page">
     <p>User Info</p>
-    <router-link :to="routeMainPage">
+    <RouterLinkComponent :to="routeMainPage">
       Home
-    </router-link>
+    </RouterLinkComponent>
   </div>
 </template>
 
 <script>
 import { urlNames } from '@/utils/constants'
+import { RouterLinkComponent } from '@/components'
 
 export default {
   name: 'UserPage',
+  components: { RouterLinkComponent },
+
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }
   })

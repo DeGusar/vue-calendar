@@ -1,21 +1,23 @@
 <template>
   <div class="header">
     <div class="header__wrapper">
-      <router-link
+      <RouterLinkComponent
         class="header__title"
         :to="routeMainPage"
       >
         Vue calendar
-      </router-link>
+      </RouterLinkComponent>
     </div>
   </div>
 </template>
 
 <script>
 import { urlNames } from '@/utils/constants'
+import RouterLinkComponent from './basicComponents/RouterLinkComponent'
 
 export default {
   name: 'HeaderComponentEmpty',
+  components: { RouterLinkComponent },
 
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }
@@ -27,11 +29,8 @@ export default {
   .header {
     background-color: $color-purple;
     height: $header-height;
-    color: white;
 
     &__title {
-      color: white;
-      text-decoration: none;
       font-size: $font-size-large;
     }
 

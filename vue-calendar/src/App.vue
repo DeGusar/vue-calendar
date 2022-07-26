@@ -7,13 +7,14 @@
 </template>
 
 <script>
+import { layoutNames } from '@/utils/constants'
 
 export default {
   computed: {
     layout () {
-      const layoutName = this.$route.meta.layout || 'MainLayout'
+      const layoutName = this.$route.meta.layout || layoutNames.MAIN_LAYOUT
 
-      return () => import(`@/layouts/${layoutName}.vue`)
+      return () => import(`@/layouts/${layoutName}`)
     }
   }
 }
