@@ -54,7 +54,7 @@ export default {
 <style lang="scss">
   .header {
     background-color: $color-purple;
-    padding: 10px 0;
+    height: $header-height;
     color: white;
 
     &__title {
@@ -65,6 +65,7 @@ export default {
 
     &__wrapper {
       max-width: $content-width;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;

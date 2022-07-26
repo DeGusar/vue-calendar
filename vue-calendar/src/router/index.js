@@ -9,27 +9,50 @@ const routes = [
   {
     path: '/',
     name: urlNames.MAIN_PAGE,
-    component: MainPage
+    component: MainPage,
+    meta: {
+      layout: 'MainLayout'
+    }
   },
   {
     path: '/login',
     name: urlNames.LOGIN_PAGE,
-    component: () => import('@/views/LoginPage')
+    component: () => import('@/views/LoginPage'),
+    meta: {
+      layout: 'AuthLayout'
+    }
   },
   {
     path: '/registration',
     name: urlNames.REGISTRATION_PAGE,
-    component: () => import('@/views/RegistrationPage')
+    component: () => import('@/views/RegistrationPage'),
+    meta: {
+      layout: 'AuthLayout'
+    }
   },
   {
     path: '/statistic',
     name: urlNames.STATISTIC_PAGE,
-    component: () => import('@/views/StatisticPage')
+    component: () => import('@/views/StatisticPage'),
+    meta: {
+      layout: 'MainLayout'
+    }
   },
   {
     path: '/user',
     name: urlNames.USER_PAGE,
-    component: () => import('@/views/UserPage')
+    component: () => import('@/views/UserPage'),
+    meta: {
+      layout: 'MainLayout'
+    }
+  },
+  {
+    path: '*',
+    name: urlNames.ERROR_404_PAGE,
+    component: () => import('@/views/Error404Page'),
+    meta: {
+      layout: 'ErrorLayout'
+    }
   }
 
 ]

@@ -35,8 +35,7 @@ export default {
     align-items: center;
     width: 355px;
     height: 45px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding: 0 10px;
     font-size: $font-size-large;
     line-height: 2.1rem;
     color: $color-black;

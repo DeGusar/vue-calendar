@@ -28,6 +28,7 @@ export default {
     background-color: $color-purple;
     padding: 10px 0;
     color: white;
+    height: $footer-height;
     font-size: $font-size-large;
 
     &__wrapper {
