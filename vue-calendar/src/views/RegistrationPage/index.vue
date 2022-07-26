@@ -36,23 +36,24 @@
       >
         SignUP
       </ButtonComponent>
-      <router-link
+      <RouterLinkComponent
         class="registration-page__form__link"
         :to="routeLoginPage"
       >
         Already have an account? Sign in
-      </router-link>
+      </RouterLinkComponent>
     </form>
   </div>
 </template>
 
 <script>
 import { urlNames } from '@/utils/constants'
-import { InputComponent, ButtonComponent } from '@/components'
+import { InputComponent, ButtonComponent, RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'RegistrationPage',
-  components: { InputComponent, ButtonComponent },
+  components: { InputComponent, ButtonComponent, RouterLinkComponent },
+
   data: () => ({
     routeLoginPage: { name: urlNames.LOGIN_PAGE },
     firstName: '',

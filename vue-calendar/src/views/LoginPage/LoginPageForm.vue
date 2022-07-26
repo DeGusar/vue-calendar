@@ -2,11 +2,11 @@
   <form class="login-page-form">
     <InputComponent
       v-model="inputValue"
-      :type="inputType"
+      type="date"
       :value="inputValue"
     />
     <ButtonComponent
-      :type="buttonType"
+      type="submit"
       @click.prevent="submitLoginForm"
     >
       Login
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { ButtonComponent, InputComponent } from '@/components'
+import { ButtonComponent, InputComponent } from '@/components/basicComponents'
 import { db } from '@/store/localBase/localBase'
 
 export default {
@@ -23,9 +23,7 @@ export default {
   components: { ButtonComponent, InputComponent },
 
   data: () => ({
-    inputType: 'date',
-    inputValue: '',
-    buttonType: 'submit'
+    inputValue: ''
   }),
 
   methods: {

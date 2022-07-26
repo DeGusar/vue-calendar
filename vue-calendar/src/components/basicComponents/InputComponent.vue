@@ -1,7 +1,7 @@
 <template>
   <input
     :placeholder="placeHolder"
-    class="input"
+    class="input-component"
     :type="type"
     :value="value"
     @input="$emit('input', $event.target.value)"
@@ -30,12 +30,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .input {
+  .input-component {
     display: flex;
     align-items: center;
     width: 100%;
     height: 55px;
-    max-width: 500px;
     padding: 16.5px 14px;
     font-size: $font-size-base;
     line-height: 2.1rem;

@@ -1,9 +1,11 @@
 <template>
-  <div class="user-page">
-    <p>User Info</p>
-    <RouterLinkComponent :to="routeMainPage">
+  <div class="error404-page">
+    <RouterLinkComponent
+      :to="routeMainPage"
+    >
       Home
     </RouterLinkComponent>
+    <h2>Error404</h2>
   </div>
 </template>
 
@@ -12,7 +14,7 @@ import { urlNames } from '@/utils/constants'
 import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
-  name: 'UserPage',
+  name: 'Error404Page',
   components: { RouterLinkComponent },
 
   data: () => ({
@@ -21,6 +23,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
+<style lang='scss'>
+  .error404-page {
+    background-color: $color-white;
+    color: $color-black;
+    height: 100vh;
+  }
 </style>

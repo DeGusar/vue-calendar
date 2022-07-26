@@ -1,16 +1,22 @@
 <template>
   <div id="app">
-    <HeaderComponent />
-    <router-view class="main" />
-    <FooterComponent />
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
 <script>
-import { HeaderComponent, FooterComponent } from '@/components'
+import { layoutNames } from '@/utils/constants'
 
 export default {
-  components: { HeaderComponent, FooterComponent }
+  computed: {
+    layout () {
+      const layoutName = this.$route.meta.layout || layoutNames.MAIN_LAYOUT
+
+      return () => import(`@/layouts/${layoutName}`)
+    }
+  }
 }
 </script>
 
@@ -19,12 +25,6 @@ export default {
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: 2rem;
-}
-
-.main {
-  padding: 0 10px;
-  height: calc(100vh - 98px);
-  overflow-y: auto;
+  font-size: $font-size-large;
 }
 </style>
