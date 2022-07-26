@@ -1,8 +1,8 @@
 <template>
-  <div class="header">
-    <div class="header__wrapper">
+  <div class="header-component-empty">
+    <div class="header-component-empty__wrapper">
       <RouterLinkComponent
-        class="header__title"
+        class="header-component-empty__title"
         :to="routeMainPage"
       >
         Vue calendar
@@ -13,7 +13,7 @@
 
 <script>
 import { urlNames } from '@/utils/constants'
-import RouterLinkComponent from './basicComponents/RouterLinkComponent'
+import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'HeaderComponentEmpty',
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .header {
+  .header-component-empty {
     background-color: $color-purple;
     height: $header-height;
 

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { ButtonComponent, InputComponent } from '@/components'
+import { ButtonComponent, InputComponent } from '@/components/basicComponents'
 
 export default {
   name: 'LoginPageForm',

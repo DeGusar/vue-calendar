@@ -1,15 +1,15 @@
 <template>
-  <div class="footer">
-    <div class="footer__wrapper">
+  <div class="footer-component">
+    <div class="footer-component__wrapper">
       <a
         href="https://github.com/DeGusar"
         target="_blank"
-        class="footer__github-logo"
+        class="footer-component__github-logo"
       />
-      <p class="footer__name">
+      <p class="footer-component__name">
         Denis Gusar
       </p>
-      <p class="footer__year">
+      <p class="footer-component__year">
         2022
       </p>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .footer {
+  .footer-component {
     background-color: $color-purple;
     padding: 10px 0;
     color: white;

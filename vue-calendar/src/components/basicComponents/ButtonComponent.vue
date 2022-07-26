@@ -1,6 +1,6 @@
 <template>
   <button
-    class="button"
+    class="button-component"
     :type="type"
     @click="$emit('click', $event)"
   >
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .button {
+  .button-component {
     background-color: $color-white;
     font-size: $font-size-base;
     color: $color-purple;

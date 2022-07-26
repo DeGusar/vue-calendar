@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { FooterComponent, HeaderComponentEmpty } from '@/components'
+import { FooterComponent, HeaderComponentEmpty } from '@/components/pageElements'
 
 export default {
   name: 'AuthLayout',

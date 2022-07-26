@@ -1,13 +1,13 @@
 <template>
-  <div class="header">
-    <div class="header__wrapper">
+  <div class="header-component">
+    <div class="header-component__wrapper">
       <RouterLinkComponent
-        class="header__title"
+        class="header-component__title"
         :to="routeMainPage"
       >
         Vue calendar
       </RouterLinkComponent>
-      <nav class="header__nav">
+      <nav class="header-component__nav">
         <RouterLinkComponent
           v-for="{routeName, text} in navRoutes"
           :key="text"
@@ -22,7 +22,7 @@
 
 <script>
 import { urlNames } from '@/utils/constants'
-import RouterLinkComponent from './basicComponents/RouterLinkComponent'
+import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'HeaderComponent',
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .header {
+  .header-component {
     background-color: $color-purple;
     height: $header-height;
 

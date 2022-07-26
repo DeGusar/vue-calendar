@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { HeaderComponent, FooterComponent } from '@/components'
+import { HeaderComponent, FooterComponent } from '@/components/pageElements'
 
 export default {
   name: 'MainLayout',

@@ -9,7 +9,7 @@
 
 <script>
 import { urlNames } from '@/utils/constants'
-import { RouterLinkComponent } from '@/components'
+import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'UserPage',

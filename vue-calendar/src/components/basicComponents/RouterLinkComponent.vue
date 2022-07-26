@@ -1,6 +1,6 @@
 <template>
   <router-link
-    class="router-link"
+    class="router-link-component"
     :to="to"
   >
     <slot />
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .router-link {
+  .router-link-component {
     font-size: $font-size-base;
     color: $color-white;
     text-decoration: none;
