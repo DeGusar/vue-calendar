@@ -1,13 +1,30 @@
 <template>
   <div id="app">
-    <router-view />
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
-<style lang="scss">
+<script>
+import { layoutNames } from '@/utils/constants'
+
+export default {
+  computed: {
+    layout () {
+      const layoutName = this.$route.meta.layout || layoutNames.MAIN_LAYOUT
+
+      return () => import(`@/layouts/${layoutName}`)
+    }
+  }
+}
+</script>
+
+<style lang="scss" >
+@import "./assets/styles/reset";
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  width: 100%;
+  font-size: $font-size-large;
 }
-
 </style>

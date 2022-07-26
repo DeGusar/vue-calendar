@@ -1,17 +1,23 @@
 <template>
   <div class="login-page">
-    <p>Login</p>
-    <router-link :to="routeMainPage">
+    <RouterLinkComponent
+      :to="routeMainPage"
+    >
       Home
-    </router-link>
+    </RouterLinkComponent>
+    <LoginPageForm />
   </div>
 </template>
 
 <script>
 import { urlNames } from '@/utils/constants'
+import LoginPageForm from './LoginPageForm'
+import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'LoginPage',
+  components: { LoginPageForm, RouterLinkComponent },
+
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }
   })
@@ -19,5 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .login-page {
+    padding: 10px;
+  }
 </style>
