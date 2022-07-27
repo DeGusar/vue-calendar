@@ -7,6 +7,7 @@
 export default {
   name: 'MainPage'
 }
+
 </script>
 
 <style lang="scss">

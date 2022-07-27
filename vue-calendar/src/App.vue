@@ -8,13 +8,21 @@
 
 <script>
 import { layoutNames } from '@/utils/constants'
+import { AuthLayout, ErrorLayout, MainLayout } from '@/layouts'
 
 export default {
+  data: () => ({
+    layouts: {
+      AuthLayout,
+      ErrorLayout,
+      MainLayout
+    }
+  }),
   computed: {
     layout () {
       const layoutName = this.$route.meta.layout || layoutNames.MAIN_LAYOUT
 
-      return () => import(`@/layouts/${layoutName}`)
+      return this.layouts[layoutName]
     }
   }
 }

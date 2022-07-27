@@ -22,16 +22,16 @@ export default {
 
 <style lang="scss">
   .button-component {
-    background-color: $color-white;
+    background-color: $color-purple-dark;
     font-size: $font-size-base;
-    color: $color-purple;
+    color: $color-white;
     padding: 6px 10px;
     text-transform: uppercase;
     border: 1px solid $color-purple;
     border-radius: 4px;
 
     &:hover {
-      background-color: $color-purple-dark;
+      background-color: $color-purple;
       color: $color-white;
     }
   }

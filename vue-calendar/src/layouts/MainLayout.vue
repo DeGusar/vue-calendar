@@ -24,6 +24,7 @@ export default {
     padding: 0 10px;
     height: calc(100vh - ($header-height + $footer-height));
     overflow-y: auto;
+    background-color: $color-white-dark;
   }
 }
 </style >

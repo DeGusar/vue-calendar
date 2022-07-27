@@ -41,5 +41,13 @@ export default {
     color: $color-black;
     border: 1px solid $color-black-light;
     border-radius: 4px;
+
+    &:hover {
+      border: 2px solid $color-black;
+    }
+
+    &:focus {
+      border: 2px solid $color-black;
+    }
   }
 </style>

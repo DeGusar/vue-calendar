@@ -1,48 +1,93 @@
 <template>
-  <form class="login-page-form">
+  <form
+    class="login-page-form"
+    novalidate
+    @submit.prevent="submit"
+  >
+    <div class="login-page-form__header">
+      <p class="login-page-form__header__title">
+        Already have account?
+      </p>
+      <p class="login-page-form__header__text">
+        Sign in to Vue Calendar!
+      </p>
+    </div>
     <InputComponent
-      v-model="inputValue"
-      type="date"
-      :value="inputValue"
+      :value="email"
+      type="email"
+      place-holder="Email address"
+    />
+    <InputComponent
+      :value="password"
+      type="password"
+      place-holder="Password"
     />
     <ButtonComponent
       type="submit"
-      @click.prevent="submitLoginForm"
+      class="login-page-form__button"
     >
-      Login
+      SignIN
     </ButtonComponent>
+    <RouterLinkComponent
+      class="login-page-form__link"
+      :to="routeRegistrationPage"
+    >
+      Don't have an account? Sign Up
+    </RouterLinkComponent>
   </form>
 </template>
 
 <script>
-import { ButtonComponent, InputComponent } from '@/components/basicComponents'
-import { db } from '@/store/localBase/localBase'
+import { urlNames } from '@/utils/constants'
+import { ButtonComponent, InputComponent, RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'LoginPageForm',
-  components: { ButtonComponent, InputComponent },
+  components: { ButtonComponent, InputComponent, RouterLinkComponent },
 
   data: () => ({
-    inputValue: ''
-  }),
+    routeRegistrationPage: { name: urlNames.REGISTRATION_PAGE },
+    email: '',
+    password: ''
+  })
 
-  methods: {
-    submitLoginForm () {
-      this.inputValue = ''
-      db.collection('users').add({
-        id: 1,
-        name: 'Bill',
-        age: 47
-      })
-    }
-  }
 }
 </script>
 
 <style lang="scss">
   .login-page-form {
+    width: 500px;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    row-gap: 20px;
+    margin: 70px auto;
+
+    &__header {
+      &__title {
+        font-size: $font-size-large;
+      }
+
+      &__text {
+        font-size: $font-size-small;
+      }
+    }
+
+    &__link {
+      font-size: $font-size-small;
+      align-self: end;
+      margin-top: -5px;
+      text-decoration-line: underline;
+      color: $color-purple;
+
+      &:hover {
+        color: $color-purple-dark;
+      }
+    }
+
+    &__button {
+      width: 100%;
+    }
   }
 </style>
