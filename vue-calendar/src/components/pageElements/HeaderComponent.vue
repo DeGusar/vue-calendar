@@ -17,7 +17,7 @@
         </RouterLinkComponent>
         <div
           class="header-component__nav__button"
-          @click="logout"
+          @click="logoutHandler"
         >
           Logout
         </div>
@@ -49,7 +49,7 @@ export default {
     ]
   }),
   methods: {
-    logout () {
+    logoutHandler () {
       logout()
       this.$router.push({ name: urlNames.LOGIN_PAGE })
     }
