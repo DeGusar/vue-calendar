@@ -2,7 +2,7 @@
   <form
     class="login-page-form"
     novalidate
-    @submit.prevent="submit"
+    @submit.prevent="submitLogin"
   >
     <div class="login-page-form__header">
       <p class="login-page-form__header__title">
@@ -12,15 +12,19 @@
         Sign in to Vue Calendar!
       </p>
     </div>
-    <InputComponent
-      :value="email"
+    <InputComponentWithErrorText
+      v-model="email"
       type="email"
       place-holder="Email address"
+      :invalid="v$.email.$error"
+      :errors="v$.email.$errors"
     />
-    <InputComponent
-      :value="password"
+    <InputComponentWithErrorText
+      v-model="password"
       type="password"
       place-holder="Password"
+      :invalid="v$.password.$error"
+      :errors="v$.password.$errors"
     />
     <ButtonComponent
       type="submit"
@@ -38,19 +42,44 @@
 </template>
 
 <script>
+import { login } from '@/utils/api/authApi'
+import useVuelidate from '@vuelidate/core'
+import { required, helpers } from '@vuelidate/validators'
 import { urlNames } from '@/utils/constants'
-import { ButtonComponent, InputComponent, RouterLinkComponent } from '@/components/basicComponents'
+import { ButtonComponent, InputComponentWithErrorText, RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'LoginPageForm',
-  components: { ButtonComponent, InputComponent, RouterLinkComponent },
+  components: { ButtonComponent, InputComponentWithErrorText, RouterLinkComponent },
+
+  setup: () => ({ v$: useVuelidate() }),
 
   data: () => ({
     routeRegistrationPage: { name: urlNames.REGISTRATION_PAGE },
+    routeMainPage: { name: urlNames.MAIN_PAGE },
     email: '',
     password: ''
-  })
+  }),
+  validations () {
+    return {
+      email: { required: helpers.withMessage('Please enter email', required) },
+      password: { required: helpers.withMessage('Please enter password', required) }
+    }
+  },
+  methods: {
+    async submitLogin () {
+      this.v$.$validate()
 
+      if (!this.v$.$error) {
+        try {
+          await login({ email: this.email, password: this.password })
+          this.$router.push(this.routeMainPage)
+        } catch (e) {
+          console.log(e.message)
+        }
+      }
+    }
+  }
 }
 </script>
 

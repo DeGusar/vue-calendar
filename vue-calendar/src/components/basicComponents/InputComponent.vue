@@ -4,7 +4,8 @@
     class="input-component"
     :type="type"
     :value="value"
-    @input="$emit('input', $event.target.value)"
+    :class="invalid ? 'input-component_invalid': ''"
+    @input="$emit('input', $event)"
   >
 </template>
 
@@ -24,6 +25,10 @@ export default {
     value: {
       type: [String, Number, Date],
       required: true
+    },
+    invalid: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -31,8 +36,6 @@ export default {
 
 <style lang="scss">
   .input-component {
-    display: flex;
-    align-items: center;
     width: 100%;
     height: 55px;
     padding: 16.5px 14px;
@@ -43,11 +46,19 @@ export default {
     border-radius: 4px;
 
     &:hover {
-      border: 2px solid $color-black;
+      border-width: 2px;
     }
 
     &:focus {
-      border: 2px solid $color-black;
+      border-width: 2px;
+    }
+
+    &_invalid {
+      border-color: $color-red;
+
+      &::placeholder {
+        color: $color-red;
+      }
     }
   }
 </style>

@@ -15,14 +15,21 @@
         >
           {{ text }}
         </RouterLinkComponent>
+        <div
+          class="header-component__nav__button"
+          @click="logout"
+        >
+          Logout
+        </div>
       </nav>
     </div>
   </div>
 </template>
 
 <script>
+import { logout } from '@/utils/api/authApi'
+import { RouterLinkComponent } from '../basicComponents'
 import { urlNames } from '@/utils/constants'
-import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'HeaderComponent',
@@ -32,14 +39,6 @@ export default {
     routeMainPage: { name: urlNames.MAIN_PAGE },
     navRoutes: [
       {
-        routeName: { name: urlNames.LOGIN_PAGE },
-        text: 'Login'
-      },
-      {
-        routeName: { name: urlNames.REGISTRATION_PAGE },
-        text: 'Registration'
-      },
-      {
         routeName: { name: urlNames.STATISTIC_PAGE },
         text: 'Statistic'
       },
@@ -48,7 +47,13 @@ export default {
         text: 'Profile'
       }
     ]
-  })
+  }),
+  methods: {
+    logout () {
+      logout()
+      this.$router.push({ name: urlNames.LOGIN_PAGE })
+    }
+  }
 }
 </script>
 
@@ -72,7 +77,18 @@ export default {
 
     &__nav {
       display: flex;
+      align-items: center;
       column-gap: 15px;
+
+      &__button {
+        color: $color-white;
+        cursor: pointer;
+        font-size: $font-size-base;
+
+        &:hover {
+          color: $color-black;
+        }
+      }
     }
   }
 </style>

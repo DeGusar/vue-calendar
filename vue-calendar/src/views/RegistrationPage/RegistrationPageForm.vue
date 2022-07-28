@@ -2,37 +2,53 @@
   <form
     class="registration-page-form"
     novalidate
-    @submit.prevent="submit"
+    @submit.prevent="submitRegistration"
   >
     <p class="registration-page-form__title">
       Sign up to Vue-calendar
     </p>
     <div class="registration-page-form__names">
-      <InputComponent
+      <InputComponentWithErrorText
         v-model="firstName"
         class="registration-page-form__names__input"
         place-holder="First Name"
+        :invalid="v$.firstName.$error"
+        :errors="v$.firstName.$errors"
       />
-      <InputComponent
+      <InputComponentWithErrorText
         v-model="lastName"
         class="registration-page-form__names__input"
         place-holder="Last Name"
+        :invalid="v$.lastName.$error"
+        :errors="v$.lastName.$errors"
       />
     </div>
 
-    <InputComponent
+    <InputComponentWithErrorText
       v-model="email"
       type="email"
       place-holder="Email address"
+      :invalid="v$.email.$error"
+      :errors="v$.email.$errors"
     />
-    <InputComponent
+    <InputComponentWithErrorText
       v-model="password"
       type="password"
       place-holder="Password"
+      :invalid="v$.password.$error"
+      :errors="v$.password.$errors"
+    />
+    <InputComponentWithErrorText
+      v-model="passwordConfirm"
+      type="password"
+      place-holder="Confirm Password"
+      :invalid="v$.passwordConfirm.$error"
+      :errors="v$.passwordConfirm.$errors"
     />
     <ButtonComponent
       type="submit"
       class="registration-page-form__button"
+      :disabled="v$.$error"
     >
       SignUP
     </ButtonComponent>
@@ -46,12 +62,16 @@
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core'
+import { registrateUser } from '@/utils/api/authApi'
+import { required, email, sameAs, minLength, helpers } from '@vuelidate/validators'
 import { urlNames } from '@/utils/constants'
-import { InputComponent, ButtonComponent, RouterLinkComponent } from '@/components/basicComponents'
+import { ButtonComponent, RouterLinkComponent, InputComponentWithErrorText } from '@/components/basicComponents'
 
 export default {
   name: 'RegistrationPageForm',
-  components: { InputComponent, ButtonComponent, RouterLinkComponent },
+  components: { ButtonComponent, RouterLinkComponent, InputComponentWithErrorText },
+  setup: () => ({ v$: useVuelidate() }),
 
   data: () => ({
     routeLoginPage: { name: urlNames.LOGIN_PAGE },
@@ -59,15 +79,32 @@ export default {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    passwordConfirm: ''
 
   }),
+  validations () {
+    return {
+      firstName: { required: helpers.withMessage('Please specify first name', required) },
+      lastName: { required: helpers.withMessage('Please specify last name', required) },
+      email: { required: helpers.withMessage('Please specify email', required), email },
+      password: { required: helpers.withMessage('Please enter password', required), minLength: minLength(1) },
+      passwordConfirm: { required: helpers.withMessage('Please confirm password', required), sameAsPassword: sameAs(this.password) }
+    }
+  },
 
   methods: {
-    submit (e) {
-      console.log({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
-      localStorage.setItem('isAuthorised', 'true')
-      this.$router.push(this.routeMainPage)
+    async submitRegistration () {
+      this.v$.$validate()
+
+      if (!this.v$.$error) {
+        try {
+          await registrateUser({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+          this.$router.push(this.routeMainPage)
+        } catch (e) {
+          console.log(e.message)
+        }
+      }
     }
   }
 }
