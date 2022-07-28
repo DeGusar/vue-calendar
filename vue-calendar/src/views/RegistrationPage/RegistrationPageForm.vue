@@ -101,8 +101,19 @@ export default {
         try {
           await registrateUser({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
           this.$router.push(this.routeMainPage)
+          this.$notify({
+            group: 'auth',
+            type: 'success',
+            title: `Hello, ${this.firstName} ${this.lastName}`,
+            text: 'Account successfully created'
+          })
         } catch (e) {
-          console.log(e.message)
+          this.$notify({
+            group: 'auth',
+            type: 'error',
+            title: 'Error',
+            text: `${e.message}`
+          })
         }
       }
     }

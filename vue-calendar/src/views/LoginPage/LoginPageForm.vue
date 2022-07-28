@@ -74,8 +74,18 @@ export default {
         try {
           await login({ email: this.email, password: this.password })
           this.$router.push(this.routeMainPage)
+          this.$notify({
+            group: 'auth',
+            type: 'success',
+            text: 'Successfully authorized'
+          })
         } catch (e) {
-          console.log(e.message)
+          this.$notify({
+            group: 'auth',
+            type: 'error',
+            title: 'Error',
+            text: `${e.message}`
+          })
         }
       }
     }

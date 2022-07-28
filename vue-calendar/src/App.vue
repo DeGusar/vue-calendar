@@ -3,6 +3,10 @@
     <component :is="layout">
       <router-view />
     </component>
+    <notifications
+      position="bottom right"
+      group="auth"
+    />
   </div>
 </template>
 
