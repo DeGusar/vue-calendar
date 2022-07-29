@@ -1,11 +1,11 @@
 <template>
   <div class="input-component-with-error-text">
     <InputComponent
-      :placeholder="placeHolder"
+      :place-holder="placeHolder"
       :type="type"
       :value="value"
       :invalid="invalid"
-      @input="$emit('input', $event.target.value)"
+      @input="$emit('input', $event)"
     />
     <p
       v-for="error in errors"

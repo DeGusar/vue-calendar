@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import { login } from '@/utils/api/authApi'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 import { urlNames } from '@/utils/constants'
@@ -71,22 +70,7 @@ export default {
       this.v$.$validate()
 
       if (!this.v$.$error) {
-        try {
-          await login({ email: this.email, password: this.password })
-          this.$router.push(this.routeMainPage)
-          this.$notify({
-            group: 'auth',
-            type: 'success',
-            text: 'Successfully authorized'
-          })
-        } catch (e) {
-          this.$notify({
-            group: 'auth',
-            type: 'error',
-            title: 'Error',
-            text: `${e.message}`
-          })
-        }
+        this.$emit('login', { email: this.email, password: this.password })
       }
     }
   }

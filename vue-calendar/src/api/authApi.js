@@ -1,5 +1,5 @@
 import { saveDocument, getDocument } from '../indexedDb/indexedDb'
-import { generateId } from '../helpers/generateId'
+import { generateId } from '../utils/helpers/generateId'
 
 const registrateUser = async (userData) => {
   const userId = generateId()

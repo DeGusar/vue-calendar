@@ -63,7 +63,6 @@
 
 <script>
 import useVuelidate from '@vuelidate/core'
-import { registrateUser } from '@/utils/api/authApi'
 import { required, email, sameAs, minLength, helpers } from '@vuelidate/validators'
 import { urlNames } from '@/utils/constants'
 import { ButtonComponent, RouterLinkComponent, InputComponentWithErrorText } from '@/components/basicComponents'
@@ -98,23 +97,7 @@ export default {
       this.v$.$validate()
 
       if (!this.v$.$error) {
-        try {
-          await registrateUser({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
-          this.$router.push(this.routeMainPage)
-          this.$notify({
-            group: 'auth',
-            type: 'success',
-            title: `Hello, ${this.firstName} ${this.lastName}`,
-            text: 'Account successfully created'
-          })
-        } catch (e) {
-          this.$notify({
-            group: 'auth',
-            type: 'error',
-            title: 'Error',
-            text: `${e.message}`
-          })
-        }
+        this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
       }
     }
   }
