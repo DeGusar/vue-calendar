@@ -1,30 +1,27 @@
-import { saveDocument, getDocument } from '../indexedDb/indexedDb'
-import { generateId } from '../utils/helpers/generateId'
+import authControllers from '@/indexedDb/authControllers'
 
 const registrateUser = async (userData) => {
-  const userId = generateId()
-  const candidate = await getDocument('users', { email: userData.email })
+  const { status, message, data } = await authControllers.registrateUser(userData)
 
-  if (candidate) {
-    throw new Error('User already exist')
-  } else {
-    await saveDocument('users', { id: userId, ...userData })
-    localStorage.setItem('userId', userId)
+  if (status === 409) {
+    throw new Error(message)
+  }
+
+  if (status === 200) {
+    localStorage.setItem('userId', data.userId)
   }
 }
 
 const login = async ({ email, password }) => {
-  const user = await getDocument('users', { email: email })
+  const { status, message, data } = await authControllers.login({ email, password })
 
-  if (!user) {
-    throw new Error('Wrong email or password')
+  if (status === 401) {
+    throw new Error(message)
   }
 
-  if (password !== user.password) {
-    throw new Error('Wrong email or password')
+  if (status === 200) {
+    localStorage.setItem('userId', data.id)
   }
-
-  localStorage.setItem('userId', user.id)
 }
 
 const logout = () => {

@@ -34,7 +34,7 @@ export default {
 
   computed: {
     invalidClass () {
-      return this.invalid ? 'input-component_invalid' : ''
+      return this.invalid ? 'input-component--invalid' : ''
     }
   }
 
@@ -60,7 +60,7 @@ export default {
       border-width: 2px;
     }
 
-    &_invalid {
+    &--invalid {
       border-color: $color-red;
 
       &::placeholder {
