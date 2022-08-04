@@ -12,15 +12,15 @@
         v-model="firstName"
         class="registration-page-form__names__input"
         place-holder="First Name"
-        :invalid="v$.firstName.$error"
-        :errors="v$.firstName.$errors"
+        :invalid="$v.firstName.$error"
+        :error-message="firstNameError"
       />
       <InputComponentWithErrorText
         v-model="lastName"
         class="registration-page-form__names__input"
         place-holder="Last Name"
-        :invalid="v$.lastName.$error"
-        :errors="v$.lastName.$errors"
+        :invalid="$v.lastName.$error"
+        :error-message="lastNameErrors"
       />
     </div>
 
@@ -28,27 +28,27 @@
       v-model="email"
       type="email"
       place-holder="Email address"
-      :invalid="v$.email.$error"
-      :errors="v$.email.$errors"
+      :invalid="$v.email.$error"
+      :error-message="emailErrors"
     />
     <InputComponentWithErrorText
       v-model="password"
       type="password"
       place-holder="Password"
-      :invalid="v$.password.$error"
-      :errors="v$.password.$errors"
+      :invalid="$v.password.$error"
+      :error-message="passwordError"
     />
     <InputComponentWithErrorText
       v-model="passwordConfirm"
       type="password"
       place-holder="Confirm Password"
-      :invalid="v$.passwordConfirm.$error"
-      :errors="v$.passwordConfirm.$errors"
+      :invalid="$v.passwordConfirm.$error"
+      :error-message="passwordConfirmError"
     />
     <ButtonComponent
       type="submit"
       class="registration-page-form__button"
-      :disabled="v$.$error"
+      :disabled="$v.$error"
     >
       SignUP
     </ButtonComponent>
@@ -62,15 +62,13 @@
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, email, sameAs, minLength, helpers } from '@vuelidate/validators'
+import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
 import { urlNames } from '@/utils/constants'
 import { ButtonComponent, RouterLinkComponent, InputComponentWithErrorText } from '@/components/basicComponents'
 
 export default {
   name: 'RegistrationPageForm',
   components: { ButtonComponent, RouterLinkComponent, InputComponentWithErrorText },
-  setup: () => ({ v$: useVuelidate() }),
 
   data: () => ({
     routeLoginPage: { name: urlNames.LOGIN_PAGE },
@@ -84,24 +82,61 @@ export default {
   }),
   validations () {
     return {
-      firstName: { required: helpers.withMessage('Please specify first name', required) },
-      lastName: { required: helpers.withMessage('Please specify last name', required) },
-      email: { required: helpers.withMessage('Please specify email', required), email },
-      password: { required: helpers.withMessage('Please enter password', required), minLength: minLength(1) },
-      passwordConfirm: { required: helpers.withMessage('Please confirm password', required), sameAsPassword: sameAs(this.password) }
+      firstName: { required },
+      lastName: { required },
+      email: { required, email },
+      password: { required, minLength: minLength(6) },
+      passwordConfirm: { required, sameAsPassword: sameAs('password') }
+    }
+  },
+
+  computed: {
+    firstNameError () {
+      if (this.$v.firstName.$error && !this.$v.firstName.required) {
+        return 'Please specify first name'
+      } else return ''
+    },
+    lastNameErrors () {
+      if (this.$v.firstName.$error && !this.$v.firstName.required) {
+        return 'Please specify first name'
+      } else return ''
+    },
+    emailErrors () {
+      if (this.$v.email.$error && !this.$v.email.required) {
+        return 'Please specify email'
+      } else if (this.$v.email.$error && !this.$v.email.email) {
+        return 'Value is not a valid email address'
+      } else return ''
+    },
+    passwordError () {
+      if (this.$v.password.$error && !this.$v.password.required) {
+        return 'Please specify password'
+      } else if (this.$v.password.$error && !this.$v.password.minLength) {
+        return `This field should be at least ${this.$v.password.$params.minLength.min} characters long `
+      } else return ''
+    },
+    passwordConfirmError () {
+      if (this.$v.passwordConfirm.$error && !this.$v.passwordConfirm.required) {
+        return 'Please confirm password'
+      } else if (this.$v.passwordConfirm.$error && !this.$v.passwordConfirm.sameAsPassword) {
+        return 'This value must be equal to password value'
+      } else return ''
     }
   },
 
   methods: {
     async submitRegistration () {
-      this.v$.$validate()
+      if (this.$v.$invalid) {
+        this.$v.$touch()
 
-      if (!this.v$.$error) {
-        this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+        return
       }
+
+      this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
     }
   }
 }
+
 </script>
 
 <style lang="scss">

@@ -16,15 +16,15 @@
       v-model="email"
       type="email"
       place-holder="Email address"
-      :invalid="v$.email.$error"
-      :errors="v$.email.$errors"
+      :invalid="$v.email.$error"
+      :error-message="emailError"
     />
     <InputComponentWithErrorText
       v-model="password"
       type="password"
       place-holder="Password"
-      :invalid="v$.password.$error"
-      :errors="v$.password.$errors"
+      :invalid="$v.password.$error"
+      :error-message="passwordError"
     />
     <ButtonComponent
       type="submit"
@@ -42,16 +42,13 @@
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required, helpers } from '@vuelidate/validators'
+import { required } from 'vuelidate/lib/validators'
 import { urlNames } from '@/utils/constants'
 import { ButtonComponent, InputComponentWithErrorText, RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'LoginPageForm',
   components: { ButtonComponent, InputComponentWithErrorText, RouterLinkComponent },
-
-  setup: () => ({ v$: useVuelidate() }),
 
   data: () => ({
     routeRegistrationPage: { name: urlNames.REGISTRATION_PAGE },
@@ -61,17 +58,32 @@ export default {
   }),
   validations () {
     return {
-      email: { required: helpers.withMessage('Please enter email', required) },
-      password: { required: helpers.withMessage('Please enter password', required) }
+      email: { required },
+      password: { required }
     }
+  },
+  computed: {
+    emailError () {
+      if (this.$v.email.$error && !this.$v.email.required) {
+        return 'Please enter email'
+      } else return ''
+    },
+    passwordError () {
+      if (this.$v.password.$error && !this.$v.password.required) {
+        return 'Please enter password'
+      } else return ''
+    }
+
   },
   methods: {
     async submitLogin () {
-      this.v$.$validate()
+      if (this.$v.$invalid) {
+        this.$v.$touch()
 
-      if (!this.v$.$error) {
-        this.$emit('login', { email: this.email, password: this.password })
+        return
       }
+
+      this.$emit('login', { email: this.email, password: this.password })
     }
   }
 }

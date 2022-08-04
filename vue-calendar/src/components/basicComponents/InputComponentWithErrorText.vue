@@ -8,11 +8,9 @@
       @input="$emit('input', $event)"
     />
     <p
-      v-for="error in errors"
-      :key="error.$uid"
       class="input-component-with-error-text__text"
     >
-      {{ error.$message }}
+      {{ errorMessage }}
     </p>
   </div>
 </template>
@@ -24,9 +22,9 @@ export default {
   name: 'InputComponentWithErrorText',
   components: { InputComponent },
   props: {
-    errors: {
-      type: Array,
-      default: () => ([])
+    errorMessage: {
+      type: String,
+      default: ''
     },
     placeHolder: {
       type: String,
