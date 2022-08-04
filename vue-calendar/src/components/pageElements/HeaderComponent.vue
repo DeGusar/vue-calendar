@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { logout } from '@/api/authApi'
 import { RouterLinkComponent } from '../basicComponents'
 import { urlNames } from '@/utils/constants'
 
@@ -50,7 +49,8 @@ export default {
   }),
   methods: {
     logoutHandler () {
-      logout()
+      localStorage.removeItem('userId')
+
       this.$notify({
         group: 'auth',
         type: 'success',

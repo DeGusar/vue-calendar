@@ -20,7 +20,8 @@ export default {
   methods: {
     async onLogin ({ email, password }) {
       try {
-        await login({ email, password })
+        const { id: userId } = await login({ email, password })
+        localStorage.setItem('userId', userId)
         this.$router.push(this.routeMainPage)
         this.$notify({
           group: 'auth',

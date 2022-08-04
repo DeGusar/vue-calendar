@@ -20,7 +20,9 @@ export default {
   methods: {
     async onRegistration ({ firstName, lastName, email, password }) {
       try {
-        await registrateUser({ firstName, lastName, email, password })
+        const { userId } = await registrateUser({ firstName, lastName, email, password })
+        console.log(userId)
+        localStorage.setItem('userId', userId)
         this.$router.push(this.routeMainPage)
         this.$notify({
           group: 'auth',
