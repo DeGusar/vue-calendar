@@ -64,26 +64,17 @@ export default {
   },
   computed: {
     emailError () {
-      if (this.$v.email.$error && !this.$v.email.required) {
-        return 'Please enter email'
-      } else return ''
+      return this.$v.email.$error && !this.$v.email.required ? 'Please enter email' : ''
     },
     passwordError () {
-      if (this.$v.password.$error && !this.$v.password.required) {
-        return 'Please enter password'
-      } else return ''
+      return this.$v.password.$error && !this.$v.password.required ? 'Please enter password' : ''
     }
 
   },
   methods: {
     async submitLogin () {
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-
-        return
-      }
-
-      this.$emit('login', { email: this.email, password: this.password })
+      this.$v.$touch()
+      !this.$v.$invalid && this.$emit('login', { email: this.email, password: this.password })
     }
   }
 }

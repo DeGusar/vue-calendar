@@ -92,47 +92,50 @@ export default {
 
   computed: {
     firstNameError () {
-      if (this.$v.firstName.$error && !this.$v.firstName.required) {
-        return 'Please specify first name'
-      } else return ''
+      return this.$v.firstName.$error && !this.$v.firstName.required ? 'Please specify first name' : ''
     },
     lastNameErrors () {
-      if (this.$v.firstName.$error && !this.$v.firstName.required) {
-        return 'Please specify first name'
-      } else return ''
+      return this.$v.firstName.$error && !this.$v.firstName.required ? 'Please specify first name' : ''
     },
     emailErrors () {
       if (this.$v.email.$error && !this.$v.email.required) {
         return 'Please specify email'
-      } else if (this.$v.email.$error && !this.$v.email.email) {
+      }
+
+      if (this.$v.email.$error && !this.$v.email.email) {
         return 'Value is not a valid email address'
-      } else return ''
+      }
+
+      return ''
     },
     passwordError () {
       if (this.$v.password.$error && !this.$v.password.required) {
         return 'Please specify password'
-      } else if (this.$v.password.$error && !this.$v.password.minLength) {
+      }
+
+      if (this.$v.password.$error && !this.$v.password.minLength) {
         return `This field should be at least ${this.$v.password.$params.minLength.min} characters long `
-      } else return ''
+      }
+
+      return ''
     },
     passwordConfirmError () {
       if (this.$v.passwordConfirm.$error && !this.$v.passwordConfirm.required) {
         return 'Please confirm password'
-      } else if (this.$v.passwordConfirm.$error && !this.$v.passwordConfirm.sameAsPassword) {
+      }
+
+      if (this.$v.passwordConfirm.$error && !this.$v.passwordConfirm.sameAsPassword) {
         return 'This value must be equal to password value'
-      } else return ''
+      }
+
+      return ''
     }
   },
 
   methods: {
     async submitRegistration () {
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-
-        return
-      }
-
-      this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+      this.$v.$touch()
+      !this.$v.$invalid && this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
     }
   }
 }

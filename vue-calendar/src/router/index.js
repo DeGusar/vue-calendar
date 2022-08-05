@@ -62,10 +62,16 @@ const router = new VueRouter({
   routes
 })
 
+const availableRoutesWithoutAuthorization = [
+  urlNames.LOGIN_PAGE,
+  urlNames.REGISTRATION_PAGE,
+  urlNames.ERROR_404_PAGE
+]
+
 router.beforeEach((to, from, next) => {
-  if ((to.name !== urlNames.LOGIN_PAGE && !localStorage.getItem('userId')) && (to.name !== urlNames.REGISTRATION_PAGE && !localStorage.getItem('userId')) && (to.name !== urlNames.ERROR_404_PAGE && !localStorage.getItem('userId'))) {
-    next({ name: urlNames.LOGIN_PAGE })
-  } else next()
+  if (availableRoutesWithoutAuthorization.includes(to.name) || localStorage.getItem('userId')) {
+    next()
+  } else next({ name: urlNames.LOGIN_PAGE })
 })
 
 export default router

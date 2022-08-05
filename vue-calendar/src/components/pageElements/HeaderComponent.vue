@@ -15,12 +15,12 @@
         >
           {{ text }}
         </RouterLinkComponent>
-        <div
+        <a
           class="header-component__nav__button"
           @click="logoutHandler"
         >
           Logout
-        </div>
+        </a>
       </nav>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import statusCodes from '@/utils/constants/statusCodes'
-export const responseCodeHandler = (statusCode, message, data) => {
+export const responseCodeHandler = ({ status: statusCode, message, data }) => {
   if (statusCode === statusCodes.CONFLICT_CODE) {
     throw new Error(message)
   }
