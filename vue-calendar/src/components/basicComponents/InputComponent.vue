@@ -1,5 +1,6 @@
 <template>
   <input
+    :id="id"
     :placeholder="placeHolder"
     class="input-component"
     :type="type"
@@ -29,6 +30,10 @@ export default {
     invalid: {
       type: Boolean,
       default: false
+    },
+    id: {
+      type: String,
+      default: null
     }
   },
 

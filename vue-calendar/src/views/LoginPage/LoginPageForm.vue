@@ -5,10 +5,10 @@
     @submit.prevent="submitLogin"
   >
     <div class="login-page-form__header">
-      <p class="login-page-form__header__title">
+      <p class="login-page-form__header-title">
         Already have account?
       </p>
-      <p class="login-page-form__header__text">
+      <p class="login-page-form__header-text">
         Sign in to Vue Calendar!
       </p>
     </div>
@@ -93,14 +93,12 @@ export default {
     row-gap: 20px;
     margin: 70px auto;
 
-    &__header {
-      &__title {
-        font-size: $font-size-large;
-      }
+    &__header-text {
+      font-size: $font-size-small;
+    }
 
-      &__text {
-        font-size: $font-size-small;
-      }
+    &__header-title {
+      font-size: $font-size-large;
     }
 
     &__link {

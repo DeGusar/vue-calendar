@@ -16,7 +16,7 @@
           {{ text }}
         </RouterLinkComponent>
         <button
-          class="header-component__nav__button"
+          class="header-component__nav-button"
           @click="logoutHandler"
         >
           Logout
@@ -84,16 +84,16 @@ export default {
       display: flex;
       align-items: center;
       column-gap: 15px;
+    }
 
-      &__button {
-        color: $color-white;
-        cursor: pointer;
-        font-size: $font-size-base;
-        background-color: inherit;
+    &__nav-button {
+      color: $color-white;
+      cursor: pointer;
+      font-size: $font-size-base;
+      background-color: inherit;
 
-        &:hover {
-          color: $color-black;
-        }
+      &:hover {
+        color: $color-black;
       }
     }
   }

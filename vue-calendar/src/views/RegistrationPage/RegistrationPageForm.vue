@@ -10,14 +10,14 @@
     <div class="registration-page-form__names">
       <InputComponentWithErrorText
         v-model="firstName"
-        class="registration-page-form__names__input"
+        class="registration-page-form__names-input"
         place-holder="First Name"
         :invalid="$v.firstName.$error"
         :error-message="firstNameError"
       />
       <InputComponentWithErrorText
         v-model="lastName"
-        class="registration-page-form__names__input"
+        class="registration-page-form__names-input"
         place-holder="Last Name"
         :invalid="$v.lastName.$error"
         :error-message="lastNameErrors"
@@ -164,10 +164,10 @@ export default {
     width: 100%;
     display: flex;
     column-gap: 15px;
+  }
 
-    &__input {
-      width: (50% -15px);
-    }
+  &__names-input {
+    width: (50% -15px);
   }
 
   &__button {

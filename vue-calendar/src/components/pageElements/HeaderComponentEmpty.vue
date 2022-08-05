@@ -2,7 +2,7 @@
   <div class="header-component-empty">
     <div class="header-component-empty__wrapper">
       <p
-        class="header-component-empty__title"
+        class="header-component-empty__wrapper-title"
       >
         Vue calendar
       </p>
@@ -27,12 +27,6 @@ export default {
     background-color: $color-purple;
     height: $header-height;
 
-    &__title {
-      font-size: $font-size-large;
-      color: $color-white;
-      pointer-events: none;
-    }
-
     &__wrapper {
       max-width: $content-width;
       height: 100%;
@@ -40,6 +34,12 @@ export default {
       align-items: center;
       justify-content: space-between;
       margin: 0 auto;
+    }
+
+    &__wrapper-title {
+      font-size: $font-size-large;
+      color: $color-white;
+      pointer-events: none;
     }
   }
 </style>
