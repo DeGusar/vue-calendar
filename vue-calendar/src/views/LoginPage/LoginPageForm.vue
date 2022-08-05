@@ -74,7 +74,10 @@ export default {
   methods: {
     async submitLogin () {
       this.$v.$touch()
-      !this.$v.$invalid && this.$emit('login', { email: this.email, password: this.password })
+
+      if (!this.$v.$invalid) {
+        this.$emit('login', { email: this.email, password: this.password })
+      }
     }
   }
 }

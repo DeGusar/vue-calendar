@@ -135,7 +135,10 @@ export default {
   methods: {
     async submitRegistration () {
       this.$v.$touch()
-      !this.$v.$invalid && this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+
+      if (!this.$v.$invalid) {
+        this.$emit('registration', { firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+      }
     }
   }
 }

@@ -15,12 +15,12 @@
         >
           {{ text }}
         </RouterLinkComponent>
-        <a
+        <button
           class="header-component__nav__button"
           @click="logoutHandler"
         >
           Logout
-        </a>
+        </button>
       </nav>
     </div>
   </div>
@@ -89,6 +89,7 @@ export default {
         color: $color-white;
         cursor: pointer;
         font-size: $font-size-base;
+        background-color: inherit;
 
         &:hover {
           color: $color-black;
