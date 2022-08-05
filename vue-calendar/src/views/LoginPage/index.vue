@@ -1,26 +1,43 @@
 <template>
   <div class="login-page">
-    <RouterLinkComponent
-      :to="routeMainPage"
-    >
-      Home
-    </RouterLinkComponent>
-    <LoginPageForm />
+    <LoginPageForm @login="onLogin" />
   </div>
 </template>
 
 <script>
+import { login } from '@/api/authApi'
 import { urlNames } from '@/utils/constants'
 import LoginPageForm from './LoginPageForm'
-import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'LoginPage',
-  components: { LoginPageForm, RouterLinkComponent },
+  components: { LoginPageForm },
 
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }
-  })
+  }),
+
+  methods: {
+    async onLogin ({ email, password }) {
+      try {
+        const { id: userId } = await login({ email, password })
+        localStorage.setItem('userId', userId)
+        this.$router.push(this.routeMainPage)
+        this.$notify({
+          group: 'auth',
+          type: 'success',
+          text: 'Successfully authorized'
+        })
+      } catch (e) {
+        this.$notify({
+          group: 'auth',
+          type: 'error',
+          title: 'Error',
+          text: `${e.message}`
+        })
+      }
+    }
+  }
 }
 </script>
 

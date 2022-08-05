@@ -15,14 +15,20 @@
         >
           {{ text }}
         </RouterLinkComponent>
+        <button
+          class="header-component__nav-button"
+          @click="logoutHandler"
+        >
+          Logout
+        </button>
       </nav>
     </div>
   </div>
 </template>
 
 <script>
+import { RouterLinkComponent } from '../basicComponents'
 import { urlNames } from '@/utils/constants'
-import { RouterLinkComponent } from '@/components/basicComponents'
 
 export default {
   name: 'HeaderComponent',
@@ -32,14 +38,6 @@ export default {
     routeMainPage: { name: urlNames.MAIN_PAGE },
     navRoutes: [
       {
-        routeName: { name: urlNames.LOGIN_PAGE },
-        text: 'Login'
-      },
-      {
-        routeName: { name: urlNames.REGISTRATION_PAGE },
-        text: 'Registration'
-      },
-      {
         routeName: { name: urlNames.STATISTIC_PAGE },
         text: 'Statistic'
       },
@@ -48,7 +46,19 @@ export default {
         text: 'Profile'
       }
     ]
-  })
+  }),
+  methods: {
+    logoutHandler () {
+      localStorage.removeItem('userId')
+
+      this.$notify({
+        group: 'auth',
+        type: 'success',
+        text: 'Successfully logout'
+      })
+      this.$router.push({ name: urlNames.LOGIN_PAGE })
+    }
+  }
 }
 </script>
 
@@ -72,7 +82,19 @@ export default {
 
     &__nav {
       display: flex;
+      align-items: center;
       column-gap: 15px;
+    }
+
+    &__nav-button {
+      color: $color-white;
+      cursor: pointer;
+      font-size: $font-size-base;
+      background-color: inherit;
+
+      &:hover {
+        color: $color-black;
+      }
     }
   }
 </style>

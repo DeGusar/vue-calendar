@@ -2,6 +2,7 @@
   <button
     class="button-component"
     :type="type"
+    :disabled="disabled"
     @click="$emit('click', $event)"
   >
     <slot />
@@ -15,6 +16,10 @@ export default {
     type: {
       type: String,
       default: 'button'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -22,16 +27,22 @@ export default {
 
 <style lang="scss">
   .button-component {
-    background-color: $color-white;
+    background-color: $color-purple-dark;
     font-size: $font-size-base;
-    color: $color-purple;
-    padding: 5px 10px;
+    color: $color-white;
+    padding: 6px 10px;
     text-transform: uppercase;
     border: 1px solid $color-purple;
+    border-radius: 4px;
 
     &:hover {
-      background-color: $color-purple-dark;
+      background-color: $color-purple;
       color: $color-white;
+    }
+
+    &:disabled {
+      pointer-events: none;
+      filter: grayscale(100%);
     }
   }
 </style>
