@@ -1,4 +1,5 @@
 import { registrateUser } from '@/api/authApi'
+import localStorageKeys from '@/utils/constants/localStorageKeys'
 
 export default {
   actions: {
@@ -10,6 +11,7 @@ export default {
         this.dispatch('setLoadingRegistration', { isLoadingRegistration: true })
         const { userId, firstName, lastName } = await registrateUser(payload.registrationData)
         this.dispatch('updateUserId', { userId })
+        localStorage.setItem(localStorageKeys.USER_ID, userId)
 
         return { result: true, firstName, lastName }
       } catch (e) {

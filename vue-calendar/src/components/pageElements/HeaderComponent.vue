@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import localStorageKeys from '@/utils/constants/localStorageKeys'
 import { mapActions } from 'vuex'
 import { RouterLinkComponent } from '../basicComponents'
 import { urlNames } from '@/utils/constants'
@@ -50,10 +49,9 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions(['updateUserId']),
+    ...mapActions(['resetUserId']),
     logoutHandler () {
-      localStorage.removeItem(localStorageKeys.USER_ID)
-      this.updateUserId({ userId: '' })
+      this.resetUserId()
 
       this.$notify({
         group: 'auth',

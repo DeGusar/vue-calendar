@@ -1,4 +1,5 @@
 import { login } from '@/api/authApi'
+import localStorageKeys from '@/utils/constants/localStorageKeys'
 
 export default {
   actions: {
@@ -9,7 +10,7 @@ export default {
       try {
         this.dispatch('setLoadingLogin', { isLoadingLogin: true })
         const { id: userId } = await login(payload.credentials)
-
+        localStorage.setItem(localStorageKeys.USER_ID, userId)
         this.dispatch('updateUserId', { userId })
 
         return { result: true }
