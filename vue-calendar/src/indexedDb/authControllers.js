@@ -11,7 +11,7 @@ export const registrateUser = async (userData) => {
   } else {
     await saveDocument('users', { id: userId, ...userData })
 
-    return { status: statusCodes.OK_CODE, data: { userId } }
+    return { status: statusCodes.OK_CODE, data: { userId, firstName: userData.firstName, lastName: userData.lastName } }
   }
 }
 

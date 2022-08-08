@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { login } from '@/api/authApi'
+import { mapGetters, mapActions } from 'vuex'
 import { urlNames } from '@/utils/constants'
 import LoginPageForm from './LoginPageForm'
 
@@ -16,24 +16,27 @@ export default {
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }
   }),
-
+  computed: {
+    ...mapGetters(['userId'])
+  },
   methods: {
-    async onLogin ({ email, password }) {
-      try {
-        const { id: userId } = await login({ email, password })
-        localStorage.setItem('userId', userId)
+    ...mapActions(['login']),
+    async onLogin (credentials) {
+      const { result, message } = await this.login({ credentials })
+
+      if (result) {
         this.$router.push(this.routeMainPage)
         this.$notify({
           group: 'auth',
           type: 'success',
           text: 'Successfully authorized'
         })
-      } catch (e) {
+      } else {
         this.$notify({
           group: 'auth',
           type: 'error',
           title: 'Error',
-          text: `${e.message}`
+          text: `${message}`
         })
       }
     }

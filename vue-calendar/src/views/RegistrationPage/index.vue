@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { registrateUser } from '@/api/authApi'
+import { mapGetters, mapActions } from 'vuex'
 import { urlNames } from '@/utils/constants'
 import RegistrationPageForm from './RegistrationPageForm'
 
@@ -17,12 +17,15 @@ export default {
     routeMainPage: { name: urlNames.MAIN_PAGE }
   }),
 
+  computed: {
+    ...mapGetters(['userId'])
+  },
   methods: {
-    async onRegistration ({ firstName, lastName, email, password }) {
-      try {
-        const { userId } = await registrateUser({ firstName, lastName, email, password })
-        console.log(userId)
-        localStorage.setItem('userId', userId)
+    ...mapActions(['registrate']),
+    async onRegistration (registrationData) {
+      const { result, firstName, lastName, message } = await this.registrate({ registrationData })
+
+      if (result) {
         this.$router.push(this.routeMainPage)
         this.$notify({
           group: 'auth',
@@ -30,12 +33,12 @@ export default {
           title: `Hello, ${firstName} ${lastName}`,
           text: 'Account successfully created'
         })
-      } catch (e) {
+      } else {
         this.$notify({
           group: 'auth',
           type: 'error',
           title: 'Error',
-          text: `${e.message}`
+          text: `${message}`
         })
       }
     }

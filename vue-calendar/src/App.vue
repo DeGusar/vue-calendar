@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import localStorageKeys from '@/utils/constants/localStorageKeys'
 import { layoutNames } from '@/utils/constants'
 import { AuthLayout, ErrorLayout, MainLayout } from '@/layouts'
 
@@ -23,10 +25,18 @@ export default {
     }
   }),
   computed: {
+    ...mapGetters(['userId']),
     layout () {
       const layoutName = this.$route.meta.layout || layoutNames.MAIN_LAYOUT
 
       return this.layouts[layoutName]
+    }
+  },
+  watch: {
+    userId (newUserId) {
+      if (newUserId) {
+        localStorage.setItem(localStorageKeys.USER_ID, newUserId)
+      }
     }
   }
 }
