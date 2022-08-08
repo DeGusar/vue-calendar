@@ -44,6 +44,7 @@ export default {
 
 <style lang="scss" >
 @import "./assets/styles/reset";
+@import "./assets/styles/spinner";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

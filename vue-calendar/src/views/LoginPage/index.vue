@@ -1,5 +1,8 @@
 <template>
-  <div class="login-page">
+  <div
+    class="login-page"
+    :class="spinnerClass"
+  >
     <LoginPageForm @login="onLogin" />
   </div>
 </template>
@@ -17,7 +20,10 @@ export default {
     routeMainPage: { name: urlNames.MAIN_PAGE }
   }),
   computed: {
-    ...mapGetters(['userId'])
+    ...mapGetters(['userId', 'isLoadingLogin']),
+    spinnerClass () {
+      return this.isLoadingLogin ? 'spinner' : ''
+    }
   },
   methods: {
     ...mapActions(['login']),

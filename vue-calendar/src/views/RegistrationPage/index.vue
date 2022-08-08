@@ -1,5 +1,8 @@
 <template>
-  <div class="registration-page">
+  <div
+    class="registration-page"
+    :class="spinnerClass"
+  >
     <RegistrationPageForm @registration="onRegistration" />
   </div>
 </template>
@@ -18,7 +21,10 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['userId'])
+    ...mapGetters(['userId', 'isLoadingRegistration']),
+    spinnerClass () {
+      return this.isLoadingRegistration ? 'spinner' : ''
+    }
   },
   methods: {
     ...mapActions(['registrate']),
