@@ -49,7 +49,7 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions(['resetUserId']),
+    ...mapActions('authentication', ['resetUserId']),
     logoutHandler () {
       this.resetUserId()
 

@@ -1,8 +1,8 @@
 import authControllers from '@/indexedDb/authControllers'
 import { responseCodeHandler } from '@/utils/helpers/responseCodeHandler'
 
-const registrateUser = async (userData) => {
-  const response = await authControllers.registrateUser(userData)
+const registerUser = async (userData) => {
+  const response = await authControllers.registerUser(userData)
 
   return responseCodeHandler(response)
 }
@@ -14,6 +14,6 @@ const login = async (userData) => {
 }
 
 export {
-  registrateUser,
+  registerUser,
   login
 }

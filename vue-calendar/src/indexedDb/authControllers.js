@@ -2,7 +2,8 @@ import { saveDocument, getDocument } from './index'
 import { generateId } from '../utils/helpers/generateId'
 import statusCodes from '@/utils/constants/statusCodes'
 
-export const registrateUser = async (userData) => {
+export const registerUser = async (userData) => {
+  console.log(userData)
   const userId = generateId()
   const candidate = await getDocument('users', { email: userData.email })
 
@@ -26,6 +27,6 @@ export const login = async ({ email, password }) => {
 }
 
 export default {
-  registrateUser,
+  registerUser,
   login
 }

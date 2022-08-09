@@ -1,7 +1,7 @@
 <template>
   <div
     class="registration-page"
-    :class="spinnerClass"
+    :class="{'spinner': isLoading}"
   >
     <RegistrationPageForm @registration="onRegistration" />
   </div>
@@ -21,15 +21,13 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(['userId', 'isLoadingRegistration']),
-    spinnerClass () {
-      return this.isLoadingRegistration ? 'spinner' : ''
-    }
+    ...mapGetters('authentication', ['userId', 'isLoading'])
   },
+
   methods: {
-    ...mapActions(['registrate']),
+    ...mapActions('authentication', ['register']),
     async onRegistration (registrationData) {
-      const { result, firstName, lastName, message } = await this.registrate({ registrationData })
+      const { result, firstName, lastName, message } = await this.register(registrationData)
 
       if (result) {
         this.$router.push(this.routeMainPage)

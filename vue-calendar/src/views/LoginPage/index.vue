@@ -1,7 +1,7 @@
 <template>
   <div
     class="login-page"
-    :class="spinnerClass"
+    :class="{'spinner':isLoading}"
   >
     <LoginPageForm @login="onLogin" />
   </div>
@@ -19,16 +19,15 @@ export default {
   data: () => ({
     routeMainPage: { name: urlNames.MAIN_PAGE }
   }),
+
   computed: {
-    ...mapGetters(['userId', 'isLoadingLogin']),
-    spinnerClass () {
-      return this.isLoadingLogin ? 'spinner' : ''
-    }
+    ...mapGetters('authentication', ['userId', 'isLoading'])
   },
+
   methods: {
-    ...mapActions(['login']),
+    ...mapActions('authentication', ['login']),
     async onLogin (credentials) {
-      const { result, message } = await this.login({ credentials })
+      const { result, message } = await this.login(credentials)
 
       if (result) {
         this.$router.push(this.routeMainPage)
