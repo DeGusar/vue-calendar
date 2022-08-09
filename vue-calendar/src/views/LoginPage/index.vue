@@ -1,11 +1,14 @@
 <template>
-  <div class="login-page">
+  <div
+    class="login-page"
+    :class="{'spinner': isLoading}"
+  >
     <LoginPageForm @login="onLogin" />
   </div>
 </template>
 
 <script>
-import { login } from '@/api/authApi'
+import { mapGetters, mapActions } from 'vuex'
 import { urlNames } from '@/utils/constants'
 import LoginPageForm from './LoginPageForm'
 
@@ -17,23 +20,28 @@ export default {
     routeMainPage: { name: urlNames.MAIN_PAGE }
   }),
 
+  computed: {
+    ...mapGetters('authentication', ['userId', 'isLoading'])
+  },
+
   methods: {
-    async onLogin ({ email, password }) {
-      try {
-        const { id: userId } = await login({ email, password })
-        localStorage.setItem('userId', userId)
+    ...mapActions('authentication', ['login']),
+    async onLogin (credentials) {
+      const { result, message } = await this.login(credentials)
+
+      if (result) {
         this.$router.push(this.routeMainPage)
         this.$notify({
           group: 'auth',
           type: 'success',
           text: 'Successfully authorized'
         })
-      } catch (e) {
+      } else {
         this.$notify({
           group: 'auth',
           type: 'error',
           title: 'Error',
-          text: `${e.message}`
+          text: `${message}`
         })
       }
     }

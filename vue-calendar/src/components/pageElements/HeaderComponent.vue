@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { RouterLinkComponent } from '../basicComponents'
 import { urlNames } from '@/utils/constants'
 
@@ -48,8 +49,9 @@ export default {
     ]
   }),
   methods: {
+    ...mapActions('authentication', ['logout']),
     logoutHandler () {
-      localStorage.removeItem('userId')
+      this.logout()
 
       this.$notify({
         group: 'auth',

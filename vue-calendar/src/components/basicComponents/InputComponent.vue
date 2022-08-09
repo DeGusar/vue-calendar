@@ -5,7 +5,7 @@
     class="input-component"
     :type="type"
     :value="value"
-    :class="invalidClass"
+    :class="{'input-component--invalid': invalid}"
     @input="$emit('input', $event.target.value)"
   >
 </template>
@@ -35,14 +35,7 @@ export default {
       type: String,
       default: null
     }
-  },
-
-  computed: {
-    invalidClass () {
-      return this.invalid ? 'input-component--invalid' : ''
-    }
   }
-
 }
 </script>
 
