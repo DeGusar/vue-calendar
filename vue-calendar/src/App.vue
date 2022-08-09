@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" >
-@import "./assets/styles/common/styles";
+@import "./assets/styles/common/index";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

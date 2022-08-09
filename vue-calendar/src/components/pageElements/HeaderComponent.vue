@@ -49,9 +49,9 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions('authentication', ['resetUserId']),
+    ...mapActions('authentication', ['logout']),
     logoutHandler () {
-      this.resetUserId()
+      this.logout()
 
       this.$notify({
         group: 'auth',

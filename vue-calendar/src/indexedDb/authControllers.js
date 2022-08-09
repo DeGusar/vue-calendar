@@ -3,7 +3,6 @@ import { generateId } from '../utils/helpers/generateId'
 import statusCodes from '@/utils/constants/statusCodes'
 
 export const registerUser = async (userData) => {
-  console.log(userData)
   const userId = generateId()
   const candidate = await getDocument('users', { email: userData.email })
 

@@ -1,7 +1,7 @@
 <template>
   <div
     class="login-page"
-    :class="{'spinner':isLoading}"
+    :class="{'spinner': isLoading}"
   >
     <LoginPageForm @login="onLogin" />
   </div>

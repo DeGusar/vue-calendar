@@ -16,19 +16,12 @@ export default {
     }
   },
   actions: {
-    updateUserId ({ commit }, userId) {
-      commit('setUserId', userId)
-      localStorage.setItem(localStorageKeys.USER_ID, userId)
-    },
-    resetUserId ({ commit }) {
-      commit('setUserId', '')
-      localStorage.removeItem(localStorageKeys.USER_ID)
-    },
-    async register ({ commit, dispatch }, { email, password, firstName, lastName }) {
+    async register ({ commit }, { email, password, firstName, lastName }) {
       try {
         commit('setIsLoading', true)
         const { userId } = await registerUser({ email, password, firstName, lastName })
-        dispatch('updateUserId', userId)
+        commit('setUserId', userId)
+        localStorage.setItem(localStorageKeys.USER_ID, userId)
 
         return { result: true, firstName, lastName }
       } catch (e) {
@@ -38,11 +31,12 @@ export default {
       }
     },
 
-    async login ({ commit, dispatch }, { email, password }) {
+    async login ({ commit }, { email, password }) {
       try {
         commit('setIsLoading', true)
-        const { id: userId } = await login(email, password)
-        dispatch('updateUserId', userId)
+        const { id: userId } = await login({ email, password })
+        commit('setUserId', userId)
+        localStorage.setItem(localStorageKeys.USER_ID, userId)
 
         return { result: true }
       } catch (e) {
