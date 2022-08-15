@@ -25,7 +25,18 @@ export const login = async ({ email, password }) => {
   return { status: statusCodes.OK_CODE, data: user }
 }
 
+export const getUserById = async (userId) => {
+  const user = await getDocument('users', { id: userId })
+
+  if (user) {
+    return { status: statusCodes.OK_CODE, data: user }
+  }
+
+  return { status: statusCodes.BAD_REQUEST, message: "User doesn't exist" }
+}
+
 export default {
   registerUser,
-  login
+  login,
+  getUserById
 }

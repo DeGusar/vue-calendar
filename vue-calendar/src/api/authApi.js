@@ -13,7 +13,14 @@ const login = async (userData) => {
   return responseCodeHandler(response)
 }
 
+const getUserById = async (userId) => {
+  const response = await authControllers.getUserById(userId)
+
+  return responseCodeHandler(response)
+}
+
 export {
   registerUser,
-  login
+  login,
+  getUserById
 }

@@ -14,6 +14,7 @@ export default {
     isLoading (state) {
       return state.isLoading
     }
+
   },
   actions: {
     async register ({ commit }, { email, password, firstName, lastName }) {
