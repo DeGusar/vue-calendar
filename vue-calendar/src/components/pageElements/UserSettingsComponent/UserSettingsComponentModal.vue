@@ -36,7 +36,6 @@
 
 <script>
 import { ButtonComponent } from '@/components/basicComponents'
-import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'UserSettingsComponentModal',
@@ -46,11 +45,14 @@ export default {
     avatarImageSrc: {
       type: String,
       required: true
+    },
+    isSaving: {
+      type: Boolean,
+      default: false
     }
   },
 
   computed: {
-    ...mapGetters('userSettings', ['isSaving']),
     profilePicture () {
       return this.avatarImageSrc || 'https://res.cloudinary.com/rss-collection/image/upload/v1660522652/facebook-profile-picture-no-pic-avatar_hzv5rp.jpg'
     }
@@ -65,9 +67,8 @@ export default {
   },
 
   methods: {
-    ...mapActions('userSettings', ['uploadImageToCloud']),
     async onChangeUpload (event) {
-      await this.uploadImageToCloud(event.target.files[0])
+      this.$emit('uploadImageToCloud', event.target.files[0])
     }
   }
 

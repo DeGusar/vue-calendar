@@ -28,6 +28,7 @@
         <UserSettingsComponentStatusPopup
           v-if="isUserStatusPopup"
           @closePopup="onClosePopup"
+          @updateUserStatus="$emit('updateUserStatus', $event)"
         />
       </div>
     </div>
@@ -45,7 +46,11 @@
     >
       Logout
     </button>
-    <UserSettingsComponentModal :avatar-image-src="avatarImageSrc" />
+    <UserSettingsComponentModal
+      :avatar-image-src="avatarImageSrc"
+      :is-saving="isSaving"
+      @uploadImageToCloud="$emit('uploadImageToCloud', $event)"
+    />
   </div>
 </template>
 
@@ -53,7 +58,6 @@
 import { AvatarComponent } from '@/components/basicComponents'
 import UserSettingsComponentStatusPopup from './UserSettingsComponentStatusPopup'
 import UserSettingsComponentModal from './UserSettingsComponentModal'
-import { mapGetters } from 'vuex'
 import { urlNames } from '@/utils/constants'
 
 export default {
@@ -67,16 +71,24 @@ export default {
     avatarImageSrc: {
       type: String,
       required: true
+    },
+    userData: {
+      type: Object,
+      required: true
+    },
+    userStatus: {
+      type: Object,
+      required: true
+    },
+    isSaving: {
+      type: Boolean,
+      required: true
     }
   },
 
   data: () => ({
     isUserStatusPopup: false
   }),
-
-  computed: {
-    ...mapGetters('userSettings', ['userStatus', 'userData'])
-  },
 
   methods: {
     onClickUserStatus () {

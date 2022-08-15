@@ -43,6 +43,8 @@ export default {
           commit('setUserAvatarSrc', data.srcImage)
         }
       } catch (e) {
+        commit('setIsSaving', false)
+
         return { result: false, message: e.message }
       }
     },

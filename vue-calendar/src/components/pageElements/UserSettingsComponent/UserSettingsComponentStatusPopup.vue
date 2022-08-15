@@ -1,13 +1,13 @@
 <template>
-  <div class="user-settings-component-stasus-popup">
+  <div class="user-settings-component-status-popup">
     <div
       v-for="status in statuses"
       :key="status.text"
-      class="user-settings-component-stasus-popup__status"
+      class="user-settings-component-status-popup__status"
       @click="onClickUserStatus(status)"
     >
       <span
-        class="user-settings-component-stasus-popup__status-logo"
+        class="user-settings-component-status-popup__status-logo"
         :style="{background: `no-repeat center/100% url(${status.src})`}"
       />
       {{ status.text }}
@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   data: () => ({
     statuses: [
@@ -49,9 +47,8 @@ export default {
   }),
 
   methods: {
-    ...mapActions('userSettings', ['updateUserStatus']),
     onClickUserStatus (status) {
-      this.updateUserStatus(status)
+      this.$emit('updateUserStatus', status)
       this.$emit('closePopup')
     }
   }
@@ -59,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .user-settings-component-stasus-popup {
+  .user-settings-component-status-popup {
     position: absolute;
     width: 200px;
     padding: 6px 0;

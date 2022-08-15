@@ -16,8 +16,13 @@
       v-click-outside="onClickAvatar"
       :user-full-name="userFullName"
       :avatar-image-src="userAvatarSrc"
+      :user-data="userData"
+      :user-status="userStatus"
+      :is-saving="isSaving"
       @logout="onLogout"
       @closePopup="onClickAvatar"
+      @uploadImageToCloud="onUploadImageToCloud"
+      @updateUserStatus="onUpdateUserStatus"
     />
   </div>
 </template>
@@ -42,7 +47,8 @@ export default {
   }),
 
   computed: {
-    ...mapGetters('userSettings', ['userStatus', 'userAvatarSrc', 'userData']),
+    ...mapGetters('userSettings', ['userStatus', 'userAvatarSrc', 'userData', 'isSaving']),
+
     userFullName () {
       return `${this.userData.firstName} ${this.userData.lastName}`
     }
@@ -50,6 +56,7 @@ export default {
 
   methods: {
     ...mapActions('authentication', ['logout']),
+    ...mapActions('userSettings', ['updateUserStatus', 'uploadImageToCloud']),
     onClickAvatar () {
       this.isPopup = !this.isPopup
     },
@@ -62,6 +69,12 @@ export default {
         text: 'Successfully logout'
       })
       this.$router.push({ name: urlNames.LOGIN_PAGE })
+    },
+    onUpdateUserStatus (event) {
+      this.updateUserStatus(event)
+    },
+    async onUploadImageToCloud (event) {
+      await this.uploadImageToCloud(event)
     }
   }
 
