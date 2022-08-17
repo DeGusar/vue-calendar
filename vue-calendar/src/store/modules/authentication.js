@@ -20,7 +20,7 @@ export default {
     async register ({ commit }, { email, password, firstName, lastName }) {
       try {
         commit('setIsLoading', true)
-        const { userId } = await registerUser({ email, password, firstName, lastName })
+        const { userId } = await registerUser({ userData: { email, password, firstName, lastName } })
         commit('setUserId', userId)
         localStorage.setItem(localStorageKeys.USER_ID, userId)
 

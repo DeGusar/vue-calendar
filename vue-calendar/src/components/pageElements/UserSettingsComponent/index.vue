@@ -48,6 +48,7 @@ export default {
 
   computed: {
     ...mapGetters('userSettings', ['userStatus', 'userAvatarSrc', 'userData', 'isSaving']),
+    ...mapGetters('authentication', ['userId']),
 
     userFullName () {
       return `${this.userData.firstName} ${this.userData.lastName}`
@@ -71,10 +72,10 @@ export default {
       this.$router.push({ name: urlNames.LOGIN_PAGE })
     },
     onUpdateUserStatus (event) {
-      this.updateUserStatus(event)
+      this.updateUserStatus({ userId: this.userId, userStatus: event })
     },
     async onUploadImageToCloud (event) {
-      await this.uploadImageToCloud(event)
+      await this.uploadImageToCloud({ userId: this.userId, imageFile: event })
     }
   }
 

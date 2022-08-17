@@ -1,5 +1,6 @@
 import { uploadImage } from '@/api/imageApi'
 import { getUserById } from '@/api/authApi'
+import { updateUserSettings } from '@/api/userSettings'
 
 export default {
   namespaced: true,
@@ -29,10 +30,15 @@ export default {
   },
 
   actions: {
-    updateUserStatus ({ commit }, userStatus) {
-      commit('setUserStatus', userStatus)
+    async updateUserStatus ({ commit }, { userId, userStatus }) {
+      try {
+        await updateUserSettings(userId, { userStatus })
+        commit('setUserStatus', userStatus)
+      } catch (e) {
+        return { result: false, message: e.message }
+      }
     },
-    uploadImageToCloud ({ commit }, imageFile) {
+    uploadImageToCloud ({ commit }, { userId, imageFile }) {
       try {
         commit('setIsSaving', true)
         const reader = new FileReader()
@@ -41,6 +47,7 @@ export default {
           const { data } = await uploadImage(JSON.stringify(reader.result))
           commit('setIsSaving', false)
           commit('setUserAvatarSrc', data.srcImage)
+          await updateUserSettings(userId, { avatarSrc: data.srcImage })
         }
       } catch (e) {
         commit('setIsSaving', false)
@@ -50,10 +57,18 @@ export default {
     },
     async updateUserData ({ commit }, userId) {
       try {
-        const userData = await getUserById(userId)
+        const { userData, userStatus, avatarSrc } = await getUserById(userId)
 
         if (userData) {
           commit('setUserData', userData)
+
+          if (userStatus) {
+            commit('setUserStatus', userStatus)
+          }
+
+          if (avatarSrc) {
+            commit('setUserAvatarSrc', avatarSrc)
+          }
         } else {
           commit('setUserData', {})
         }
