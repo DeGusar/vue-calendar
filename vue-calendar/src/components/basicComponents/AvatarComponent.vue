@@ -36,9 +36,6 @@ export default {
     }
   },
 
-  data: () => ({
-  }),
-
   computed: {
     bgColor () {
       return stringToColor(this.userFullName)

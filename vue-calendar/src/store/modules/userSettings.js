@@ -1,6 +1,7 @@
 import { uploadImage } from '@/api/imageApi'
 import { getUserById } from '@/api/authApi'
-import { updateUserSettings } from '@/api/userSettings'
+import { updateUserSettings } from '@/api/userSettingsApi'
+import { imageSources } from '@/utils/constants'
 
 export default {
   namespaced: true,
@@ -8,7 +9,7 @@ export default {
   state: {
     userStatus: {
       text: 'Available',
-      src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660259573/calendar/active_cgujh6.svg'
+      src: imageSources.AVAILABLE_STATUS_IMAGE_SRC
     },
     userAvatarSrc: '',
     isSaving: false,

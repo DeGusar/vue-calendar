@@ -24,7 +24,6 @@
       >
 
       <ButtonComponent
-        type="button"
         class="user-settings-component-modal__controls-button"
         @click="$modal.hide('user-settings-component-modal')"
       >
@@ -36,6 +35,7 @@
 
 <script>
 import { ButtonComponent } from '@/components/basicComponents'
+import { imageSources } from '@/utils/constants'
 
 export default {
   name: 'UserSettingsComponentModal',
@@ -54,7 +54,7 @@ export default {
 
   computed: {
     profilePicture () {
-      return this.avatarImageSrc || 'https://res.cloudinary.com/rss-collection/image/upload/v1660522652/facebook-profile-picture-no-pic-avatar_hzv5rp.jpg'
+      return this.avatarImageSrc || imageSources.AVATAR_IMAGE_SRC
     }
   },
 
@@ -68,7 +68,8 @@ export default {
 
   methods: {
     async onChangeUpload (event) {
-      this.$emit('uploadImageToCloud', event.target.files[0])
+      const [imageObject] = event.target.files
+      this.$emit('uploadImageToCloud', imageObject)
     }
   }
 
