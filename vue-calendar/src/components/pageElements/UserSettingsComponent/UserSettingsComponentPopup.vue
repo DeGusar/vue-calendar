@@ -115,7 +115,7 @@ export default {
   top: 100%;
   right: 0;
   border-radius: 4px;
-  box-shadow: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
+  box-shadow: $box-shadow-basic;
   font-size: $font-size-base;
 
   &__divider {
@@ -153,7 +153,7 @@ export default {
       right: 0;
       width: 12px;
       height: 12px;
-      background: no-repeat center/12px url("https://res.cloudinary.com/rss-collection/image/upload/v1660429714/calendar/2931160_down_direction_download_pointer_arrow_icon_lqd0xe.svg");
+      background: no-repeat center/12px $arrow-down-image-url;
     }
 
     &:hover {
@@ -183,7 +183,7 @@ export default {
       &::after {
         position: absolute;
         content: "";
-        background-image: url("https://res.cloudinary.com/rss-collection/image/upload/v1660310631/calendar/5378817_camera_games_image_photo_screenshot_icon_pmh56g.svg");
+        background-image: $status-image-url;
         width: 40px;
         height: 40px;
         background-position: center center;

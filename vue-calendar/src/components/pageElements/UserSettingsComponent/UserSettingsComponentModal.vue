@@ -90,8 +90,8 @@ export default {
   }
 
   &__wrapper-img {
-    width: 128px;
-    height: 128px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     object-fit: cover;
   }

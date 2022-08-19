@@ -55,7 +55,10 @@ export default {
 
   methods: {
     ...mapActions('authentication', ['logout']),
-    ...mapActions('userSettings', ['updateUserStatus', 'uploadImageToCloud']),
+    ...mapActions('userSettings', {
+      onUpdateUserStatus: 'updateUserStatus',
+      onUploadImageToCloud: 'uploadImageToCloud'
+    }),
     onClickAvatar () {
       this.isPopup = !this.isPopup
     },
@@ -68,12 +71,6 @@ export default {
         text: 'Successfully logout'
       })
       this.$router.push({ name: urlNames.LOGIN_PAGE })
-    },
-    onUpdateUserStatus (event) {
-      this.updateUserStatus(event)
-    },
-    async onUploadImageToCloud (event) {
-      await this.uploadImageToCloud(event)
     }
   }
 

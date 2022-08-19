@@ -66,7 +66,7 @@ export default {
     background-color: $color-white;
     top: 110%;
     left: -45%;
-    box-shadow: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
+    box-shadow: $box-shadow-basic;
 
     &__status {
       cursor: pointer;
