@@ -56,9 +56,13 @@ export default {
   methods: {
     ...mapActions('authentication', ['logout']),
     ...mapActions('userSettings', {
-      onUpdateUserStatus: 'updateUserStatus',
-      onUploadImageToCloud: 'uploadImageToCloud'
+      onUploadImageToCloud: 'uploadImageToCloud',
+      updateUserData: 'updateUserData'
     }),
+    onUpdateUserStatus ({ text, src }) {
+      this.updateUserData({ ...this.userData, userStatusText: text, userStatusSrc: src })
+    },
+
     onClickAvatar () {
       this.isPopup = !this.isPopup
     },

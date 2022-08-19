@@ -18,16 +18,16 @@ export default {
 
   watch: {
     userId () {
-      this.updateUserData()
+      this.getUserData()
     }
   },
 
   created () {
-    this.updateUserData()
+    this.getUserData()
   },
 
   methods: {
-    ...mapActions('userSettings', ['updateUserData'])
+    ...mapActions('userSettings', ['getUserData'])
   }
 
 }

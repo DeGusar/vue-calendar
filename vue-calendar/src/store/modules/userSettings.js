@@ -45,15 +45,15 @@ export default {
   },
 
   actions: {
-    async updateUserStatus ({ commit, rootGetters }, { text, src }) {
+    async updateUserData ({ commit, rootGetters }, userData) {
       try {
-        await updateUserSettings(rootGetters.userId, { userStatusText: text, userStatusSrc: src })
-        commit('setUserStatus', { text, src })
+        await updateUserSettings(rootGetters.userId, userData)
+        commit('setUserData', userData)
       } catch (e) {
         return { result: false, message: e.message }
       }
     },
-    uploadImageToCloud ({ commit, rootGetters }, imageFile) {
+    uploadImageToCloud ({ commit, rootGetters, state }, imageFile) {
       try {
         commit('setIsSaving', true)
         const reader = new FileReader()
@@ -61,7 +61,7 @@ export default {
         reader.onloadend = async () => {
           const { data } = await uploadImage(JSON.stringify(reader.result))
           commit('setIsSaving', false)
-          commit('setUserAvatarSrc', data.srcImage)
+          commit('setUserData', { ...state.userData, userAvatarSrc: data.srcImage })
           await updateUserSettings(rootGetters.userId, { userAvatarSrc: data.srcImage })
         }
       } catch (e) {
@@ -70,7 +70,7 @@ export default {
         return { result: false, message: e.message }
       }
     },
-    async updateUserData ({ commit, rootGetters }) {
+    async getUserData ({ commit, rootGetters }) {
       try {
         const userData = await getUserById(rootGetters.userId)
 
@@ -86,13 +86,6 @@ export default {
   },
 
   mutations: {
-    setUserStatus (state, { text, src }) {
-      state.userData.userStatusText = text
-      state.userData.userStatusSrc = src
-    },
-    setUserAvatarSrc (state, userAvatarSrc) {
-      state.userData.userAvatarSrc = userAvatarSrc
-    },
     setIsSaving (state, isSaving) {
       state.isSaving = isSaving
     },
