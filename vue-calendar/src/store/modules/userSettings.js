@@ -3,17 +3,31 @@ import { getUserById } from '@/api/authApi'
 import { updateUserSettings } from '@/api/userSettingsApi'
 import { imageSources } from '@/utils/constants'
 
+const userDataHandler = ({ firstName, lastName, email, userStatusText, userStatusSrc, userAvatarSrc }) => {
+  return (
+    {
+      firstName,
+      lastName,
+      email,
+      userStatusText: userStatusText ?? 'Available',
+      userStatusSrc: userStatusSrc ?? imageSources.AVAILABLE_STATUS_IMAGE_SRC,
+      userAvatarSrc: userAvatarSrc ?? ''
+    })
+}
+
 export default {
   namespaced: true,
 
   state: {
-    userStatus: {
-      text: 'Available',
-      src: imageSources.AVAILABLE_STATUS_IMAGE_SRC
-    },
-    userAvatarSrc: '',
     isSaving: false,
-    userData: {}
+    userData: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      userStatusText: 'Available',
+      userStatusSrc: imageSources.AVAILABLE_STATUS_IMAGE_SRC,
+      userAvatarSrc: ''
+    }
   },
   getters: {
     userStatus (state) {
@@ -31,15 +45,15 @@ export default {
   },
 
   actions: {
-    async updateUserStatus ({ commit }, { userId, userStatus }) {
+    async updateUserStatus ({ commit, rootGetters }, { text, src }) {
       try {
-        await updateUserSettings(userId, { userStatus })
-        commit('setUserStatus', userStatus)
+        await updateUserSettings(rootGetters.userId, { userStatusText: text, userStatusSrc: src })
+        commit('setUserStatus', { text, src })
       } catch (e) {
         return { result: false, message: e.message }
       }
     },
-    uploadImageToCloud ({ commit }, { userId, imageFile }) {
+    uploadImageToCloud ({ commit, rootGetters }, imageFile) {
       try {
         commit('setIsSaving', true)
         const reader = new FileReader()
@@ -48,7 +62,7 @@ export default {
           const { data } = await uploadImage(JSON.stringify(reader.result))
           commit('setIsSaving', false)
           commit('setUserAvatarSrc', data.srcImage)
-          await updateUserSettings(userId, { avatarSrc: data.srcImage })
+          await updateUserSettings(rootGetters.userId, { userAvatarSrc: data.srcImage })
         }
       } catch (e) {
         commit('setIsSaving', false)
@@ -56,20 +70,12 @@ export default {
         return { result: false, message: e.message }
       }
     },
-    async updateUserData ({ commit }, userId) {
+    async updateUserData ({ commit, rootGetters }) {
       try {
-        const { userData, userStatus, avatarSrc } = await getUserById(userId)
+        const userData = await getUserById(rootGetters.userId)
 
         if (userData) {
-          commit('setUserData', userData)
-
-          if (userStatus) {
-            commit('setUserStatus', userStatus)
-          }
-
-          if (avatarSrc) {
-            commit('setUserAvatarSrc', avatarSrc)
-          }
+          commit('setUserData', userDataHandler(userData))
         } else {
           commit('setUserData', {})
         }
@@ -80,11 +86,12 @@ export default {
   },
 
   mutations: {
-    setUserStatus (state, userStatus) {
-      state.userStatus = userStatus
+    setUserStatus (state, { text, src }) {
+      state.userData.userStatusText = text
+      state.userData.userStatusSrc = src
     },
     setUserAvatarSrc (state, userAvatarSrc) {
-      state.userAvatarSrc = userAvatarSrc
+      state.userData.userAvatarSrc = userAvatarSrc
     },
     setIsSaving (state, isSaving) {
       state.isSaving = isSaving

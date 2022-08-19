@@ -10,24 +10,20 @@
 
 <script>
 import { HeaderComponent, FooterComponent } from '@/components/pageElements'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'MainLayout',
   components: { HeaderComponent, FooterComponent },
 
-  computed: {
-    ...mapGetters('authentication', ['userId'])
-  },
-
   watch: {
-    userId (newUserId) {
-      this.updateUserData(newUserId)
+    userId () {
+      this.updateUserData()
     }
   },
 
   created () {
-    this.updateUserData(this.userId)
+    this.updateUserData()
   },
 
   methods: {

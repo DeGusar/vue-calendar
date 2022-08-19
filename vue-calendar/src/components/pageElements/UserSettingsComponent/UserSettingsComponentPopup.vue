@@ -11,7 +11,7 @@
           class="user-settings-component-popup__header-avatar"
           :user-full-name="userFullName"
           :avatar-image-src="avatarImageSrc"
-          :status-image-src="userStatus.src"
+          :status-image-src="userData.userStatusSrc"
         />
       </button>
       <div class="user-settings-component-popup__header-content">
@@ -23,7 +23,7 @@
           class="user-settings-component-popup__header-content-status"
           @click="onClickUserStatus"
         >
-          {{ userStatus.text }}
+          {{ userData.userStatusText }}
         </button>
         <UserSettingsComponentStatusPopup
           v-if="isUserStatusPopup"
@@ -73,10 +73,6 @@ export default {
       required: true
     },
     userData: {
-      type: Object,
-      required: true
-    },
-    userStatus: {
       type: Object,
       required: true
     },

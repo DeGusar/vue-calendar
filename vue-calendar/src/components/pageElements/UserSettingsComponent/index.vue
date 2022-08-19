@@ -7,17 +7,16 @@
       <AvatarComponent
         class="user-settings-component__avatar"
         :user-full-name="userFullName"
-        :avatar-image-src="userAvatarSrc"
-        :status-image-src="userStatus.src"
+        :avatar-image-src="userData.userAvatarSrc"
+        :status-image-src="userData.userStatusSrc"
       />
     </div>
     <UserSettingsComponentPopup
       v-if="isPopup"
       v-click-outside="onClickAvatar"
       :user-full-name="userFullName"
-      :avatar-image-src="userAvatarSrc"
+      :avatar-image-src="userData.userAvatarSrc"
       :user-data="userData"
-      :user-status="userStatus"
       :is-saving="isSaving"
       @logout="onLogout"
       @closePopup="onClickAvatar"
@@ -47,8 +46,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters('userSettings', ['userStatus', 'userAvatarSrc', 'userData', 'isSaving']),
-    ...mapGetters('authentication', ['userId']),
+    ...mapGetters('userSettings', ['userData', 'isSaving']),
 
     userFullName () {
       return `${this.userData.firstName} ${this.userData.lastName}`
@@ -72,10 +70,10 @@ export default {
       this.$router.push({ name: urlNames.LOGIN_PAGE })
     },
     onUpdateUserStatus (event) {
-      this.updateUserStatus({ userId: this.userId, userStatus: event })
+      this.updateUserStatus(event)
     },
     async onUploadImageToCloud (event) {
-      await this.uploadImageToCloud({ userId: this.userId, imageFile: event })
+      await this.uploadImageToCloud(event)
     }
   }
 

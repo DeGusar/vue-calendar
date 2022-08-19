@@ -16,9 +16,9 @@ export const registerUser = async (userData) => {
 }
 
 export const login = async ({ email, password }) => {
-  const user = await getDocument('users', { userData: { email: email } })
+  const user = await getDocument('users', { email })
 
-  if (!user || password !== user.userData.password) {
+  if (!user || password !== user.password) {
     return { status: statusCodes.UNAUTHORIZED_CODE, message: 'Wrong email or password' }
   }
 

@@ -4,27 +4,23 @@ import localStorageKeys from '@/utils/constants/localStorageKeys'
 export default {
   namespaced: true,
   state: {
-    userId: localStorage.getItem(localStorageKeys.USER_ID) ?? '',
     isLoading: false
   },
   getters: {
-    userId (state) {
-      return state.userId
-    },
     isLoading (state) {
       return state.isLoading
     }
 
   },
   actions: {
-    async register ({ commit }, { email, password, firstName, lastName }) {
+    async register ({ commit }, credentials) {
       try {
         commit('setIsLoading', true)
-        const { userId } = await registerUser({ userData: { email, password, firstName, lastName } })
-        commit('setUserId', userId)
+        const { userId } = await registerUser(credentials)
+        commit('setUserId', userId, { root: true })
         localStorage.setItem(localStorageKeys.USER_ID, userId)
 
-        return { result: true, firstName, lastName }
+        return { result: true, firstName: credentials.firstName, lastName: credentials.lastName }
       } catch (e) {
         return { result: false, message: e.message }
       } finally {
@@ -36,7 +32,7 @@ export default {
       try {
         commit('setIsLoading', true)
         const { id: userId } = await login({ email, password })
-        commit('setUserId', userId)
+        commit('setUserId', userId, { root: true })
         localStorage.setItem(localStorageKeys.USER_ID, userId)
 
         return { result: true }
@@ -48,14 +44,11 @@ export default {
     },
 
     logout ({ commit }) {
-      commit('setUserId', '')
+      commit('setUserId', '', { root: true })
       localStorage.removeItem(localStorageKeys.USER_ID)
     }
   },
   mutations: {
-    setUserId (state, userId) {
-      state.userId = userId
-    },
     setIsLoading (state, isLoading) {
       state.isLoading = isLoading
     }
