@@ -1,5 +1,6 @@
 import authControllers from '@/indexedDb/authControllers'
 import { responseCodeHandler } from '@/utils/helpers/responseCodeHandler'
+import { getUserIdFromLocalstorage } from '@/utils/helpers/getUserIdFromLocalstorage'
 
 const registerUser = async (userData) => {
   const response = await authControllers.registerUser(userData)
@@ -13,8 +14,8 @@ const login = async (userData) => {
   return responseCodeHandler(response)
 }
 
-const getUserById = async (userId) => {
-  const response = await authControllers.getUserById(userId)
+const getUserById = async () => {
+  const response = await authControllers.getUserById(getUserIdFromLocalstorage())
 
   return responseCodeHandler(response)
 }

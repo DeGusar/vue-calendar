@@ -17,7 +17,6 @@ export default {
       try {
         commit('setIsLoading', true)
         const { userId } = await registerUser(credentials)
-        commit('setUserId', userId, { root: true })
         localStorage.setItem(localStorageKeys.USER_ID, userId)
 
         return { result: true, firstName: credentials.firstName, lastName: credentials.lastName }
@@ -32,7 +31,6 @@ export default {
       try {
         commit('setIsLoading', true)
         const { id: userId } = await login({ email, password })
-        commit('setUserId', userId, { root: true })
         localStorage.setItem(localStorageKeys.USER_ID, userId)
 
         return { result: true }
@@ -44,7 +42,6 @@ export default {
     },
 
     logout ({ commit }) {
-      commit('setUserId', '', { root: true })
       localStorage.removeItem(localStorageKeys.USER_ID)
     }
   },

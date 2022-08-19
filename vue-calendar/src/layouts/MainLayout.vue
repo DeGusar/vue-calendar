@@ -16,12 +16,6 @@ export default {
   name: 'MainLayout',
   components: { HeaderComponent, FooterComponent },
 
-  watch: {
-    userId () {
-      this.getUserData()
-    }
-  },
-
   created () {
     this.getUserData()
   },

@@ -30,12 +30,6 @@ export default {
     }
   },
   getters: {
-    userStatus (state) {
-      return state.userStatus
-    },
-    userAvatarSrc (state) {
-      return state.userAvatarSrc
-    },
     isSaving (state) {
       return state.isSaving
     },
@@ -45,15 +39,15 @@ export default {
   },
 
   actions: {
-    async updateUserData ({ commit, rootGetters }, userData) {
+    async updateUserData ({ commit }, userData) {
       try {
-        await updateUserSettings(rootGetters.userId, userData)
+        await updateUserSettings(userData)
         commit('setUserData', userData)
       } catch (e) {
         return { result: false, message: e.message }
       }
     },
-    uploadImageToCloud ({ commit, rootGetters, state }, imageFile) {
+    uploadImageToCloud ({ commit, state }, imageFile) {
       try {
         commit('setIsSaving', true)
         const reader = new FileReader()
@@ -62,7 +56,7 @@ export default {
           const { data } = await uploadImage(JSON.stringify(reader.result))
           commit('setIsSaving', false)
           commit('setUserData', { ...state.userData, userAvatarSrc: data.srcImage })
-          await updateUserSettings(rootGetters.userId, { userAvatarSrc: data.srcImage })
+          await updateUserSettings({ userAvatarSrc: data.srcImage })
         }
       } catch (e) {
         commit('setIsSaving', false)
@@ -70,9 +64,9 @@ export default {
         return { result: false, message: e.message }
       }
     },
-    async getUserData ({ commit, rootGetters }) {
+    async getUserData ({ commit }) {
       try {
-        const userData = await getUserById(rootGetters.userId)
+        const userData = await getUserById()
 
         if (userData) {
           commit('setUserData', userDataHandler(userData))
