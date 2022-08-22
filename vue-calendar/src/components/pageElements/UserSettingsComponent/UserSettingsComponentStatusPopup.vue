@@ -50,8 +50,8 @@ export default {
 
   methods: {
     onClickUserStatus (status) {
-      this.$emit('updateUserStatus', status)
-      this.$emit('closePopup')
+      this.$emit('update-user-status', status)
+      this.$emit('close-popup')
     }
   }
 }

@@ -14,8 +14,8 @@ const login = async (userData) => {
   return responseCodeHandler(response)
 }
 
-const getUserById = async () => {
-  const response = await authControllers.getUserById(getUserIdFromLocalstorage())
+const getCurrentUserData = async () => {
+  const response = await authControllers.getCurrentUserData(getUserIdFromLocalstorage())
 
   return responseCodeHandler(response)
 }
@@ -23,5 +23,5 @@ const getUserById = async () => {
 export {
   registerUser,
   login,
-  getUserById
+  getCurrentUserData
 }

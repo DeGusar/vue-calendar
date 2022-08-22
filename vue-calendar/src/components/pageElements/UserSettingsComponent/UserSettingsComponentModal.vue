@@ -69,7 +69,7 @@ export default {
   methods: {
     async onChangeUpload (event) {
       const [imageObject] = event.target.files
-      this.$emit('uploadImageToCloud', imageObject)
+      this.$emit('upload-image-to-cloud', imageObject)
     }
   }
 

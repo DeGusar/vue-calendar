@@ -1,5 +1,5 @@
 import { uploadImage } from '@/api/imageApi'
-import { getUserById } from '@/api/authApi'
+import { getCurrentUserData } from '@/api/authApi'
 import { updateUserSettings } from '@/api/userSettingsApi'
 import { imageSources } from '@/utils/constants'
 
@@ -66,7 +66,7 @@ export default {
     },
     async getUserData ({ commit }) {
       try {
-        const userData = await getUserById()
+        const userData = await getCurrentUserData()
 
         if (userData) {
           commit('setUserData', userDataHandler(userData))

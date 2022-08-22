@@ -15,13 +15,12 @@
       v-if="isPopup"
       v-click-outside="onClickAvatar"
       :user-full-name="userFullName"
-      :avatar-image-src="userData.userAvatarSrc"
       :user-data="userData"
       :is-saving="isSaving"
       @logout="onLogout"
-      @closePopup="onClickAvatar"
-      @uploadImageToCloud="onUploadImageToCloud"
-      @updateUserStatus="onUpdateUserStatus"
+      @close-popup="onClickAvatar"
+      @upload-image-to-cloud="onUploadImageToCloud"
+      @update-user-status="onUpdateUserStatus"
     />
   </div>
 </template>

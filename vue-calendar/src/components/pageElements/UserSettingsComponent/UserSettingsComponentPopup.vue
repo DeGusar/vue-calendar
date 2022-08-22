@@ -10,7 +10,7 @@
         <AvatarComponent
           class="user-settings-component-popup__header-avatar"
           :user-full-name="userFullName"
-          :avatar-image-src="avatarImageSrc"
+          :avatar-image-src="userData.userAvatarSrc"
           :status-image-src="userData.userStatusSrc"
         />
       </button>
@@ -27,8 +27,8 @@
         </button>
         <UserSettingsComponentStatusPopup
           v-if="isUserStatusPopup"
-          @closePopup="onClosePopup"
-          @updateUserStatus="$emit('updateUserStatus', $event)"
+          @close-popup="onClosePopup"
+          @update-user-status="$emit('update-user-status', $event)"
         />
       </div>
     </div>
@@ -47,9 +47,9 @@
       Logout
     </button>
     <UserSettingsComponentModal
-      :avatar-image-src="avatarImageSrc"
+      :avatar-image-src="userData.userAvatarSrc"
       :is-saving="isSaving"
-      @uploadImageToCloud="$emit('uploadImageToCloud', $event)"
+      @upload-image-to-cloud="$emit('upload-image-to-cloud', $event)"
     />
   </div>
 </template>
@@ -65,10 +65,6 @@ export default {
   components: { AvatarComponent, UserSettingsComponentStatusPopup, UserSettingsComponentModal },
   props: {
     userFullName: {
-      type: String,
-      required: true
-    },
-    avatarImageSrc: {
       type: String,
       required: true
     },
@@ -92,11 +88,11 @@ export default {
     },
     onClosePopup () {
       this.isUserStatusPopup = false
-      this.$emit('closePopup')
+      this.$emit('close-popup')
     },
     onClickStatisticButton () {
       this.$router.push({ name: urlNames.STATISTIC_PAGE })
-      this.$emit('closePopup')
+      this.$emit('close-popup')
     },
     showModal () {
       this.$modal.show('user-settings-component-modal')

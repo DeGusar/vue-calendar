@@ -25,7 +25,7 @@ export const login = async ({ email, password }) => {
   return { status: statusCodes.OK_CODE, data: user }
 }
 
-export const getUserById = async (userId) => {
+export const getCurrentUserData = async (userId) => {
   const user = await getDocument('users', { id: userId })
 
   if (user) {
@@ -38,5 +38,5 @@ export const getUserById = async (userId) => {
 export default {
   registerUser,
   login,
-  getUserById
+  getCurrentUserData
 }
