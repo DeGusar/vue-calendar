@@ -16,33 +16,46 @@
 export default {
   name: 'MainPageSidebar',
 
-  data: () => ({
-    dateChecked: new Date()
-
-  }),
+  props: {
+    pickedDay: {
+      type: [Date, String],
+      required: true
+    }
+  },
 
   computed: {
     attrs () {
-      return [{
-        highlight: {
-          contentClass: 'checked-day'
+      return [
+        {
+          highlight: {
+            color: 'blue',
+            fillMode: 'solid'
+          },
+          dates: new Date()
         },
-        dates: this.dateChecked
-      },
-      {
-        highlight: {
-          color: 'blue',
-          fillMode: 'solid'
-        },
-        dates: new Date()
-      }
+        {
+          highlight: {
+            contentClass: 'checked-day'
+          },
+          dates: this.pickedDay
+        }
       ]
+    }
+  },
+
+  watch: {
+    pickedDay (newPickedDay) {
+      this.moveToDate(newPickedDay)
     }
   },
 
   methods: {
     onDayClick (day) {
-      this.dateChecked = new Date(day.id)
+      this.$emit('updatePickedDay', new Date(day.id))
+    },
+
+    moveToDate (date) {
+      this.$refs.calendar.move({ month: new Date(date).getMonth() + 1, year: new Date(date).getFullYear() })
     }
   }
 

@@ -1,13 +1,22 @@
 <template>
   <div class="main-page-header">
     <div class="main-page-header__controls">
-      <button class="main-page-header__controls-button-today">
+      <button
+        class="main-page-header__controls-button-today"
+        @click="onClickToday"
+      >
         Today
       </button>
-      <button class="main-page-header__controls-button-back" />
-      <button class="main-page-header__controls-button-forward" />
+      <button
+        class="main-page-header__controls-button-back"
+        @click="$emit('moveToPreviousMonth')"
+      />
+      <button
+        class="main-page-header__controls-button-forward"
+        @click="$emit('moveToNextMonth')"
+      />
       <button class="main-page-header__controls-date-picker">
-        {{ datePickerValue }}
+        {{ readablePickedDate }}
       </button>
     </div>
     <button class="main-page-header__format-switcher">
@@ -17,14 +26,28 @@
 </template>
 
 <script>
+import formatDate from '@/utils/helpers/formatDates'
 
 export default {
   name: 'MainPageHeader',
 
   props: {
-    datePickerValue: {
+    pickedDay: {
       type: [Date, String],
       required: true
+    }
+  },
+
+  computed: {
+    readablePickedDate () {
+      return formatDate.MY(this.pickedDay)
+    }
+  },
+
+  methods: {
+    onClickToday () {
+      this.$emit('updatePickedDay', new Date())
+      this.$emit('moveToToday')
     }
   }
 }
