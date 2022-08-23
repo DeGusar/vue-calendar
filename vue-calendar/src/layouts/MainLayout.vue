@@ -10,10 +10,19 @@
 
 <script>
 import { HeaderComponent, FooterComponent } from '@/components/pageElements'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'MainLayout',
-  components: { HeaderComponent, FooterComponent }
+  components: { HeaderComponent, FooterComponent },
+
+  created () {
+    this.getUserData()
+  },
+
+  methods: {
+    ...mapActions('userSettings', ['getUserData'])
+  }
 
 }
 </script>

@@ -42,7 +42,7 @@ export default {
     &__github-logo {
       width: 35px;
       height: 35px;
-      background: url("https://res.cloudinary.com/rss-collection/image/upload/v1652345776/github_ke79xc.svg");
+      background: $github-logo-url;
       background-size: 100% 100%;
       background-position: center;
       cursor: pointer;

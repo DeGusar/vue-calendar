@@ -1,10 +1,13 @@
 // colors
+$color-purple-light: rgb(91 95 199);
 $color-purple: rgb(68 71 145);
 $color-purple-dark: rgb(50 53 112);
 $color-black-light: rgb(173 170 170);
 $color-white: rgb(255 255 255);
 $color-white-dark: rgb(245 245 245);
+$color-grey: rgb(243 242 241);
 $color-black: rgb(0 0 0);
+$color-black-font: rgb(66 66 66);
 $color-red: rgb(211 47 47);
 
 // fonts sizes
@@ -16,3 +19,11 @@ $font-size-large: 2rem;
 $content-width: 1600px;
 $header-height: 50px;
 $footer-height: 50px;
+
+// urls constants
+$github-logo-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1652345776/github_ke79xc.svg");
+$status-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660310631/calendar/5378817_camera_games_image_photo_screenshot_icon_pmh56g.svg");
+$arrow-down-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660429714/calendar/2931160_down_direction_download_pointer_arrow_icon_lqd0xe.svg");
+
+// shadows
+$box-shadow-basic: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
