@@ -13,16 +13,13 @@ export default new Vuex.Store({
     mainPageModule
   },
   state: {
-
   },
   getters: {
-
   },
   actions: {
 
   },
   mutations: {
-
   }
 
 })

@@ -10,8 +10,8 @@
         <AvatarComponent
           class="user-settings-component-popup__header-avatar"
           :user-full-name="userFullName"
-          :avatar-image-src="avatarImageSrc"
-          :status-image-src="userStatus.src"
+          :avatar-image-src="userData.userAvatarSrc"
+          :status-image-src="userData.userStatusSrc"
         />
       </button>
       <div class="user-settings-component-popup__header-content">
@@ -23,12 +23,12 @@
           class="user-settings-component-popup__header-content-status"
           @click="onClickUserStatus"
         >
-          {{ userStatus.text }}
+          {{ userData.userStatusText }}
         </button>
         <UserSettingsComponentStatusPopup
           v-if="isUserStatusPopup"
-          @closePopup="onClosePopup"
-          @updateUserStatus="$emit('updateUserStatus', $event)"
+          @close-popup="onClosePopup"
+          @update-user-status="$emit('update-user-status', $event)"
         />
       </div>
     </div>
@@ -47,9 +47,9 @@
       Logout
     </button>
     <UserSettingsComponentModal
-      :avatar-image-src="avatarImageSrc"
+      :avatar-image-src="userData.userAvatarSrc"
       :is-saving="isSaving"
-      @uploadImageToCloud="$emit('uploadImageToCloud', $event)"
+      @upload-image-to-cloud="$emit('upload-image-to-cloud', $event)"
     />
   </div>
 </template>
@@ -68,15 +68,7 @@ export default {
       type: String,
       required: true
     },
-    avatarImageSrc: {
-      type: String,
-      required: true
-    },
     userData: {
-      type: Object,
-      required: true
-    },
-    userStatus: {
       type: Object,
       required: true
     },
@@ -96,11 +88,11 @@ export default {
     },
     onClosePopup () {
       this.isUserStatusPopup = false
-      this.$emit('closePopup')
+      this.$emit('close-popup')
     },
     onClickStatisticButton () {
       this.$router.push({ name: urlNames.STATISTIC_PAGE })
-      this.$emit('closePopup')
+      this.$emit('close-popup')
     },
     showModal () {
       this.$modal.show('user-settings-component-modal')
@@ -119,7 +111,7 @@ export default {
   top: 100%;
   right: 0;
   border-radius: 4px;
-  box-shadow: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
+  box-shadow: $box-shadow-basic;
   font-size: $font-size-base;
 
   &__divider {
@@ -157,7 +149,7 @@ export default {
       right: 0;
       width: 12px;
       height: 12px;
-      background: no-repeat center/12px url("https://res.cloudinary.com/rss-collection/image/upload/v1660429714/calendar/2931160_down_direction_download_pointer_arrow_icon_lqd0xe.svg");
+      background: no-repeat center/12px $arrow-down-image-url;
     }
 
     &:hover {
@@ -187,7 +179,7 @@ export default {
       &::after {
         position: absolute;
         content: "";
-        background-image: url("https://res.cloudinary.com/rss-collection/image/upload/v1660310631/calendar/5378817_camera_games_image_photo_screenshot_icon_pmh56g.svg");
+        background-image: $status-image-url;
         width: 40px;
         height: 40px;
         background-position: center center;

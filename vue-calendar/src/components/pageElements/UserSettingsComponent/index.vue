@@ -7,22 +7,20 @@
       <AvatarComponent
         class="user-settings-component__avatar"
         :user-full-name="userFullName"
-        :avatar-image-src="userAvatarSrc"
-        :status-image-src="userStatus.src"
+        :avatar-image-src="userData.userAvatarSrc"
+        :status-image-src="userData.userStatusSrc"
       />
     </div>
     <UserSettingsComponentPopup
       v-if="isPopup"
       v-click-outside="onClickAvatar"
       :user-full-name="userFullName"
-      :avatar-image-src="userAvatarSrc"
       :user-data="userData"
-      :user-status="userStatus"
       :is-saving="isSaving"
       @logout="onLogout"
-      @closePopup="onClickAvatar"
-      @uploadImageToCloud="onUploadImageToCloud"
-      @updateUserStatus="onUpdateUserStatus"
+      @close-popup="onClickAvatar"
+      @upload-image-to-cloud="onUploadImageToCloud"
+      @update-user-status="onUpdateUserStatus"
     />
   </div>
 </template>
@@ -47,8 +45,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters('userSettings', ['userStatus', 'userAvatarSrc', 'userData', 'isSaving']),
-    ...mapGetters('authentication', ['userId']),
+    ...mapGetters('userSettings', ['userData', 'isSaving']),
 
     userFullName () {
       return `${this.userData.firstName} ${this.userData.lastName}`
@@ -57,7 +54,14 @@ export default {
 
   methods: {
     ...mapActions('authentication', ['logout']),
-    ...mapActions('userSettings', ['updateUserStatus', 'uploadImageToCloud']),
+    ...mapActions('userSettings', {
+      onUploadImageToCloud: 'uploadImageToCloud',
+      updateUserData: 'updateUserData'
+    }),
+    onUpdateUserStatus ({ text, src }) {
+      this.updateUserData({ ...this.userData, userStatusText: text, userStatusSrc: src })
+    },
+
     onClickAvatar () {
       this.isPopup = !this.isPopup
     },
@@ -70,12 +74,6 @@ export default {
         text: 'Successfully logout'
       })
       this.$router.push({ name: urlNames.LOGIN_PAGE })
-    },
-    onUpdateUserStatus (event) {
-      this.updateUserStatus({ userId: this.userId, userStatus: event })
-    },
-    async onUploadImageToCloud (event) {
-      await this.uploadImageToCloud({ userId: this.userId, imageFile: event })
     }
   }
 

@@ -16,40 +16,42 @@
 </template>
 
 <script>
+import { imageSources } from '@/utils/constants'
+
 export default {
   data: () => ({
     statuses: [
       {
         text: 'Available',
-        src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660259573/calendar/active_cgujh6.svg'
+        src: imageSources.AVAILABLE_STATUS_IMAGE_SRC
       },
       {
         text: 'Busy',
-        src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660338705/calendar/busy_hxq0kh.svg'
+        src: imageSources.BUSY_STATUS_IMAGE_SRC
       },
       {
         text: 'Do not disturb',
-        src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660338829/calendar/disturb_utufpw.svg'
+        src: imageSources.DONT_DISTURB_STATUS_IMAGE_SRC
       },
       {
         text: 'Be right back',
-        src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660339954/calendar/soon_fljbhg.svg'
+        src: imageSources.SOON_STATUS_IMAGE_SRC
       },
       {
         text: 'Appear away',
-        src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660339954/calendar/soon_fljbhg.svg'
+        src: imageSources.AFC_STATUS_IMAGE_SRC
       },
       {
         text: 'Appear offline',
-        src: 'https://res.cloudinary.com/rss-collection/image/upload/v1660338931/calendar/offline_hdsdwo.svg'
+        src: imageSources.OFFLINE_STATUS_IMAGE_SRC
       }
     ]
   }),
 
   methods: {
     onClickUserStatus (status) {
-      this.$emit('updateUserStatus', status)
-      this.$emit('closePopup')
+      this.$emit('update-user-status', status)
+      this.$emit('close-popup')
     }
   }
 }
@@ -64,7 +66,7 @@ export default {
     background-color: $color-white;
     top: 110%;
     left: -45%;
-    box-shadow: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
+    box-shadow: $box-shadow-basic;
 
     &__status {
       cursor: pointer;
