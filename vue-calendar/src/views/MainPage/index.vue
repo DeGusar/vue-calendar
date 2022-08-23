@@ -3,15 +3,15 @@
     <MainPageSidebar
       ref="sideBar"
       :picked-day="pickedDay"
-      @updatePickedDay="onUpdatePickedDate"
+      @update-picked-day="onUpdatePickedDate"
     />
     <div class="main-page__content">
       <MainPageHeader
         :picked-day="pickedDay"
-        @updatePickedDay="onUpdatePickedDate"
-        @moveToToday="onMoveToToday"
-        @moveToPreviousMonth="onMoveToPreviousMonth"
-        @moveToNextMonth="onMoveToNextMonth"
+        @update-picked-day="onUpdatePickedDate"
+        @move-to-today="onMoveToToday"
+        @move-to-previous-month="onMoveToPreviousMonth"
+        @move-to-next-month="onMoveToNextMonth"
       />
     </div>
   </div>

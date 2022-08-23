@@ -51,7 +51,7 @@ export default {
 
   methods: {
     onDayClick (day) {
-      this.$emit('updatePickedDay', new Date(day.id))
+      this.$emit('update-picked-day', new Date(day.id))
     },
 
     moveToDate (date) {

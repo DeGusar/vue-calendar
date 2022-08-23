@@ -9,11 +9,11 @@
       </button>
       <button
         class="main-page-header__controls-button-back"
-        @click="$emit('moveToPreviousMonth')"
+        @click="$emit('move-to-previous-month')"
       />
       <button
         class="main-page-header__controls-button-forward"
-        @click="$emit('moveToNextMonth')"
+        @click="$emit('move-to-next-month')"
       />
       <button class="main-page-header__controls-date-picker">
         {{ readablePickedDate }}
@@ -40,14 +40,14 @@ export default {
 
   computed: {
     readablePickedDate () {
-      return formatDate.MY(this.pickedDay)
+      return formatDate.MMMMYYYY(this.pickedDay)
     }
   },
 
   methods: {
     onClickToday () {
-      this.$emit('updatePickedDay', new Date())
-      this.$emit('moveToToday')
+      this.$emit('update-picked-day', new Date())
+      this.$emit('move-to-today')
     }
   }
 }
@@ -85,7 +85,7 @@ export default {
         width: 18px;
         height: 18px;
         margin-right: 8px;
-        background: no-repeat center/100% url("https://res.cloudinary.com/rss-collection/image/upload/v1660745070/calendar/290104_calendar_clock_date_event_schedule_icon_qq0azb.svg");
+        background: no-repeat center/100% $calendar-image-url;
         filter: invert(36%) sepia(89%) saturate(1967%) hue-rotate(173deg) brightness(95%) contrast(101%);
       }
     }
@@ -106,7 +106,7 @@ export default {
         content: "";
         width: 16px;
         height: 16px;
-        background: no-repeat center/16px url("https://res.cloudinary.com/rss-collection/image/upload/v1660746623/calendar/3671668_arrow_thin_up_icon_oo8nwf.svg");
+        background: no-repeat center/16px $arrow-up-url;
         filter: invert(36%) sepia(89%) saturate(1967%) hue-rotate(173deg) brightness(95%) contrast(101%);
       }
     }
@@ -127,7 +127,7 @@ export default {
         content: "";
         width: 16px;
         height: 16px;
-        background: no-repeat center/16px url("https://res.cloudinary.com/rss-collection/image/upload/v1660746652/calendar/3671655_arrow_down_icon_pkjhjh.svg");
+        background: no-repeat center/16px $arrow-down-url;
         filter: invert(36%) sepia(89%) saturate(1967%) hue-rotate(173deg) brightness(95%) contrast(101%);
       }
     }
@@ -147,7 +147,7 @@ export default {
         width: 12px;
         height: 6px;
         margin-left: 15px;
-        background: no-repeat center/100% url("https://res.cloudinary.com/rss-collection/image/upload/v1660429714/calendar/2931160_down_direction_download_pointer_arrow_icon_lqd0xe.svg");
+        background: no-repeat center/100% $arrow-down-image-url;
       }
     }
 
@@ -168,7 +168,7 @@ export default {
         width: 18px;
         height: 18px;
         margin-right: 8px;
-        background: no-repeat center/100% url("https://res.cloudinary.com/rss-collection/image/upload/v1660752582/calendar/9039893_calendar4_week_icon_ev3pnu.svg");
+        background: no-repeat center/100% $calendar-week-image-url;
         filter: invert(36%) sepia(89%) saturate(1967%) hue-rotate(173deg) brightness(95%) contrast(101%);
       }
 
@@ -177,7 +177,7 @@ export default {
         width: 12px;
         height: 6px;
         margin-left: 15px;
-        background: no-repeat center/100% url("https://res.cloudinary.com/rss-collection/image/upload/v1660429714/calendar/2931160_down_direction_download_pointer_arrow_icon_lqd0xe.svg");
+        background: no-repeat center/100% $arrow-down-image-url;
       }
     }
   }

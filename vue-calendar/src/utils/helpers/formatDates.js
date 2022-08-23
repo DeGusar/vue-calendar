@@ -1,4 +1,4 @@
-export const MY = (dateValue) => {
+export const MMMMYYYY = (dateValue) => {
   const date = new Date(dateValue)
 
   return date.toLocaleDateString('en-US', {
@@ -8,5 +8,5 @@ export const MY = (dateValue) => {
 }
 
 export default {
-  MY
+  MMMMYYYY
 }
