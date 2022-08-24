@@ -28,6 +28,7 @@ export default {
     width: 100%;
     height: 48px;
     display: flex;
+    border-bottom: 1px solid $color-black-light;
 
     &__cell {
       font-size: $font-size-small;

@@ -10,8 +10,8 @@
 <script>
 import CalendarComponent from '@/components/CalendarComponent'
 const getData = () => {
-  const D = new Date('2022-07-01')
-  const Till = new Date('2022-08-05')
+  const D = new Date('2022-07-29')
+  const Till = new Date('2022-09-02')
   const result = []
 
   function pad (s) { return ('00' + s).slice(-2) }

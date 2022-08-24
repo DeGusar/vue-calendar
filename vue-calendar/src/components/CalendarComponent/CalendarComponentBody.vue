@@ -1,19 +1,22 @@
 <template>
   <div class="calendar-component-body">
-    <div
+    <CalendarComponentBodyCell
       v-for="(date, index) in datesData"
       :key="index"
-      class="calendar-component-body__cell"
-    >
-      {{ date }}
-    </div>
+      :cell-date="date"
+      :cell-index="index"
+      :current-day="currentDay"
+      :picked-day="pickedDay"
+    />
   </div>
 </template>
 
 <script>
+import CalendarComponentBodyCell from './CalendarComponentBodyCell.vue'
 
 export default {
   name: 'CalendarComponentBody',
+  components: { CalendarComponentBodyCell },
 
   props: {
     currentDay: {
@@ -42,12 +45,5 @@ export default {
     row-gap: 0;
     align-items: start;
     column-gap: 0;
-
-    &__cell {
-      width: calc(100% / 7);
-      height: calc((100% / 5));
-      padding: 9px 12px;
-      border-bottom: 1px solid $color-black-light;
-    }
   }
 </style>
