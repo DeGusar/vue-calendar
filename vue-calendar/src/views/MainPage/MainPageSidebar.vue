@@ -64,14 +64,14 @@ export default {
 
 <style lang="scss">
   .main-page-sidebar {
-    width: 274px;
+    width: 275px;
     background-color: $color-grey;
     height: 100%;
-    border: 1px solid $neutral-light;
+    border: 1px solid $color-beige-light;
 
     &__header {
       height: $main-page-header;
-      border: 1px solid $neutral-light;
+      border: 1px solid $color-beige-light;
     }
 
     &__content {

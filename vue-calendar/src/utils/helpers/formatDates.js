@@ -1,4 +1,4 @@
-export const MMMMYYYY = (dateValue) => {
+export const toLongMonthAndYear = (dateValue) => {
   const date = new Date(dateValue)
 
   return date.toLocaleDateString('en-US', {
@@ -8,5 +8,5 @@ export const MMMMYYYY = (dateValue) => {
 }
 
 export default {
-  MMMMYYYY
+  toLongMonthAndYear
 }

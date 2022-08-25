@@ -1,7 +1,6 @@
 <template>
   <div class="main-page">
     <MainPageSidebar
-      ref="sideBar"
       :picked-day="pickedDay"
       @update-picked-day="onUpdatePickedDate"
     />
@@ -10,8 +9,7 @@
         :picked-day="pickedDay"
         @update-picked-day="onUpdatePickedDate"
         @move-to-today="onMoveToToday"
-        @move-to-previous-month="onMoveToPreviousMonth"
-        @move-to-next-month="onMoveToNextMonth"
+        @change-month="onChangeMonth"
       />
     </div>
   </div>
@@ -36,32 +34,23 @@ export default {
       onUpdatePickedDate: 'updatePickedDay'
     }),
 
-    onMoveToPreviousMonth () {
-      const previousMonth = new Date(this.pickedDay)
-      previousMonth.setDate(1)
-      previousMonth.setMonth(this.pickedDay.getMonth() - 1)
+    onChangeMonth (monthsDifference) {
+      const changedMonth = new Date(this.pickedDay)
+      changedMonth.setDate(1)
+      changedMonth.setMonth(this.pickedDay.getMonth() + monthsDifference)
 
-      if (previousMonth.getMonth() === this.currentDay.getMonth() && previousMonth.getFullYear() === this.currentDay.getFullYear()) {
+      const isSameMonth = changedMonth.getMonth() === this.currentDay.getMonth()
+      const isSameYear = changedMonth.getFullYear() === this.currentDay.getFullYear()
+
+      if (isSameMonth && isSameYear) {
         this.onUpdatePickedDate(this.currentDay)
       } else {
-        this.onUpdatePickedDate(previousMonth)
+        this.onUpdatePickedDate(changedMonth)
       }
     },
 
     onMoveToToday () {
       this.onUpdatePickedDate(this.currentDay)
-    },
-
-    onMoveToNextMonth () {
-      const nextMonth = new Date(this.pickedDay)
-      nextMonth.setDate(1)
-      nextMonth.setMonth(this.pickedDay.getMonth() + 1)
-
-      if (nextMonth.getMonth() === this.currentDay.getMonth() && nextMonth.getFullYear() === this.currentDay.getFullYear()) {
-        this.onUpdatePickedDate(this.currentDay)
-      } else {
-        this.onUpdatePickedDate(nextMonth)
-      }
     }
   }
 }

@@ -9,8 +9,8 @@ $color-grey: rgb(243 242 241);
 $color-black: rgb(0 0 0);
 $color-black-font: rgb(66 66 66);
 $color-red: rgb(211 47 47);
-$neutral-light: rgb(237 235 233);
-$neutral-primary: rgb(236 233 229);
+$color-beige-light: rgb(237 235 233);
+$color-beige: rgb(236 233 229);
 
 // fonts sizes
 $font-size-base: 1.8rem;
@@ -34,3 +34,6 @@ $calendar-week-image-url: url("https://res.cloudinary.com/rss-collection/image/u
 
 // shadows
 $box-shadow-basic: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
+
+// filters
+$filter-blue-color: invert(36%) sepia(89%) saturate(1967%) hue-rotate(173deg) brightness(95%) contrast(101%);
