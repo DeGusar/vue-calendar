@@ -79,7 +79,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 8px;
+    padding: 0 10px;
 
     &:hover {
       background-color: $color-beige;
@@ -91,7 +91,7 @@ export default {
 
       width: 20px;
       height: 20px;
-      margin-right: 8px;
+      margin-right: 10px;
       filter: $filter-blue-color;
     }
   }
@@ -144,7 +144,7 @@ export default {
     height: 30px;
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 10px;
 
     &:hover {
       background-color: $color-beige;
@@ -166,7 +166,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 8px;
+    padding: 0 10px;
 
     &:hover {
       background-color: $color-beige;
@@ -178,7 +178,7 @@ export default {
 
       width: 20px;
       height: 20px;
-      margin-right: 8px;
+      margin-right: 10px;
       filter: $filter-blue-color;
     }
 

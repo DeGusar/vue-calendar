@@ -75,19 +75,20 @@ export default {
     }
 
     &__content {
-      padding: 12px;
+      padding: 10px;
+    }
+
+    .checked-day {
+      position: relative;
+      border-radius: 0;
+
+      &::before {
+        content: "";
+        position: absolute;
+        border: 1px solid $color-black;
+        inset: -2px;
+      }
     }
   }
 
-  .checked-day {
-    position: relative;
-    border-radius: 0;
-
-    &::before {
-      content: "";
-      position: absolute;
-      border: 1px solid $color-black;
-      inset: -2px;
-    }
-  }
 </style>
