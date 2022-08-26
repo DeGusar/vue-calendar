@@ -22,6 +22,7 @@ export default {
       MainLayout
     }
   }),
+
   computed: {
     layout () {
       const layoutName = this.$route.meta.layout || layoutNames.MAIN_LAYOUT
@@ -30,6 +31,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss" >

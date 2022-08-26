@@ -16,7 +16,7 @@ export const registerUser = async (userData) => {
 }
 
 export const login = async ({ email, password }) => {
-  const user = await getDocument('users', { email: email })
+  const user = await getDocument('users', { email })
 
   if (!user || password !== user.password) {
     return { status: statusCodes.UNAUTHORIZED_CODE, message: 'Wrong email or password' }
@@ -25,7 +25,18 @@ export const login = async ({ email, password }) => {
   return { status: statusCodes.OK_CODE, data: user }
 }
 
+export const getCurrentUserData = async (userId) => {
+  const user = await getDocument('users', { id: userId })
+
+  if (user) {
+    return { status: statusCodes.OK_CODE, data: user }
+  }
+
+  return { status: statusCodes.BAD_REQUEST, message: "User doesn't exist" }
+}
+
 export default {
   registerUser,
-  login
+  login,
+  getCurrentUserData
 }

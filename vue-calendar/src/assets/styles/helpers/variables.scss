@@ -1,0 +1,39 @@
+// colors
+$color-purple-light: rgb(91 95 199);
+$color-purple: rgb(68 71 145);
+$color-purple-dark: rgb(50 53 112);
+$color-black-light: rgb(173 170 170);
+$color-white: rgb(255 255 255);
+$color-white-dark: rgb(245 245 245);
+$color-grey: rgb(243 242 241);
+$color-black: rgb(0 0 0);
+$color-black-font: rgb(66 66 66);
+$color-red: rgb(211 47 47);
+$color-beige-light: rgb(237 235 233);
+$color-beige: rgb(236 233 229);
+
+// fonts sizes
+$font-size-base: 1.8rem;
+$font-size-small: 1.5rem;
+$font-size-large: 2rem;
+
+// elements sizes
+$content-width: 1600px;
+$header-height: 50px;
+$footer-height: 50px;
+$main-page-header: 45px;
+
+// urls constants
+$github-logo-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1652345776/github_ke79xc.svg");
+$status-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660310631/calendar/5378817_camera_games_image_photo_screenshot_icon_pmh56g.svg");
+$arrow-down-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660429714/calendar/2931160_down_direction_download_pointer_arrow_icon_lqd0xe.svg");
+$arrow-up-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660746623/calendar/3671668_arrow_thin_up_icon_oo8nwf.svg");
+$arrow-down-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660746652/calendar/3671655_arrow_down_icon_pkjhjh.svg");
+$calendar-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660745070/calendar/290104_calendar_clock_date_event_schedule_icon_qq0azb.svg");
+$calendar-week-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660752582/calendar/9039893_calendar4_week_icon_ev3pnu.svg");
+
+// shadows
+$box-shadow-basic: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
+
+// filters
+$filter-blue-color: invert(36%) sepia(89%) saturate(1967%) hue-rotate(173deg) brightness(95%) contrast(101%);

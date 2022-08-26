@@ -21,7 +21,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters('authentication', ['userId', 'isLoading'])
+    ...mapGetters('authentication', ['isLoading'])
   },
 
   methods: {

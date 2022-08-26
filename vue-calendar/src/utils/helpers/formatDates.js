@@ -1,4 +1,4 @@
-export const MMMMYYYY = (dateValue) => {
+export const toLongMonthAndYear = (dateValue) => {
   const date = new Date(dateValue)
 
   return date.toLocaleDateString('en-US', {
@@ -45,7 +45,7 @@ export const isFirstDateBeforeSecondDate = (date1, date2) => {
 }
 
 export default {
-  MMMMYYYY,
+  toLongMonthAndYear,
   MMMDD,
   DD,
   hh,
