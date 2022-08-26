@@ -24,6 +24,15 @@ export const DD = (dateValue) => {
   })
 }
 
+export const hh = (dateValue) => {
+  const date = new Date(dateValue)
+
+  return date.toLocaleString('en-Us', {
+    hour12: true,
+    hour: 'numeric'
+  })
+}
+
 export const areDatesEqual = (date1, date2) => {
   const date1String = new Date(date1).toDateString()
   const date2String = new Date(date2).toDateString()
@@ -39,6 +48,7 @@ export default {
   MMMMYYYY,
   MMMDD,
   DD,
+  hh,
   areDatesEqual,
   isFirstDateBeforeSecondDate
 }

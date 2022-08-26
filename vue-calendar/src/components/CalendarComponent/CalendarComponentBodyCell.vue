@@ -1,17 +1,33 @@
 <template>
-  <div
-    class="calendar-component-body-cell"
-    :class="cellStyles"
-  >
-    {{ formattedCellDate }}
+  <div class="calendar-component-body-cell__wrapper">
+    <button
+      class="calendar-component-body-cell"
+      :class="cellStyles"
+      @click="onClickCell"
+    >
+      <div class="calendar-component-body-cell__day">
+        {{ formattedCellDate }}
+      </div>
+    </button>
+    <div class="calendar-component-body-cell__events">
+      <CalendarComponentBodyCellEvent
+        v-for="event in eventsData"
+        :key="event.id"
+        :event-data="event"
+        v-bind="event"
+        :on-click-event="onClickEvent"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import formatDates from '@/utils/helpers/formatDates'
+import CalendarComponentBodyCellEvent from './CalendarComponentBodyCellEvent.vue'
 
 export default {
   name: 'CalendarComponentBodyCell',
+  components: { CalendarComponentBodyCellEvent },
 
   props: {
     cellDate: {
@@ -29,12 +45,32 @@ export default {
     pickedDay: {
       type: [String, Date],
       required: true
+    },
+    eventsData: {
+      type: Array,
+      required: true
+    },
+    onClickCell: {
+      type: Function,
+      required: true
+    },
+    onClickPickedCell: {
+      type: Function,
+      required: true
+    },
+    onClickEvent: {
+      type: Function,
+      required: true
     }
   },
 
   computed: {
     formattedCellDate () {
-      if (this.cellIndex === 0 || new Date(this.cellDate).getDate() === 1) {
+      const isFirstDayOfTheMonth = new Date(this.cellDate).getDate() === 1
+      const isFirstCell = this.cellIndex === 0
+      const isToday = formatDates.areDatesEqual(this.cellDate, this.currentDay)
+
+      if (isFirstCell || isFirstDayOfTheMonth || isToday) {
         return formatDates.MMMDD(this.cellDate)
       }
 
@@ -42,17 +78,15 @@ export default {
     },
 
     cellStyles () {
-      const additionalClasses = []
       const isToday = formatDates.areDatesEqual(this.cellDate, this.currentDay)
       const isBeforeToday = formatDates.isFirstDateBeforeSecondDate(this.cellDate, this.currentDay)
+      const isPickedDay = formatDates.areDatesEqual(this.cellDate, this.pickedDay)
 
-      if (isToday) {
-        additionalClasses.push('today')
-      } else if (isBeforeToday) {
-        additionalClasses.push('past-days')
+      return {
+        today: isToday,
+        'past-day': isBeforeToday && !isToday,
+        'picked-day': isPickedDay
       }
-
-      return additionalClasses.join(' ')
     }
   }
 
@@ -61,14 +95,48 @@ export default {
 
 <style lang="scss">
   .calendar-component-body-cell {
-    width: calc(100% / 7);
-    height: calc((100% / 5));
-    padding: 9px 12px;
-    border-bottom: 1px solid $color-black-light;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    align-items: start;
+    padding: 9px 5px;
+
+    &:active {
+      background-color: #918f8d;
+    }
+
+    &__wrapper {
+      width: calc(100% / 7);
+      height: calc((100% / 5));
+      border-bottom: 1px solid $color-black-light;
+      overflow: hidden;
+      position: relative;
+    }
+
+    &__day {
+      width: 100%;
+    }
+
+    &__events {
+      position: absolute;
+      top: 25px;
+      left: 5px;
+      margin-top: 5px;
+      width: calc(100% - 10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      overflow: hidden;
+      row-gap: 2px;
+    }
   }
 
   .today {
     position: relative;
+    color: $color-blue;
+    font-weight: 700;
 
     &::before {
       content: "";
@@ -81,7 +149,11 @@ export default {
     }
   }
 
-  .past-days {
+  .past-day {
     background-color: #dddad6;
+  }
+
+  .picked-day {
+    background-color: #9fc5e4;
   }
 </style>

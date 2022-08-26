@@ -1,12 +1,16 @@
 <template>
   <div class="calendar-component-body">
     <CalendarComponentBodyCell
-      v-for="(date, index) in datesData"
+      v-for="({date, eventsData}, index) in datesData"
       :key="index"
       :cell-date="date"
       :cell-index="index"
       :current-day="currentDay"
       :picked-day="pickedDay"
+      :on-click-cell="onClickCell"
+      :on-click-picked-cell="onClickPickedCell"
+      :on-click-event="onClickEvent"
+      :events-data="eventsData"
     />
   </div>
 </template>
@@ -29,6 +33,18 @@ export default {
     },
     datesData: {
       type: Array,
+      required: true
+    },
+    onClickCell: {
+      type: Function,
+      required: true
+    },
+    onClickPickedCell: {
+      type: Function,
+      required: true
+    },
+    onClickEvent: {
+      type: Function,
       required: true
     }
   }

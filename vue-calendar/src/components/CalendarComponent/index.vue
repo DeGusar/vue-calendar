@@ -5,6 +5,9 @@
       :picked-day="pickedDay"
       :current-day="currentDay"
       :dates-data="datesData"
+      :on-click-cell="onClickCell"
+      :on-click-picked-cell="onClickPickedCell"
+      :on-click-event="onClickEvent"
     />
   </div>
 </template>
@@ -28,6 +31,18 @@ export default {
     },
     datesData: {
       type: Array,
+      required: true
+    },
+    onClickCell: {
+      type: Function,
+      required: true
+    },
+    onClickPickedCell: {
+      type: Function,
+      required: true
+    },
+    onClickEvent: {
+      type: Function,
       required: true
     }
   }

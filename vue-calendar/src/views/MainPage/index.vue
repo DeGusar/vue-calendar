@@ -2,7 +2,10 @@
   <div class="main-page">
     <CalendarComponent
       :dates-data="datesData"
-      :picked-day="new Date('2022-07-24')"
+      :picked-day="new Date('2022-08-18')"
+      :on-click-event="onClickEvent"
+      :on-click-cell="onClickCell"
+      :on-click-picked-cell="onClickPickedCell"
     />
   </div>
 </template>
@@ -17,7 +20,7 @@ const getData = () => {
   function pad (s) { return ('00' + s).slice(-2) }
 
   while (D.getTime() < Till.getTime()) {
-    result.push('' + D.getFullYear() + '-' + pad(D.getMonth() + 1) + '-' + pad(D.getDate()))
+    result.push({ date: '' + D.getFullYear() + '-' + pad(D.getMonth() + 1) + '-' + pad(D.getDate()), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }] })
     D.setDate(D.getDate() + 1)
   }
 
@@ -30,7 +33,19 @@ export default {
 
   data: () => ({
     datesData: getData()
-  })
+  }),
+
+  methods: {
+    onClickCell () {
+      console.log('cell')
+    },
+    onClickPickedCell () {
+      console.log('picked-cell')
+    },
+    onClickEvent () {
+      console.log('event')
+    }
+  }
 }
 
 </script>
