@@ -64,6 +64,7 @@ export default {
         return { result: false, message: e.message }
       }
     },
+
     async getUserData ({ commit }) {
       try {
         const userData = await getCurrentUserData()
