@@ -1,6 +1,7 @@
 <template>
   <button
     class="calendar-component-body-cell-event"
+    :title="titleText"
     @click.stop="onClickEvent"
   >
     <div class="calendar-component-body-cell-event__time">
@@ -35,40 +36,57 @@ export default {
       type: Function,
       required: true
     }
-
   },
 
   computed: {
     formattedStartDate () {
-      return formatDates.hh(this.startDate)
+      return formatDates.to12HoursFormat(this.startDate)
+    },
+    formattedEndDate () {
+      return formatDates.to12HoursFormat(this.endDate)
+    },
+    titleText () {
+      return `${this.eventTitle}\nfrom ${this.formattedStartDate} to ${this.formattedEndDate} `
     }
+
   }
 
 }
 </script>
 
 <style lang="scss">
-  .calendar-component-body-cell-event {
-    font-size: 14px;
-    font-weight: normal;
-    display: flex;
-    width: 100%;
-    height: 22px;
-    border-radius: 4px;
-    color: rgb(40 100 145);
-    background-color: rgb(186 218 243);
-    align-items: center;
-    padding-left: 3px;
-    column-gap: 5px;
-    z-index: 5;
+.calendar-component-body-cell-event {
+  font-size: $font-size-small;
+  font-weight: normal;
+  display: flex;
+  width: 100%;
+  height: 20px;
+  border-radius: 3px;
+  color: $color-blue-dark;
+  background-color: $color-blue-lighter;
+  align-items: center;
+  padding-left: 5px;
+  column-gap: 5px;
+  z-index: 5;
 
-    &__event-title {
-      font-weight: 600;
-    }
-
-    &:active {
-      color: white;
-      background-color: rgb(40 100 145);
-    }
+  &__time {
+    flex-shrink: 0;
   }
+
+  &__event-title {
+    font-weight: bold;
+
+    @include long-text-to-dots;
+  }
+
+  &:active {
+    color: $color-white;
+    background-color: $color-blue-dark;
+  }
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-blue-dark;
+  }
+}
 </style>

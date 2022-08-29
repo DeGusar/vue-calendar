@@ -26,17 +26,17 @@ export default {
 <style lang='scss'>
   .calendar-component-header {
     width: 100%;
-    height: 48px;
+    height: $calendar-header-height;
     display: flex;
     border-bottom: 1px solid $color-black-light;
 
     &__cell {
       font-size: $font-size-small;
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       vertical-align: bottom;
       width: calc(100% / 7);
-      padding: 9px 12px;
+      padding: 10px;
       height: 100%;
       text-align: left;
     }

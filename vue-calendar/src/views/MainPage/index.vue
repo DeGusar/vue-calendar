@@ -13,9 +13,10 @@
       />
       <CalendarComponent
         :dates-data="datesData"
-        :picked-day="new Date('2022-08-18')"
+        :current-day="currentDay"
+        :picked-day="pickedDay"
         :on-click-event="onClickEvent"
-        :on-click-cell="onClickCell"
+        :on-click-unpicked-cell="onClickUnpickedCell"
         :on-click-picked-cell="onClickPickedCell"
       />
     </div>
@@ -28,6 +29,8 @@ import MainPageHeader from './MainPageHeader.vue'
 import MainPageSidebar from './MainPageSidebar.vue'
 import CalendarComponent from '@/components/CalendarComponent'
 
+// will be removed
+
 const getData = () => {
   const D = new Date('2022-07-29')
   const Till = new Date('2022-09-02')
@@ -36,7 +39,7 @@ const getData = () => {
   function pad (s) { return ('00' + s).slice(-2) }
 
   while (D.getTime() < Till.getTime()) {
-    result.push({ date: '' + D.getFullYear() + '-' + pad(D.getMonth() + 1) + '-' + pad(D.getDate()), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }] })
+    result.push({ date: '' + D.getFullYear() + '-' + pad(D.getMonth() + 1) + '-' + pad(D.getDate()), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }] })
     D.setDate(D.getDate() + 1)
   }
 
@@ -60,14 +63,14 @@ export default {
     ...mapActions('mainPageModule', {
       onUpdatePickedDate: 'updatePickedDay'
     }),
-    onClickCell () {
-      console.log('cell')
+    onClickUnpickedCell (cellDate) {
+      this.onUpdatePickedDate(cellDate)
     },
     onClickPickedCell () {
-      console.log('picked-cell')
+      alert('picked-cell')
     },
     onClickEvent () {
-      console.log('event')
+      alert('event')
     },
     onChangeMonth (monthsDifference) {
       const changedMonth = new Date(this.pickedDay)

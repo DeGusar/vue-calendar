@@ -7,7 +7,7 @@
       :cell-index="index"
       :current-day="currentDay"
       :picked-day="pickedDay"
-      :on-click-cell="onClickCell"
+      :on-click-unpicked-cell="onClickUnpickedCell"
       :on-click-picked-cell="onClickPickedCell"
       :on-click-event="onClickEvent"
       :events-data="eventsData"
@@ -35,7 +35,7 @@ export default {
       type: Array,
       required: true
     },
-    onClickCell: {
+    onClickUnpickedCell: {
       type: Function,
       required: true
     },
@@ -54,12 +54,12 @@ export default {
 <style lang="scss">
   .calendar-component-body {
     width: 100%;
-    height: calc(100% - 48px);
+    height: calc(100% - $calendar-header-height);
     font-size: $font-size-small;
     display: flex;
     flex-wrap: wrap;
     row-gap: 0;
-    align-items: start;
+    align-items: flex-start;
     column-gap: 0;
   }
 </style>

@@ -5,7 +5,7 @@
       :picked-day="pickedDay"
       :current-day="currentDay"
       :dates-data="datesData"
-      :on-click-cell="onClickCell"
+      :on-click-unpicked-cell="onClickUnpickedCell"
       :on-click-picked-cell="onClickPickedCell"
       :on-click-event="onClickEvent"
     />
@@ -23,7 +23,7 @@ export default {
   props: {
     currentDay: {
       type: Date,
-      default: () => new Date()
+      required: true
     },
     pickedDay: {
       type: [String, Date],
@@ -33,7 +33,7 @@ export default {
       type: Array,
       required: true
     },
-    onClickCell: {
+    onClickUnpickedCell: {
       type: Function,
       required: true
     },
@@ -53,6 +53,6 @@ export default {
 <style lang='scss'>
   .calendar-component {
     width: 100%;
-    height: 100%;
+    height: calc(100% - $main-page-header);
   }
 </style>

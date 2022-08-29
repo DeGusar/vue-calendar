@@ -7,7 +7,7 @@ export const toLongMonthAndYear = (dateValue) => {
   })
 }
 
-export const MMMDD = (dateValue) => {
+export const toShortMonthNumericDay = (dateValue) => {
   const date = new Date(dateValue)
 
   return date.toLocaleString('en-US', {
@@ -16,7 +16,7 @@ export const MMMDD = (dateValue) => {
   })
 }
 
-export const DD = (dateValue) => {
+export const toNumericDay = (dateValue) => {
   const date = new Date(dateValue)
 
   return date.toLocaleString('en-US', {
@@ -24,7 +24,7 @@ export const DD = (dateValue) => {
   })
 }
 
-export const hh = (dateValue) => {
+export const to12HoursFormat = (dateValue) => {
   const date = new Date(dateValue)
 
   return date.toLocaleString('en-Us', {
@@ -46,9 +46,9 @@ export const isFirstDateBeforeSecondDate = (date1, date2) => {
 
 export default {
   toLongMonthAndYear,
-  MMMDD,
-  DD,
-  hh,
+  toShortMonthNumericDay,
+  toNumericDay,
+  to12HoursFormat,
   areDatesEqual,
   isFirstDateBeforeSecondDate
 }
