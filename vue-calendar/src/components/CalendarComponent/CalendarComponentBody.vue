@@ -58,8 +58,6 @@ export default {
     font-size: $font-size-small;
     display: flex;
     flex-wrap: wrap;
-    row-gap: 0;
     align-items: flex-start;
-    column-gap: 0;
   }
 </style>
