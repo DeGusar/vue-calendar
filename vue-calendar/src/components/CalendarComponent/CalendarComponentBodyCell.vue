@@ -116,7 +116,7 @@ export default {
       const oneEventHeight = 20
       const possibleEventsHeight = this.cellHeight - paddingsHeight - titleHeight - oneEventHeight
 
-      return Math.floor(possibleEventsHeight / 20)
+      return Math.floor(possibleEventsHeight / oneEventHeight)
     },
 
     eventsDivMaxHeight () {
