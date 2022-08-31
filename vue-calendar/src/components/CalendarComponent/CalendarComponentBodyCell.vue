@@ -131,12 +131,13 @@ export default {
 
   mounted () {
     this.calcCellHeight()
-
     window.addEventListener('resize', this.resizeThrottler)
   },
+
   beforeDestroy () {
     window.removeEventListener('resize', this.resizeThrottler)
   },
+
   methods: {
     resizeThrottler () {
       if (!this.resizeTimeout) {
