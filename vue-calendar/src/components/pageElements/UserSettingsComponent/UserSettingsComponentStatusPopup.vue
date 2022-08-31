@@ -61,7 +61,7 @@ export default {
   .user-settings-component-status-popup {
     position: absolute;
     width: 200px;
-    padding: 6px 0;
+    padding: 5px 0;
     font-size: $font-size-small;
     background-color: $color-white;
     top: 110%;

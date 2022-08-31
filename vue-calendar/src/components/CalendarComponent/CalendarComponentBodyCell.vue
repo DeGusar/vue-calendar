@@ -191,12 +191,14 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
   }
 
   &__dots-button {
     width: 30px;
     height: 20px;
     background: no-repeat center/100% $calendar-dots-image-url;
+    pointer-events: all;
 
     &:hover {
       border-radius: 3px;

@@ -103,7 +103,7 @@ export default {
 
 <style lang="scss">
 .user-settings-component-popup {
-  padding: 8px 0;
+  padding: 10px 0;
   position: absolute;
   width: 320px;
   background-color: $color-white;
@@ -113,10 +113,11 @@ export default {
   border-radius: 4px;
   box-shadow: $box-shadow-basic;
   font-size: $font-size-base;
+  z-index: 10;
 
   &__divider {
     height: 2px;
-    margin: 9px 0;
+    margin: 10px 0;
     overflow: hidden;
     background-color: $color-grey;
   }
