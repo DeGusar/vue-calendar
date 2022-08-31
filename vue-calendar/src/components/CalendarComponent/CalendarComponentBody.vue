@@ -1,4 +1,3 @@
-<!-- eslint-disable no-prototype-builtins -->
 <template>
   <div class="calendar-component-body">
     <CalendarComponentBodyCell
