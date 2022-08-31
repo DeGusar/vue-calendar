@@ -25,6 +25,7 @@
 
       <ButtonComponent
         class="user-settings-component-modal__controls-button"
+        variant="contained"
         @click="$modal.hide('user-settings-component-modal')"
       >
         Close

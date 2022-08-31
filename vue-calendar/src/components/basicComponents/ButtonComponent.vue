@@ -1,6 +1,7 @@
 <template>
   <button
     class="button-component"
+    :class="buttonClasses"
     :type="type"
     :disabled="disabled"
     @click="$emit('click', $event)"
@@ -12,6 +13,7 @@
 <script>
 export default {
   name: 'ButtonComponent',
+
   props: {
     type: {
       type: String,
@@ -20,6 +22,22 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    variant: {
+      type: String,
+      default: 'text'
+    }
+  },
+
+  computed: {
+    buttonClasses () {
+      const rootClass = 'button-component'
+
+      return {
+        [`${rootClass}--text`]: this.variant === 'text',
+        [`${rootClass}--contained`]: this.variant === 'contained',
+        [`${rootClass}--outlined`]: this.variant === 'outlined'
+      }
     }
   }
 }
@@ -27,22 +45,39 @@ export default {
 
 <style lang="scss">
   .button-component {
-    background-color: $color-purple-dark;
-    font-size: $font-size-base;
-    color: $color-white;
-    padding: 6px 10px;
-    text-transform: uppercase;
-    border: 1px solid $color-purple;
     border-radius: 4px;
-
-    &:hover {
-      background-color: $color-purple;
-      color: $color-white;
-    }
 
     &:disabled {
       pointer-events: none;
       filter: grayscale(100%);
+    }
+
+    &--contained {
+      background-color: $color-purple-dark;
+      padding: 6px 10px;
+      font-size: $font-size-base;
+      color: $color-white;
+      text-transform: uppercase;
+      border: 1px solid $color-purple;
+
+      &:hover {
+        background-color: $color-purple;
+        color: $color-white;
+      }
+    }
+
+    &--outlined {
+      background-color: $color-white;
+      padding: 6px 10px;
+      font-size: $font-size-base;
+      color: $color-purple-dark;
+      text-transform: uppercase;
+      border: 1px solid $color-purple;
+
+      &:hover {
+        background-color: $color-purple;
+        color: $color-white;
+      }
     }
   }
 </style>

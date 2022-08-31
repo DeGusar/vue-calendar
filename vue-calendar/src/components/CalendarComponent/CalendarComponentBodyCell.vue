@@ -3,15 +3,17 @@
     ref="calendarCell"
     class="calendar-component-body-cell__wrapper"
   >
-    <button
+    <div
       class="calendar-component-body-cell"
       :class="cellClasses"
+      role="button"
+      tabindex="0"
       @click="onClickCell"
     >
       <div class="calendar-component-body-cell__day">
         {{ formattedCellDate }}
       </div>
-    </button>
+    </div>
     <div
       class="calendar-component-body-cell__events"
       :style="{maxHeight: eventsDivMaxHeight + 'px'}"
@@ -29,7 +31,7 @@
       class="calendar-component-body-cell__dots"
       :style="{top: eventsDivMaxHeight + 30 + 'px'}"
     >
-      <button class="calendar-component-body-cell__dots-button" />
+      <ButtonComponent class="calendar-component-body-cell__dots-button" />
     </div>
   </div>
 </template>
@@ -37,10 +39,11 @@
 <script>
 import formatDates from '@/utils/helpers/formatDates'
 import CalendarComponentBodyCellEvent from './CalendarComponentBodyCellEvent.vue'
+import { ButtonComponent } from '@/components/basicComponents'
 
 export default {
   name: 'CalendarComponentBodyCell',
-  components: { CalendarComponentBodyCellEvent },
+  components: { CalendarComponentBodyCellEvent, ButtonComponent },
 
   props: {
     cellDate: {
