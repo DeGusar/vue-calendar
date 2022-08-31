@@ -48,9 +48,7 @@ export default {
     titleText () {
       return `${this.eventTitle}\nfrom ${this.formattedStartDate} to ${this.formattedEndDate} `
     }
-
   }
-
 }
 </script>
 

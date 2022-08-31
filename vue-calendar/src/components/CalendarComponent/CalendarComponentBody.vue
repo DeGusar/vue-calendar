@@ -1,10 +1,11 @@
+<!-- eslint-disable no-prototype-builtins -->
 <template>
   <div class="calendar-component-body">
     <CalendarComponentBodyCell
       v-for="({date, eventsData}, index) in datesData"
-      :key="index"
+      :key="new Date(date).getTime()"
       :cell-date="date"
-      :cell-index="index"
+      :is-first-cell="index === 0"
       :current-day="currentDay"
       :picked-day="pickedDay"
       :on-click-unpicked-cell="onClickUnpickedCell"
@@ -17,6 +18,19 @@
 
 <script>
 import CalendarComponentBodyCell from './CalendarComponentBodyCell.vue'
+
+const validateDatesData = (propData) => {
+  return propData.every(object => {
+    return Object.prototype.hasOwnProperty.call(object, 'date') && object.eventsData.every(e => {
+      const set = new Set()
+      set.add(Boolean(Object.prototype.hasOwnProperty.call(e, 'startDate') && e.startDate instanceof Date))
+      set.add(Boolean(Object.prototype.hasOwnProperty.call(e, 'endDate') && e.endDate instanceof Date))
+      set.add(Boolean(Object.prototype.hasOwnProperty.call(e, 'eventTitle') && typeof e.eventTitle === 'string'))
+
+      return !set.has(false)
+    })
+  })
+}
 
 export default {
   name: 'CalendarComponentBody',
@@ -33,7 +47,8 @@ export default {
     },
     datesData: {
       type: Array,
-      required: true
+      required: true,
+      validator: (propData) => validateDatesData(propData)
     },
     onClickUnpickedCell: {
       type: Function,

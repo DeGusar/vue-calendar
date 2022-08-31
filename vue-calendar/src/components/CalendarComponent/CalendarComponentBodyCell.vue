@@ -47,8 +47,8 @@ export default {
       type: [String, Date],
       required: true
     },
-    cellIndex: {
-      type: Number,
+    isFirstCell: {
+      type: Boolean,
       required: true
     },
     currentDay: {
@@ -84,10 +84,9 @@ export default {
   computed: {
     formattedCellDate () {
       const isFirstDayOfTheMonth = new Date(this.cellDate).getDate() === 1
-      const isFirstCell = this.cellIndex === 0
       const isToday = formatDates.areDatesEqual(this.cellDate, this.currentDay)
 
-      if (isFirstCell || isFirstDayOfTheMonth || isToday) {
+      if (this.isFirstCell || isFirstDayOfTheMonth || isToday) {
         return formatDates.toShortMonthNumericDay(this.cellDate)
       }
 
