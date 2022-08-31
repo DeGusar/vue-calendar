@@ -11,26 +11,25 @@
       <div class="calendar-component-body-cell__day">
         {{ formattedCellDate }}
       </div>
+      <div
+        class="calendar-component-body-cell__events"
+        :style="{maxHeight: eventsDivMaxHeight}"
+      >
+        <CalendarComponentBodyCellEvent
+          v-for="event in eventsData"
+          :key="event.id"
+          :event-data="event"
+          v-bind="event"
+          :on-click-event="onClickEvent"
+        />
+      </div>
+      <div
+        v-if="isShowDots"
+        class="calendar-component-body-cell__dots"
+      >
+        <button class="calendar-component-body-cell__dots-button" />
+      </div>
     </button>
-    <div
-      class="calendar-component-body-cell__events"
-      :style="{maxHeight: eventsDivMaxHeight + 'px'}"
-    >
-      <CalendarComponentBodyCellEvent
-        v-for="event in eventsData"
-        :key="event.id"
-        :event-data="event"
-        v-bind="event"
-        :on-click-event="onClickEvent"
-      />
-    </div>
-    <div
-      v-if="isShowDots"
-      class="calendar-component-body-cell__dots"
-      :style="{top: eventsDivMaxHeight + 30 + 'px'}"
-    >
-      <button class="calendar-component-body-cell__dots-button" />
-    </div>
   </div>
 </template>
 
@@ -78,7 +77,8 @@ export default {
   },
 
   data: () => ({
-    cellHeight: 0
+    cellHeight: 0,
+    resizeTimeout: null
   }),
 
   computed: {
@@ -121,7 +121,7 @@ export default {
     eventsDivMaxHeight () {
       const oneEventHeight = 20
 
-      return this.quantityOfPossibleEvents * oneEventHeight
+      return this.quantityOfPossibleEvents * oneEventHeight + 'px'
     },
 
     isShowDots () {
@@ -131,9 +131,21 @@ export default {
 
   mounted () {
     this.calcCellHeight()
-  },
 
+    window.addEventListener('resize', this.resizeThrottler)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.resizeThrottler)
+  },
   methods: {
+    resizeThrottler () {
+      if (!this.resizeTimeout) {
+        this.resizeTimeout = setTimeout(() => {
+          this.resizeTimeout = null
+          this.calcCellHeight()
+        }, 250)
+      }
+    },
     onClickCell () {
       this.isPickedDay ? this.onClickPickedCell() : this.onClickUnpickedCell(this.cellDate)
     },
@@ -171,9 +183,6 @@ export default {
   }
 
   &__events {
-    position: absolute;
-    top: 25px;
-    left: 5px;
     margin-top: 5px;
     width: calc(100% - 10px);
     display: flex;
@@ -184,7 +193,6 @@ export default {
   }
 
   &__dots {
-    position: absolute;
     width: 100%;
     height: 20px;
     display: flex;
