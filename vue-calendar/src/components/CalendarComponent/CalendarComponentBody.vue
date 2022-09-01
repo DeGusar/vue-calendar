@@ -2,7 +2,7 @@
   <div class="calendar-component-body">
     <CalendarComponentBodyCell
       v-for="({date, eventsData}, index) in datesData"
-      :key="new Date(date).getTime()"
+      :key="date.getTime()"
       :cell-date="date"
       :is-first-cell="index === 0"
       :current-day="currentDay"
@@ -20,14 +20,14 @@ import CalendarComponentBodyCell from './CalendarComponentBodyCell.vue'
 
 const validateDatesData = (propData) => {
   return propData.every(object => {
-    return Object.prototype.hasOwnProperty.call(object, 'date') && object.eventsData.every(e => {
-      const set = new Set()
-      set.add(Boolean(Object.prototype.hasOwnProperty.call(e, 'startDate') && e.startDate instanceof Date))
-      set.add(Boolean(Object.prototype.hasOwnProperty.call(e, 'endDate') && e.endDate instanceof Date))
-      set.add(Boolean(Object.prototype.hasOwnProperty.call(e, 'eventTitle') && typeof e.eventTitle === 'string'))
-
-      return !set.has(false)
-    })
+    return (
+      (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
+      object.eventsData.every(e => {
+        return (
+          (Object.prototype.hasOwnProperty.call(e, 'startDate') && e.startDate instanceof Date) &&
+          (Object.prototype.hasOwnProperty.call(e, 'endDate') && e.endDate instanceof Date) &&
+          (Object.prototype.hasOwnProperty.call(e, 'eventTitle') && typeof e.eventTitle === 'string'))
+      }))
   })
 }
 
@@ -41,7 +41,7 @@ export default {
       required: true
     },
     pickedDay: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     datesData: {

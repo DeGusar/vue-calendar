@@ -21,11 +21,11 @@ export default {
 
   props: {
     startDate: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     endDate: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     eventTitle: {
@@ -65,7 +65,6 @@ export default {
   align-items: center;
   padding-left: 5px;
   column-gap: 5px;
-  z-index: 5;
 
   &__time {
     flex-shrink: 0;

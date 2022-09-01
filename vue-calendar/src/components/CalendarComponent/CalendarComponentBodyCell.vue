@@ -43,7 +43,7 @@ export default {
 
   props: {
     cellDate: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     isFirstCell: {
@@ -55,7 +55,7 @@ export default {
       required: true
     },
     pickedDay: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     eventsData: {
@@ -148,7 +148,11 @@ export default {
       }
     },
     onClickCell () {
-      this.isPickedDay ? this.onClickPickedCell() : this.onClickUnpickedCell(this.cellDate)
+      if (this.isPickedDay) {
+        this.onClickPickedCell()
+      } else {
+        this.onClickUnpickedCell(this.cellDate)
+      }
     },
     calcCellHeight () {
       this.cellHeight = this.$refs.calendarCell.clientHeight

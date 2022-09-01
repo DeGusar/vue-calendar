@@ -26,7 +26,7 @@ export default {
       required: true
     },
     pickedDay: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     datesData: {
