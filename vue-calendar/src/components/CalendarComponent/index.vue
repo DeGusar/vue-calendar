@@ -16,6 +16,19 @@
 import CalendarComponentHeader from './CalendarComponentHeader'
 import CalendarComponentBody from './CalendarComponentBody'
 
+const validateDatesData = (propData) => {
+  return propData.every(object => {
+    return (
+      (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
+      object.eventsData.every(e => {
+        return (
+          (Object.prototype.hasOwnProperty.call(e, 'startDate') && e.startDate instanceof Date) &&
+          (Object.prototype.hasOwnProperty.call(e, 'endDate') && e.endDate instanceof Date) &&
+          (Object.prototype.hasOwnProperty.call(e, 'eventTitle') && typeof e.eventTitle === 'string'))
+      }))
+  })
+}
+
 export default {
   name: 'CalendarComponent',
   components: { CalendarComponentHeader, CalendarComponentBody },
@@ -31,7 +44,8 @@ export default {
     },
     datesData: {
       type: Array,
-      required: true
+      required: true,
+      validator: (propData) => validateDatesData(propData)
     },
     onClickUnpickedCell: {
       type: Function,

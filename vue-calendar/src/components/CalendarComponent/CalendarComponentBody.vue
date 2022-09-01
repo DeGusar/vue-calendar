@@ -11,25 +11,14 @@
       :on-click-picked-cell="onClickPickedCell"
       :on-click-event="onClickEvent"
       :events-data="eventsData"
+      :events-max-quantity="eventsMaxQuantity"
+      @max-events-change="onEventsMaxQuantityChange"
     />
   </div>
 </template>
 
 <script>
 import CalendarComponentBodyCell from './CalendarComponentBodyCell.vue'
-
-const validateDatesData = (propData) => {
-  return propData.every(object => {
-    return (
-      (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
-      object.eventsData.every(e => {
-        return (
-          (Object.prototype.hasOwnProperty.call(e, 'startDate') && e.startDate instanceof Date) &&
-          (Object.prototype.hasOwnProperty.call(e, 'endDate') && e.endDate instanceof Date) &&
-          (Object.prototype.hasOwnProperty.call(e, 'eventTitle') && typeof e.eventTitle === 'string'))
-      }))
-  })
-}
 
 export default {
   name: 'CalendarComponentBody',
@@ -46,8 +35,7 @@ export default {
     },
     datesData: {
       type: Array,
-      required: true,
-      validator: (propData) => validateDatesData(propData)
+      required: true
     },
     onClickUnpickedCell: {
       type: Function,
@@ -60,6 +48,16 @@ export default {
     onClickEvent: {
       type: Function,
       required: true
+    }
+  },
+
+  data: () => ({
+    eventsMaxQuantity: 0
+  }),
+
+  methods: {
+    onEventsMaxQuantityChange (quantity) {
+      this.eventsMaxQuantity = quantity
     }
   }
 }

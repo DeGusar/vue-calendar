@@ -1,16 +1,18 @@
 <template>
-  <button
-    class="calendar-component-body-cell-event"
-    :title="titleText"
-    @click.stop="onClickEvent"
-  >
-    <div class="calendar-component-body-cell-event__time">
-      {{ formattedStartDate }}
-    </div>
-    <div class="calendar-component-body-cell-event__event-title">
-      {{ eventTitle }}
-    </div>
-  </button>
+  <transition name="event">
+    <button
+      class="calendar-component-body-cell-event"
+      :title="titleText"
+      @click.stop="onClickEvent"
+    >
+      <div class="calendar-component-body-cell-event__time">
+        {{ formattedStartDate }}
+      </div>
+      <div class="calendar-component-body-cell-event__event-title">
+        {{ eventTitle }}
+      </div>
+    </button>
+  </transition>
 </template>
 
 <script>
@@ -86,4 +88,16 @@ export default {
     background-color: $color-blue-dark;
   }
 }
+
+// TODO need to discuss it
+
+/* .event-enter-active,
+.event-leave-active {
+  transition: opacity 0.5s;
+}
+
+.event-enter-to,
+.event-leave-to {
+  opacity: 0;
+} */
 </style>

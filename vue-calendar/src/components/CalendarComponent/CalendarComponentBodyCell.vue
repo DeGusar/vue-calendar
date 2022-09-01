@@ -13,10 +13,9 @@
       </div>
       <div
         class="calendar-component-body-cell__events"
-        :style="{maxHeight: eventsDivMaxHeight}"
       >
         <CalendarComponentBodyCellEvent
-          v-for="event in eventsData"
+          v-for="event in eventsLimited"
           :key="event.id"
           :event-data="event"
           v-bind="event"
@@ -73,6 +72,10 @@ export default {
     onClickEvent: {
       type: Function,
       required: true
+    },
+    eventsMaxQuantity: {
+      type: Number,
+      required: true
     }
   },
 
@@ -115,23 +118,30 @@ export default {
       const oneEventHeight = 20
       const possibleEventsHeight = this.cellHeight - paddingsHeight - titleHeight - oneEventHeight
 
-      return Math.floor(possibleEventsHeight / oneEventHeight)
-    },
-
-    eventsDivMaxHeight () {
-      const oneEventHeight = 20
-
-      return this.quantityOfPossibleEvents * oneEventHeight + 'px'
+      return possibleEventsHeight > 0 ? Math.floor(possibleEventsHeight / oneEventHeight) : 0
     },
 
     isShowDots () {
-      return this.eventsData.length > this.quantityOfPossibleEvents
+      return this.eventsData.length > this.eventsMaxQuantity
+    },
+
+    eventsLimited () {
+      return this.eventsData.slice(0, this.eventsMaxQuantity)
+    }
+  },
+
+  watch: {
+    quantityOfPossibleEvents (newQuantity) {
+      this.$emit('max-events-change', newQuantity)
     }
   },
 
   mounted () {
     this.calcCellHeight()
-    window.addEventListener('resize', this.resizeThrottler)
+
+    if (this.isFirstCell) {
+      window.addEventListener('resize', this.resizeThrottler)
+    }
   },
 
   beforeDestroy () {
@@ -140,13 +150,15 @@ export default {
 
   methods: {
     resizeThrottler () {
-      if (!this.resizeTimeout) {
-        this.resizeTimeout = setTimeout(() => {
-          this.resizeTimeout = null
-          this.calcCellHeight()
-        }, 250)
+      if (this.resizeTimeout) {
+        clearTimeout(this.resizeTimeout)
       }
+
+      this.resizeTimeout = setTimeout(() => {
+        this.calcCellHeight()
+      }, 250)
     },
+
     onClickCell () {
       if (this.isPickedDay) {
         this.onClickPickedCell()
@@ -154,6 +166,7 @@ export default {
         this.onClickUnpickedCell(this.cellDate)
       }
     },
+
     calcCellHeight () {
       this.cellHeight = this.$refs.calendarCell.clientHeight
     }
