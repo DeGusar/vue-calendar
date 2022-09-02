@@ -190,6 +190,7 @@ export default {
   background-color: $color-white;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 
   &__wrapper {
     width: calc(100% / 7);
