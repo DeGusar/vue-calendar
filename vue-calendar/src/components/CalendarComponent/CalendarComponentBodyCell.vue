@@ -8,6 +8,7 @@
       :class="cellClasses"
       role="button"
       tabindex="0"
+      @keyup.enter="onClickCell"
       @click="onClickCell"
     >
       <div class="calendar-component-body-cell__day">
