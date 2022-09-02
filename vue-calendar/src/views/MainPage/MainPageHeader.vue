@@ -1,35 +1,38 @@
 <template>
   <div class="main-page-header">
     <div class="main-page-header__controls">
-      <button
+      <ButtonComponent
         class="main-page-header__controls-button-today"
         @click="onClickToday"
       >
         Today
-      </button>
-      <button
+      </ButtonComponent>
+      <ButtonComponent
         class="main-page-header__controls-button-back"
         @click="$emit('change-month', -1)"
       />
-      <button
+      <ButtonComponent
         class="main-page-header__controls-button-forward"
         @click="$emit('change-month', 1)"
       />
-      <button class="main-page-header__controls-date-picker">
+      <ButtonComponent class="main-page-header__controls-date-picker">
         {{ readablePickedDate }}
-      </button>
+      </ButtonComponent>
     </div>
-    <button class="main-page-header__format-switcher">
+    <ButtonComponent class="main-page-header__format-switcher">
       Month
-    </button>
+    </ButtonComponent>
   </div>
 </template>
 
 <script>
 import formatDate from '@/utils/helpers/formatDates'
+import { ButtonComponent } from '@/components/basicComponents'
 
 export default {
   name: 'MainPageHeader',
+
+  components: { ButtonComponent },
 
   props: {
     pickedDay: {

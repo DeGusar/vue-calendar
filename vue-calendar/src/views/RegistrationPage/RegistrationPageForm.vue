@@ -49,6 +49,7 @@
       type="submit"
       class="registration-page-form__button"
       :disabled="$v.$error"
+      variant="contained"
     >
       SignUP
     </ButtonComponent>

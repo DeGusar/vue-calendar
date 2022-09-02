@@ -30,6 +30,7 @@
       type="submit"
       class="login-page-form__button"
       :disabled="$v.$error"
+      variant="contained"
     >
       SignIN
     </ButtonComponent>

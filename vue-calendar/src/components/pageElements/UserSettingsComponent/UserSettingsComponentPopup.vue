@@ -3,7 +3,7 @@
     <div
       class="user-settings-component-popup__header"
     >
-      <button
+      <ButtonComponent
         class="user-settings-component-popup__header-button"
         @click="showModal"
       >
@@ -13,18 +13,18 @@
           :avatar-image-src="userData.userAvatarSrc"
           :status-image-src="userData.userStatusSrc"
         />
-      </button>
+      </ButtonComponent>
       <div class="user-settings-component-popup__header-content">
         <p>{{ `${userData.firstName} ${userData.lastName}` }}</p>
         <p class="user-settings-component-popup__header-content-status-email">
           {{ userData.email }}
         </p>
-        <button
+        <ButtonComponent
           class="user-settings-component-popup__header-content-status"
           @click="onClickUserStatus"
         >
           {{ userData.userStatusText }}
-        </button>
+        </ButtonComponent>
         <UserSettingsComponentStatusPopup
           v-if="isUserStatusPopup"
           @close-popup="onClosePopup"
@@ -33,19 +33,19 @@
       </div>
     </div>
     <div class="user-settings-component-popup__divider" />
-    <button
+    <ButtonComponent
       class="user-settings-component-popup__button"
       @click="onClickStatisticButton"
     >
       Statistic
-    </button>
+    </ButtonComponent>
     <div class="user-settings-component-popup__divider" />
-    <button
+    <ButtonComponent
       class="user-settings-component-popup__button"
       @click="$emit('logout')"
     >
       Logout
-    </button>
+    </ButtonComponent>
     <UserSettingsComponentModal
       :avatar-image-src="userData.userAvatarSrc"
       :is-saving="isSaving"
@@ -55,14 +55,14 @@
 </template>
 
 <script>
-import { AvatarComponent } from '@/components/basicComponents'
+import { AvatarComponent, ButtonComponent } from '@/components/basicComponents'
 import UserSettingsComponentStatusPopup from './UserSettingsComponentStatusPopup'
 import UserSettingsComponentModal from './UserSettingsComponentModal'
 import { urlNames } from '@/utils/constants'
 
 export default {
   name: 'HeaderComponentPopup',
-  components: { AvatarComponent, UserSettingsComponentStatusPopup, UserSettingsComponentModal },
+  components: { AvatarComponent, UserSettingsComponentStatusPopup, UserSettingsComponentModal, ButtonComponent },
   props: {
     userFullName: {
       type: String,

@@ -3,7 +3,7 @@
     appear
     name="event"
   >
-    <button
+    <ButtonComponent
       class="calendar-component-body-cell-event"
       :title="titleText"
       @click.stop="onClickEvent"
@@ -14,16 +14,18 @@
       <div class="calendar-component-body-cell-event__event-title">
         {{ eventTitle }}
       </div>
-    </button>
+    </ButtonComponent>
   </transition>
 </template>
 
 <script>
 import formatDates from '@/utils/helpers/formatDates'
+import { ButtonComponent } from '@/components/basicComponents'
 
 export default {
   name: 'CalendarComponentBodyCellEvent',
 
+  components: { ButtonComponent },
   props: {
     startDate: {
       type: Date,
