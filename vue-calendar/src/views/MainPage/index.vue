@@ -29,17 +29,14 @@ import MainPageHeader from './MainPageHeader.vue'
 import MainPageSidebar from './MainPageSidebar.vue'
 import CalendarComponent from '@/components/CalendarComponent'
 
-// will be removed
-
+// TODO function will be removed
 const getData = () => {
-  const D = new Date('2022-07-29')
-  const Till = new Date('2022-09-02')
+  const D = new Date('2022-08-29')
+  const Till = new Date('2022-10-03')
   const result = []
 
-  function pad (s) { return ('00' + s).slice(-2) }
-
   while (D.getTime() < Till.getTime()) {
-    result.push({ date: '' + D.getFullYear() + '-' + pad(D.getMonth() + 1) + '-' + pad(D.getDate()), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }] })
+    result.push({ date: new Date(D), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: '123' }] })
     D.setDate(D.getDate() + 1)
   }
 
@@ -67,9 +64,11 @@ export default {
       this.onUpdatePickedDate(cellDate)
     },
     onClickPickedCell () {
+      // TODO add function for event creation
       alert('picked-cell')
     },
     onClickEvent () {
+      // TODO add function for view event's information
       alert('event')
     },
     onChangeMonth (monthsDifference) {

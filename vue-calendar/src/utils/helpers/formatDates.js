@@ -1,7 +1,9 @@
+import dateLocales from '@/utils/constants/dateLocales'
+
 export const toLongMonthAndYear = (dateValue) => {
   const date = new Date(dateValue)
 
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString(dateLocales.ENGLISH, {
     month: 'long',
     year: 'numeric'
   })
@@ -10,7 +12,7 @@ export const toLongMonthAndYear = (dateValue) => {
 export const toShortMonthNumericDay = (dateValue) => {
   const date = new Date(dateValue)
 
-  return date.toLocaleString('en-US', {
+  return date.toLocaleString(dateLocales.ENGLISH, {
     month: 'short',
     day: 'numeric'
   })
@@ -19,7 +21,7 @@ export const toShortMonthNumericDay = (dateValue) => {
 export const toNumericDay = (dateValue) => {
   const date = new Date(dateValue)
 
-  return date.toLocaleString('en-US', {
+  return date.toLocaleString(dateLocales.ENGLISH, {
     day: 'numeric'
   })
 }
@@ -27,7 +29,7 @@ export const toNumericDay = (dateValue) => {
 export const to12HoursFormat = (dateValue) => {
   const date = new Date(dateValue)
 
-  return date.toLocaleString('en-Us', {
+  return date.toLocaleString(dateLocales.ENGLISH, {
     hour12: true,
     hour: 'numeric'
   })

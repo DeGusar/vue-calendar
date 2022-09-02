@@ -1,0 +1,31 @@
+name: vue-calendar-CI
+
+on:
+  push: 
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+       node-version: [15.x]
+        
+    steps:
+      - name: Git clone repo
+        uses: actions/checkout@v3
+      - name: install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install node modules
+        run: npm ci --legacy-peer-deps
+        working-directory: vue-calendar
+      - name: build project
+        run: npm run build
+        working-directory: vue-calendar
+      - name: lint check
+        run: npm run lint
+        working-directory: vue-calendar

@@ -13,25 +13,23 @@
       <div class="calendar-component-body-cell__day">
         {{ formattedCellDate }}
       </div>
-    </div>
-    <div
-      class="calendar-component-body-cell__events"
-      :style="{maxHeight: eventsDivMaxHeight + 'px'}"
-    >
-      <CalendarComponentBodyCellEvent
-        v-for="event in eventsData"
-        :key="event.id"
-        :event-data="event"
-        v-bind="event"
-        :on-click-event="onClickEvent"
-      />
-    </div>
-    <div
-      v-if="isShowDots"
-      class="calendar-component-body-cell__dots"
-      :style="{top: eventsDivMaxHeight + 30 + 'px'}"
-    >
-      <ButtonComponent class="calendar-component-body-cell__dots-button" />
+      <div
+        class="calendar-component-body-cell__events"
+      >
+        <CalendarComponentBodyCellEvent
+          v-for="event in eventsLimited"
+          :key="event.id"
+          :event-data="event"
+          v-bind="event"
+          :on-click-event="onClickEvent"
+        />
+      </div>
+      <div
+        v-if="isShowDots"
+        class="calendar-component-body-cell__dots"
+      >
+        <ButtonComponent class="calendar-component-body-cell__dots-button" />
+      </div>
     </div>
   </div>
 </template>
@@ -47,11 +45,11 @@ export default {
 
   props: {
     cellDate: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
-    cellIndex: {
-      type: Number,
+    isFirstCell: {
+      type: Boolean,
       required: true
     },
     currentDay: {
@@ -59,7 +57,7 @@ export default {
       required: true
     },
     pickedDay: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     eventsData: {
@@ -77,20 +75,24 @@ export default {
     onClickEvent: {
       type: Function,
       required: true
+    },
+    eventsMaxQuantity: {
+      type: Number,
+      required: true
     }
   },
 
   data: () => ({
-    cellHeight: 0
+    cellHeight: 0,
+    resizeTimeout: null
   }),
 
   computed: {
     formattedCellDate () {
       const isFirstDayOfTheMonth = new Date(this.cellDate).getDate() === 1
-      const isFirstCell = this.cellIndex === 0
       const isToday = formatDates.areDatesEqual(this.cellDate, this.currentDay)
 
-      if (isFirstCell || isFirstDayOfTheMonth || isToday) {
+      if (this.isFirstCell || isFirstDayOfTheMonth || isToday) {
         return formatDates.toShortMonthNumericDay(this.cellDate)
       }
 
@@ -119,28 +121,55 @@ export default {
       const oneEventHeight = 20
       const possibleEventsHeight = this.cellHeight - paddingsHeight - titleHeight - oneEventHeight
 
-      return Math.floor(possibleEventsHeight / oneEventHeight)
-    },
-
-    eventsDivMaxHeight () {
-      const oneEventHeight = 20
-
-      return this.quantityOfPossibleEvents * oneEventHeight
+      return possibleEventsHeight > 0 ? Math.floor(possibleEventsHeight / oneEventHeight) : 0
     },
 
     isShowDots () {
-      return this.eventsData.length > this.quantityOfPossibleEvents
+      return this.eventsData.length > this.eventsMaxQuantity
+    },
+
+    eventsLimited () {
+      return this.eventsData.slice(0, this.eventsMaxQuantity)
+    }
+  },
+
+  watch: {
+    quantityOfPossibleEvents (newQuantity) {
+      this.$emit('max-events-change', newQuantity)
     }
   },
 
   mounted () {
     this.calcCellHeight()
+
+    if (this.isFirstCell) {
+      window.addEventListener('resize', this.resizeThrottler)
+    }
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('resize', this.resizeThrottler)
   },
 
   methods: {
-    onClickCell () {
-      this.isPickedDay ? this.onClickPickedCell() : this.onClickUnpickedCell(this.cellDate)
+    resizeThrottler () {
+      if (this.resizeTimeout) {
+        clearTimeout(this.resizeTimeout)
+      }
+
+      this.resizeTimeout = setTimeout(() => {
+        this.calcCellHeight()
+      }, 250)
     },
+
+    onClickCell () {
+      if (this.isPickedDay) {
+        this.onClickPickedCell()
+      } else {
+        this.onClickUnpickedCell(this.cellDate)
+      }
+    },
+
     calcCellHeight () {
       this.cellHeight = this.$refs.calendarCell.clientHeight
     }
@@ -175,10 +204,7 @@ export default {
   }
 
   &__events {
-    position: absolute;
-    top: 25px;
-    left: 5px;
-    margin-top: 5px;
+    margin: 5px auto;
     width: calc(100% - 10px);
     display: flex;
     flex-direction: column;
@@ -188,7 +214,6 @@ export default {
   }
 
   &__dots {
-    position: absolute;
     width: 100%;
     height: 20px;
     display: flex;

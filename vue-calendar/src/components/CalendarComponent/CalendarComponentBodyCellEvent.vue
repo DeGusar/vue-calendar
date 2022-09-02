@@ -1,16 +1,21 @@
 <template>
-  <ButtonComponent
-    class="calendar-component-body-cell-event"
-    :title="titleText"
-    @click.stop="onClickEvent"
+  <transition
+    appear
+    name="event"
   >
-    <div class="calendar-component-body-cell-event__time">
-      {{ formattedStartDate }}
-    </div>
-    <div class="calendar-component-body-cell-event__event-title">
-      {{ eventTitle }}
-    </div>
-  </ButtonComponent>
+    <ButtonComponent
+      class="calendar-component-body-cell-event"
+      :title="titleText"
+      @click.stop="onClickEvent"
+    >
+      <div class="calendar-component-body-cell-event__time">
+        {{ formattedStartDate }}
+      </div>
+      <div class="calendar-component-body-cell-event__event-title">
+        {{ eventTitle }}
+      </div>
+    </ButtonComponent>
+  </transition>
 </template>
 
 <script>
@@ -21,14 +26,13 @@ export default {
   name: 'CalendarComponentBodyCellEvent',
 
   components: { ButtonComponent },
-
   props: {
     startDate: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     endDate: {
-      type: [String, Date],
+      type: Date,
       required: true
     },
     eventTitle: {
@@ -51,9 +55,7 @@ export default {
     titleText () {
       return `${this.eventTitle}\nfrom ${this.formattedStartDate} to ${this.formattedEndDate} `
     }
-
   }
-
 }
 </script>
 
@@ -70,7 +72,6 @@ export default {
   align-items: center;
   padding-left: 5px;
   column-gap: 5px;
-  z-index: 5;
 
   &__time {
     flex-shrink: 0;
@@ -91,5 +92,20 @@ export default {
     color: $color-white;
     background-color: $color-blue-dark;
   }
+}
+
+.event-enter-active,
+.event-leave-active {
+  transition: all 0.25s;
+}
+
+.event-enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.event-leave-to {
+  opacity: 0;
+  height: 0;
 }
 </style>
