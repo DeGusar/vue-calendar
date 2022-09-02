@@ -201,7 +201,7 @@ export default {
   }
 
   &__events {
-    margin-top: 5px;
+    margin: 5px auto;
     width: calc(100% - 10px);
     display: flex;
     flex-direction: column;

@@ -1,5 +1,8 @@
 <template>
-  <transition name="event">
+  <transition
+    appear
+    name="event"
+  >
     <button
       class="calendar-component-body-cell-event"
       :title="titleText"
@@ -91,13 +94,18 @@ export default {
 
 // TODO need to discuss it
 
-/* .event-enter-active,
+.event-enter-active,
 .event-leave-active {
-  transition: opacity 0.5s;
+  transition: all 0.25s;
 }
 
-.event-enter-to,
+.event-enter {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
 .event-leave-to {
   opacity: 0;
-} */
+  height: 0;
+}
 </style>

@@ -17,7 +17,9 @@ import CalendarComponentHeader from './CalendarComponentHeader'
 import CalendarComponentBody from './CalendarComponentBody'
 
 const validateDatesData = (propData) => {
-  return propData.length === 35 && propData.every(object => {
+  const daysQuantity = 35
+
+  return propData.length === daysQuantity && propData.every(object => {
     return (
       (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
       object.eventsData.every(e => {
