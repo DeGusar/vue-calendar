@@ -17,11 +17,12 @@ import CalendarComponentHeader from './CalendarComponentHeader'
 import CalendarComponentBody from './CalendarComponentBody'
 
 const validateDatesData = (propData) => {
-  return propData.every(object => {
+  return propData.length === 35 && propData.every(object => {
     return (
       (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
       object.eventsData.every(e => {
         return (
+          (e instanceof Object) &&
           (Object.prototype.hasOwnProperty.call(e, 'startDate') && e.startDate instanceof Date) &&
           (Object.prototype.hasOwnProperty.call(e, 'endDate') && e.endDate instanceof Date) &&
           (Object.prototype.hasOwnProperty.call(e, 'eventTitle') && typeof e.eventTitle === 'string'))

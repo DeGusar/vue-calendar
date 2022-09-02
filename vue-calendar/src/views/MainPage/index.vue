@@ -31,8 +31,8 @@ import CalendarComponent from '@/components/CalendarComponent'
 
 // TODO function will be removed
 const getData = () => {
-  const D = new Date('2022-07-29')
-  const Till = new Date('2022-09-02')
+  const D = new Date('2022-08-29')
+  const Till = new Date('2022-10-03')
   const result = []
 
   while (D.getTime() < Till.getTime()) {
