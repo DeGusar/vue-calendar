@@ -109,7 +109,7 @@ export default {
     background-color: $color-purple-dark;
     font-size: $font-size-base;
     color: $color-white;
-    padding: 6px 10px;
+    padding: 5px 10px;
     text-transform: uppercase;
     border: 1px solid $color-purple;
     border-radius: 4px;

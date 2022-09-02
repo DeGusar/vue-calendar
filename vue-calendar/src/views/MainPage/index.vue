@@ -11,6 +11,14 @@
         @move-to-today="onMoveToToday"
         @change-month="onChangeMonth"
       />
+      <CalendarComponent
+        :dates-data="datesData"
+        :current-day="currentDay"
+        :picked-day="pickedDay"
+        :on-click-event="onClickEvent"
+        :on-click-unpicked-cell="onClickUnpickedCell"
+        :on-click-picked-cell="onClickPickedCell"
+      />
     </div>
   </div>
 </template>
@@ -19,11 +27,30 @@
 import { mapActions, mapGetters } from 'vuex'
 import MainPageHeader from './MainPageHeader.vue'
 import MainPageSidebar from './MainPageSidebar.vue'
+import CalendarComponent from '@/components/CalendarComponent'
+
+// TODO function will be removed
+const getData = () => {
+  const D = new Date('2022-08-29')
+  const Till = new Date('2022-10-03')
+  const result = []
+
+  while (D.getTime() < Till.getTime()) {
+    result.push({ date: new Date(D), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: '123' }] })
+    D.setDate(D.getDate() + 1)
+  }
+
+  return result
+}
 
 export default {
   name: 'MainPage',
 
-  components: { MainPageHeader, MainPageSidebar },
+  components: { MainPageHeader, MainPageSidebar, CalendarComponent },
+
+  data: () => ({
+    datesData: getData()
+  }),
 
   computed: {
     ...mapGetters('mainPageModule', ['currentDay', 'pickedDay'])
@@ -33,7 +60,17 @@ export default {
     ...mapActions('mainPageModule', {
       onUpdatePickedDate: 'updatePickedDay'
     }),
-
+    onClickUnpickedCell (cellDate) {
+      this.onUpdatePickedDate(cellDate)
+    },
+    onClickPickedCell () {
+      // TODO add function for event creation
+      alert('picked-cell')
+    },
+    onClickEvent () {
+      // TODO add function for view event's information
+      alert('event')
+    },
     onChangeMonth (monthsDifference) {
       const changedMonth = new Date(this.pickedDay)
       changedMonth.setDate(1)
