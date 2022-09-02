@@ -54,7 +54,7 @@ export default {
 
     &--contained {
       background-color: $color-purple-dark;
-      padding: 6px 10px;
+      padding: 5px 10px;
       font-size: $font-size-base;
       color: $color-white;
       text-transform: uppercase;
@@ -68,7 +68,7 @@ export default {
 
     &--outlined {
       background-color: $color-white;
-      padding: 6px 10px;
+      padding: 5px 10px;
       font-size: $font-size-base;
       color: $color-purple-dark;
       text-transform: uppercase;
