@@ -52,6 +52,10 @@ export default {
       filter: grayscale(100%);
     }
 
+    &:focus {
+      border: 1px solid $color-black;
+    }
+
     &--contained {
       background-color: $color-purple-dark;
       padding: 5px 10px;

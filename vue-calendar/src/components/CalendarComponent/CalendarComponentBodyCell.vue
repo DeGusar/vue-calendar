@@ -193,6 +193,10 @@ export default {
   position: relative;
   cursor: pointer;
 
+  &:focus {
+    border: 1px solid $color-blue-lighter;
+  }
+
   &__wrapper {
     width: calc(100% / 7);
     height: calc((100% / 5));
