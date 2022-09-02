@@ -92,8 +92,6 @@ export default {
   }
 }
 
-// TODO need to discuss it
-
 .event-enter-active,
 .event-leave-active {
   transition: all 0.25s;
