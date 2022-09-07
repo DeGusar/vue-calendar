@@ -6,7 +6,7 @@
     <ButtonComponent
       class="calendar-component-body-cell-event"
       :title="titleText"
-      @click.stop="onClickEvent"
+      @click.stop="onClickEvent({startDate, endDate, eventTitle})"
     >
       <div class="calendar-component-body-cell-event__time">
         {{ formattedStartDate }}

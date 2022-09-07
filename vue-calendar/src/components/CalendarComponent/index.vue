@@ -8,6 +8,7 @@
       :on-click-unpicked-cell="onClickUnpickedCell"
       :on-click-picked-cell="onClickPickedCell"
       :on-click-event="onClickEvent"
+      :rows-quantity-in-calendar="rowsQuantityInCalendar"
     />
   </div>
 </template>
@@ -16,10 +17,11 @@
 import CalendarComponentHeader from './CalendarComponentHeader'
 import CalendarComponentBody from './CalendarComponentBody'
 
-const validateDatesData = (propData) => {
+function validateDatesData (propData) {
   const daysQuantity = 35
+  const daysQuantityInExtendedCalendar = 42
 
-  return propData.length === daysQuantity && propData.every(object => {
+  return (propData.length === daysQuantity || propData.length === daysQuantityInExtendedCalendar) && propData.every(object => {
     return (
       (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
       object.eventsData.every(e => {
@@ -41,6 +43,10 @@ export default {
       type: Date,
       required: true
     },
+    rowsQuantityInCalendar: {
+      type: Number,
+      required: true
+    },
     pickedDay: {
       type: Date,
       required: true
@@ -48,7 +54,7 @@ export default {
     datesData: {
       type: Array,
       required: true,
-      validator: (propData) => validateDatesData(propData)
+      validator: function (propData) { return validateDatesData(propData) }
     },
     onClickUnpickedCell: {
       type: Function,
@@ -62,8 +68,8 @@ export default {
       type: Function,
       required: true
     }
-  }
 
+  }
 }
 </script>
 

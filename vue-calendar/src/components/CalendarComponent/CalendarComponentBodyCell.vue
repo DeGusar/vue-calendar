@@ -2,6 +2,7 @@
   <div
     ref="calendarCell"
     class="calendar-component-body-cell__wrapper"
+    :style="wrapperHeightStyle"
   >
     <div
       class="calendar-component-body-cell"
@@ -37,7 +38,8 @@
 
 <script>
 import formatDates from '@/utils/helpers/formatDates'
-import CalendarComponentBodyCellEvent from './CalendarComponentBodyCellEvent.vue'
+import CalendarComponentBodyCellEvent from './CalendarComponentBodyCellEvent'
+
 import { ButtonComponent } from '@/components/basicComponents'
 
 export default {
@@ -78,6 +80,10 @@ export default {
       required: true
     },
     eventsMaxQuantity: {
+      type: Number,
+      required: true
+    },
+    rowsQuantityInCalendar: {
       type: Number,
       required: true
     }
@@ -131,6 +137,10 @@ export default {
 
     eventsLimited () {
       return this.eventsData.slice(0, this.eventsMaxQuantity)
+    },
+
+    wrapperHeightStyle () {
+      return { height: `calc((100% / ${this.rowsQuantityInCalendar}))` }
     }
   },
 
@@ -165,7 +175,7 @@ export default {
 
     onClickCell () {
       if (this.isPickedDay) {
-        this.onClickPickedCell()
+        this.onClickPickedCell(this.cellDate)
       } else {
         this.onClickUnpickedCell(this.cellDate)
       }
@@ -199,7 +209,6 @@ export default {
 
   &__wrapper {
     width: calc(100% / 7);
-    height: calc((100% / 5));
     border-bottom: 1px solid $color-black-light;
     overflow: hidden;
     position: relative;

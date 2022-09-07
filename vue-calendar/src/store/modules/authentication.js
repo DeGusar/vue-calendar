@@ -1,5 +1,5 @@
 import { login, registerUser } from '@/api/authApi'
-import localStorageKeys from '@/utils/constants/localStorageKeys'
+import { localStorageKeys } from '@/utils/constants'
 
 export default {
   namespaced: true,

@@ -1,46 +1,37 @@
 <template>
-  <input
+  <textarea
     :id="id"
+    class="textarea-component"
     :placeholder="placeHolder"
-    class="input-component"
-    :type="type"
     :value="value"
-    :class="{'input-component--invalid': invalid}"
     @input="$emit('input', $event.target.value)"
-  >
+  />
 </template>
 
 <script>
 export default {
-  name: 'InputComponent',
+  name: 'TextareaComponent',
 
   props: {
     placeHolder: {
       type: String,
       default: 'Placeholder'
     },
-    type: {
-      type: String,
-      default: 'text'
-    },
     value: {
-      type: [String, Number, Date],
+      type: String,
       required: true
-    },
-    invalid: {
-      type: Boolean,
-      default: false
     },
     id: {
       type: String,
       default: null
     }
   }
+
 }
 </script>
 
 <style lang="scss">
-  .input-component {
+  .textarea-component {
     width: 100%;
     height: 55px;
     padding: 15px;
@@ -56,14 +47,6 @@ export default {
 
     &:focus {
       border-width: 2px;
-    }
-
-    &--invalid {
-      border-color: $color-red;
-
-      &::placeholder {
-        color: $color-red;
-      }
     }
   }
 </style>

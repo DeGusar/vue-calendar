@@ -18,23 +18,32 @@
         :on-click-event="onClickEvent"
         :on-click-unpicked-cell="onClickUnpickedCell"
         :on-click-picked-cell="onClickPickedCell"
+        :rows-quantity-in-calendar="rowsQuantityInCalendar"
       />
     </div>
+    <CalendarCreateEventModal
+      :users-list="usersList"
+      @create-event="onCreateEvent"
+    />
+    <CalendarViewEventModal />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import formatDates from '@/utils/helpers/formatDates'
 import MainPageHeader from './MainPageHeader.vue'
 import MainPageSidebar from './MainPageSidebar.vue'
 import CalendarComponent from '@/components/CalendarComponent'
+import { CalendarCreateEventModal, CalendarViewEventModal } from '@/views/MainPage/MainPageModals'
 
 // TODO function will be removed
-const getData = () => {
-  const D = new Date('2022-08-29')
-  const Till = new Date('2022-10-03')
+const getData = (firstDayOfTheCalendar, rowsQuantity) => {
+  const D = new Date(firstDayOfTheCalendar)
+  const Till = new Date(firstDayOfTheCalendar)
+  const calendarSize = 7 * rowsQuantity
+  Till.setDate(Till.getDate() + calendarSize)
   const result = []
-
   while (D.getTime() < Till.getTime()) {
     result.push({ date: new Date(D), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: '123' }] })
     D.setDate(D.getDate() + 1)
@@ -46,30 +55,58 @@ const getData = () => {
 export default {
   name: 'MainPage',
 
-  components: { MainPageHeader, MainPageSidebar, CalendarComponent },
+  components: { MainPageHeader, MainPageSidebar, CalendarComponent, CalendarCreateEventModal, CalendarViewEventModal },
 
   data: () => ({
-    datesData: getData()
+    firstDayOfTheCalendar: formatDates.getFirstCellInCalendar(new Date()).date
   }),
 
   computed: {
-    ...mapGetters('mainPageModule', ['currentDay', 'pickedDay'])
+    ...mapGetters('mainPageModule', ['currentDay', 'pickedDay', 'usersList', 'rowsQuantityInCalendar']),
+    datesData () {
+      return getData(this.firstDayOfTheCalendar, this.rowsQuantityInCalendar)
+    }
+
+  },
+
+  watch: {
+    pickedDay (newPickedDay) {
+      const [lastItem] = this.datesData.slice(-1)
+      const lastDayOfTheCalendar = lastItem.date
+      const isPickedDateBeforeFirstDayOfTheCalendar = formatDates.isFirstDateBeforeSecondDate(newPickedDay, this.firstDayOfTheCalendar)
+      const isPickedDateAfterLastDayOfTheCalendar = formatDates.isFirstDateBeforeSecondDate(lastDayOfTheCalendar, newPickedDay)
+
+      if (isPickedDateBeforeFirstDayOfTheCalendar || isPickedDateAfterLastDayOfTheCalendar) {
+        const { date, rowsQuantity } = formatDates.getFirstCellInCalendar(newPickedDay)
+        this.firstDayOfTheCalendar = date
+        this.updateRowsQuantityInCalendar(rowsQuantity)
+      }
+    }
+  },
+
+  async created () {
+    await this.getUsersList()
   },
 
   methods: {
     ...mapActions('mainPageModule', {
-      onUpdatePickedDate: 'updatePickedDay'
+      onUpdatePickedDate: 'updatePickedDay',
+      getUsersList: 'getUsersList',
+      updateRowsQuantityInCalendar: 'updateRowsQuantityInCalendar'
     }),
     onClickUnpickedCell (cellDate) {
       this.onUpdatePickedDate(cellDate)
     },
-    onClickPickedCell () {
-      // TODO add function for event creation
-      alert('picked-cell')
+    onClickPickedCell (cellDate) {
+      this.$modal.show('calendar-create-event-modal', { cellDate })
     },
-    onClickEvent () {
-      // TODO add function for view event's information
-      alert('event')
+    onClickEvent (eventData) {
+      this.$modal.show('calendar-view-event-modal', eventData)
+    },
+
+    // TODO add function for event creation
+    onCreateEvent (eventData) {
+      this.$modal.hide('calendar-create-event-modal')
     },
     onChangeMonth (monthsDifference) {
       const changedMonth = new Date(this.pickedDay)
@@ -85,7 +122,6 @@ export default {
         this.onUpdatePickedDate(changedMonth)
       }
     },
-
     onMoveToToday () {
       this.onUpdatePickedDate(this.currentDay)
     }

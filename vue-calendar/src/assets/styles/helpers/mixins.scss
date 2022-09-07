@@ -3,3 +3,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin icon($content: "", $background) {
+  content: $content;
+  background: no-repeat center/100% $background;
+}

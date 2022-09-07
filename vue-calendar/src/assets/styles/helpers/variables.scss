@@ -6,6 +6,7 @@ $color-black-light: rgb(173 170 170);
 $color-white: rgb(255 255 255);
 $color-white-dark: rgb(245 245 245);
 $color-grey: rgb(243 242 241);
+$color-grey-light: rgb(117 117 117);
 $color-black: rgb(0 0 0);
 $color-black-font: rgb(66 66 66);
 $color-red: rgb(211 47 47);
@@ -15,6 +16,7 @@ $color-blue: rgb(0 120 215);
 $color-blue-light: rgb(220 236 249);
 $color-blue-dark: rgb(40 100 145);
 $color-blue-lighter: rgb(186 218 243);
+$color-blue-lightest: rgb(243 249 253);
 
 // fonts sizes
 $font-size-base: 1.8rem;
@@ -37,6 +39,11 @@ $arrow-down-url: url("https://res.cloudinary.com/rss-collection/image/upload/v16
 $calendar-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660745070/calendar/290104_calendar_clock_date_event_schedule_icon_qq0azb.svg");
 $calendar-week-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1660752582/calendar/9039893_calendar4_week_icon_ev3pnu.svg");
 $calendar-dots-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1661774864/calendar/9023499_dots_three_fill_icon_nmjlfs.svg");
+$calendar-edit-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1662209325/calendar/7239007_basic_pencil_draw_edit_write_icon_w50xha.svg");
+$calendar-delete-event-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1662209865/calendar/185090_delete_garbage_icon_kxd3ur.svg");
+$calendar-clocks-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1662215736/calendar/3643779_clock_hour_ticker_time_times_icon_tcxjal.svg");
+$calendar-image-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1662358465/calendar/211703_calendar_icon_qdebt6.svg");
+$calendar-add-user-url: url("https://res.cloudinary.com/rss-collection/image/upload/v1662446198/calendar/2231973_add_user_fb_friend_request_icon_ylz4sa.svg");
 
 // shadows
 $box-shadow-basic: 0 0 2px rgb(0 0 0 / 12%), 0 8px 16px rgb(0 0 0 / 14%);
