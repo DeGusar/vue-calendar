@@ -151,7 +151,6 @@ export default {
   &__input-select {
     width: 100%;
 
-    /* stylelint-disable-next-line selector-class-pattern */
     & .vs__dropdown-toggle {
       padding: 15px;
       height: 55px;
@@ -163,24 +162,20 @@ export default {
       }
     }
 
-    /* stylelint-disable-next-line selector-class-pattern */
     & .vs__clear {
       display: none;
     }
 
-    /* stylelint-disable-next-line selector-class-pattern */
     & .vs__selected {
       margin: 0;
       padding: 0;
       font-size: $font-size-base;
     }
 
-    /* stylelint-disable-next-line selector-class-pattern */
     & .vs__selected-options {
       column-gap: 5px;
     }
 
-    /* stylelint-disable-next-line selector-class-pattern */
     & .vs__search {
       padding: 0;
       color: $color-black;

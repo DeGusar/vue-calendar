@@ -2,8 +2,8 @@
   <modal
     :name="modalName"
     class="calendar-modal"
-    height="auto"
     :width="modalWidth"
+    :height="modalHeight"
     @before-open="$emit('modal-params', $event.params)"
   >
     <div class="calendar-modal__header" />
@@ -28,6 +28,10 @@ export default {
     modalWidth: {
       type: String,
       required: true
+    },
+    modalHeight: {
+      type: String,
+      required: true
     }
   },
 
@@ -42,6 +46,10 @@ export default {
   .calendar-modal {
     display: flex;
     border-radius: 4px;
+
+    & .vm--modal {
+      overflow: visible;
+    }
 
     &__header {
       height: 40px;

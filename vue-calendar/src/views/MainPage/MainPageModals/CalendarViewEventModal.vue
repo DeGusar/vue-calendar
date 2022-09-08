@@ -3,6 +3,7 @@
     modal-name="calendar-view-event-modal"
     class="calendar-view-event-modal"
     modal-width="380"
+    modal-height="220"
     @modal-params="onModalParamsChange"
   >
     <template #body>
@@ -77,6 +78,7 @@ export default {
     font-size: $font-size-large;
     color: $color-blue;
     margin-bottom: 15px;
+    height: 25px;
   }
 
   &__date {
@@ -84,11 +86,12 @@ export default {
     display: flex;
     align-items: center;
     height: 20px;
+    padding-left: 25px;
 
     &::before {
       content: "";
       position: absolute;
-      left: -25px;
+      left: 0;
       top: 0;
       width: 20px;
       height: 20px;
@@ -102,11 +105,12 @@ export default {
     align-items: center;
     height: 20px;
     margin-top: 10px;
+    padding-left: 25px;
 
     &::before {
       content: "";
       position: absolute;
-      left: -25px;
+      left: 0;
       top: 0;
       width: 20px;
       height: 20px;

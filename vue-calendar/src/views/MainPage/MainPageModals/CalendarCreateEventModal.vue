@@ -3,9 +3,12 @@
     modal-name="calendar-create-event-modal"
     class="calendar-create-event-modal"
     modal-width="550"
+    modal-height="450"
     @modal-params="onModalParamsChange"
   >
-    <template #body>
+    <template
+      #body
+    >
       <CalendarCreateEventModalForm
         ref="modalForm"
         :users-list="usersList"
