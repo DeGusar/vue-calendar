@@ -2,8 +2,8 @@
   <div class="header-component">
     <div class="header-component__wrapper">
       <RouterLinkComponent
-        class="header-component__title"
         :to="routeMainPage"
+        class="header-component__title"
       >
         Vue calendar
       </RouterLinkComponent>

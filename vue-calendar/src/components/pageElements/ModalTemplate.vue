@@ -1,16 +1,16 @@
 <template>
   <modal
     :name="modalName"
-    class="calendar-modal"
     :width="modalWidth"
     :height="modalHeight"
+    class="modal-template"
     @before-open="$emit('modal-params', $event.params)"
   >
-    <div class="calendar-modal__header" />
-    <div class="calendar-modal__body">
+    <div class="modal-template__header" />
+    <div class="modal-template__body">
       <slot name="body" />
     </div>
-    <div class="calendar-modal__controls">
+    <div class="modal-template__controls">
       <slot name="controls" />
     </div>
   </modal>
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'CalendarModal',
+  name: 'ModalTemplate',
 
   props: {
     modalName: {
@@ -33,17 +33,13 @@ export default {
       type: String,
       required: true
     }
-  },
-
-  data: () => ({
-    modalParams: () => ({})
-  })
+  }
 }
 
 </script>
 
 <style lang="scss">
-  .calendar-modal {
+  .modal-template {
     display: flex;
     border-radius: 4px;
 

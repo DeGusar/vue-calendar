@@ -1,9 +1,9 @@
 <template>
-  <CalendarModal
+  <ModalTemplate
     modal-name="calendar-view-event-modal"
-    class="calendar-view-event-modal"
     modal-width="380"
     modal-height="220"
+    class="calendar-view-event-modal"
     @modal-params="onModalParamsChange"
   >
     <template #body>
@@ -25,17 +25,17 @@
         Delete
       </ButtonComponent>
     </template>
-  </CalendarModal>
+  </ModalTemplate>
 </template>
 
 <script>
 import { ButtonComponent } from '@/components/basicComponents'
-import { CalendarModal } from '@/components/pageElements'
+import { ModalTemplate } from '@/components/pageElements'
 import formatDates from '@/utils/helpers/formatDates'
 
 export default {
   name: 'CalendarViewEventModal',
-  components: { CalendarModal, ButtonComponent },
+  components: { ModalTemplate, ButtonComponent },
 
   data: () => ({
     eventData: () => ({})

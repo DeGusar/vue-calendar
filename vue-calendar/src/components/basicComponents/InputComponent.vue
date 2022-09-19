@@ -2,9 +2,9 @@
   <input
     :id="id"
     :placeholder="placeHolder"
-    class="input-component"
     :type="type"
     :value="value"
+    class="input-component"
     :class="{'input-component--invalid': invalid}"
     @input="$emit('input', $event.target.value)"
   >

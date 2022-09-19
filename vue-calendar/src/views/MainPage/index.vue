@@ -23,6 +23,7 @@
     </div>
     <CalendarCreateEventModal
       :users-list="usersList"
+      :meeting-rooms="meetingRooms"
       @create-event="onCreateEvent"
     />
     <CalendarViewEventModal />
@@ -58,7 +59,8 @@ export default {
   components: { MainPageHeader, MainPageSidebar, CalendarComponent, CalendarCreateEventModal, CalendarViewEventModal },
 
   data: () => ({
-    firstDayOfTheCalendar: formatDates.getFirstCellInCalendar(new Date()).date
+    firstDayOfTheCalendar: formatDates.getFirstCellInCalendar(new Date()).date,
+    meetingRooms: [300, 301, 302, 303, 304, 305]
   }),
 
   computed: {

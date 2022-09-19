@@ -2,9 +2,8 @@ import { getUsersList } from '@/api/userDataApi'
 import { getUserIdFromLocalstorage } from '@/utils/helpers/getUserIdFromLocalstorage'
 
 const usersListDataHandler = (usersList) => {
-  const ownId = getUserIdFromLocalstorage()
-
   if (Array.isArray(usersList)) {
+    const ownId = getUserIdFromLocalstorage()
     const usersListWithoutOwnId = usersList.filter(usersListItem => usersListItem.id !== ownId)
 
     return usersListWithoutOwnId

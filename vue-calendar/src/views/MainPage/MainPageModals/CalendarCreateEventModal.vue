@@ -1,18 +1,17 @@
 <template>
-  <CalendarModal
+  <ModalTemplate
     modal-name="calendar-create-event-modal"
-    class="calendar-create-event-modal"
     modal-width="550"
     modal-height="450"
+    class="calendar-create-event-modal"
     @modal-params="onModalParamsChange"
   >
-    <template
-      #body
-    >
+    <template #body>
       <CalendarCreateEventModalForm
         ref="modalForm"
         :users-list="usersList"
         :event-day-date="eventDayDate"
+        :meeting-rooms="meetingRooms"
         @create-event="$emit('create-event', $event)"
       />
     </template>
@@ -32,21 +31,25 @@
         Discard
       </ButtonComponent>
     </template>
-  </CalendarModal>
+  </ModalTemplate>
 </template>
 
 <script>
 import { ButtonComponent } from '@/components/basicComponents'
-import { CalendarModal } from '@/components/pageElements'
+import { ModalTemplate } from '@/components/pageElements'
 import CalendarCreateEventModalForm from './CalendarCreateEventModalForm'
 
 export default {
   name: 'CalendarCreateEventModal',
 
-  components: { ButtonComponent, CalendarModal, CalendarCreateEventModalForm },
+  components: { ButtonComponent, ModalTemplate, CalendarCreateEventModalForm },
 
   props: {
     usersList: {
+      type: Array,
+      required: true
+    },
+    meetingRooms: {
       type: Array,
       required: true
     }

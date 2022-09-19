@@ -8,10 +8,10 @@
         @click="showModal"
       >
         <AvatarComponent
-          class="user-settings-component-popup__header-avatar"
           :user-full-name="userFullName"
           :avatar-image-src="userData.userAvatarSrc"
           :status-image-src="userData.userStatusSrc"
+          class="user-settings-component-popup__header-avatar"
         />
       </ButtonComponent>
       <div class="user-settings-component-popup__header-content">

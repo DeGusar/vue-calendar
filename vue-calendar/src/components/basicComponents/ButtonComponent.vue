@@ -1,9 +1,9 @@
 <template>
   <button
-    class="button-component"
-    :class="buttonClasses"
     :type="type"
     :disabled="disabled"
+    class="button-component"
+    :class="buttonClasses"
     @click="$emit('click', $event)"
   >
     <slot />

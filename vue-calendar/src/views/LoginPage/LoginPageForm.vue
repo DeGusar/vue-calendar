@@ -15,9 +15,9 @@
     <InputComponentWithErrorText
       v-model="email"
       type="email"
-      place-holder="Email address"
       :invalid="$v.email.$error"
       :error-message="emailError"
+      place-holder="Email address"
     />
     <InputComponentWithErrorText
       v-model="password"
@@ -28,15 +28,15 @@
     />
     <ButtonComponent
       type="submit"
-      class="login-page-form__button"
-      :disabled="$v.$error"
       variant="contained"
+      :disabled="$v.$error"
+      class="login-page-form__button"
     >
       SignIN
     </ButtonComponent>
     <RouterLinkComponent
-      class="login-page-form__link"
       :to="routeRegistrationPage"
+      class="login-page-form__link"
     >
       Don't have an account? Sign Up
     </RouterLinkComponent>

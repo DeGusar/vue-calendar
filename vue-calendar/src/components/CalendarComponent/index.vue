@@ -54,7 +54,7 @@ export default {
     datesData: {
       type: Array,
       required: true,
-      validator: function (propData) { return validateDatesData(propData) }
+      validator: (propData) => validateDatesData(propData)
     },
     onClickUnpickedCell: {
       type: Function,

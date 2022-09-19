@@ -1,11 +1,11 @@
 import FooterComponent from './FooterComponent'
 import HeaderComponent from './HeaderComponent'
 import HeaderComponentEmpty from './HeaderComponentEmpty'
-import CalendarModal from './CalendarModal.vue'
+import ModalTemplate from './ModalTemplate.vue'
 
 export {
   FooterComponent,
   HeaderComponent,
   HeaderComponentEmpty,
-  CalendarModal
+  ModalTemplate
 }

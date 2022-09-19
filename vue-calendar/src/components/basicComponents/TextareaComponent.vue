@@ -1,9 +1,9 @@
 <template>
   <textarea
     :id="id"
-    class="textarea-component"
     :placeholder="placeHolder"
     :value="value"
+    class="textarea-component"
     @input="$emit('input', $event.target.value)"
   />
 </template>

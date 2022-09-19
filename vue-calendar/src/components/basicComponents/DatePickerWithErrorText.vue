@@ -2,11 +2,11 @@
   <div class="date-picker-with-error-text">
     <input
       :id="id"
-      class="date-picker-with-error-text__input"
-      type="date"
       :value="formattedValue"
+      class="date-picker-with-error-text__input"
       :class="{'date-picker-with-error-text__input--invalid': invalid}"
-      @input="$emit('input', new Date($event.target.value))"
+      type="date"
+      @input="onInput"
     >
     <p
       v-if="invalid"
@@ -45,6 +45,12 @@ export default {
   computed: {
     formattedValue () {
       return formatDates.fullDateToString(this.value)
+    }
+  },
+
+  methods: {
+    onInput (event) {
+      this.$emit('input', new Date(event.target.value))
     }
   }
 }

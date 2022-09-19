@@ -2,6 +2,7 @@
   <form
     novalidate
     class="calendar-create-event-modal-form"
+    @submit.prevent
   >
     <InputComponentWithErrorText
       v-model="eventTitle"
@@ -10,11 +11,11 @@
     />
     <VSelect
       v-model="eventParticipants"
-      class="calendar-create-event-modal-form__input-select"
       placeholder="Invite required attendees"
-      :reduce="option => option.value"
       multiple
+      :reduce="reduceSelectOption"
       :options="participants"
+      class="calendar-create-event-modal-form__input-select"
     />
     <div class="calendar-create-event-modal-form__dates">
       <DatePickerWithErrorText
@@ -23,23 +24,23 @@
       />
       <VSelect
         v-model="dateStartMeeting"
-        class="calendar-create-event-modal-form__input-select calendar-create-event-modal-form__input-start "
-        :reduce="option => option.value"
+        :reduce="reduceSelectOption"
         :options="dateStartMeetingOptions"
+        class="calendar-create-event-modal-form__input-select"
       />
       to
       <VSelect
         v-model="dateEndMeeting"
-        :reduce="option => option.value"
-        class="calendar-create-event-modal-form__input-select calendar-create-event-modal-form__input-end"
+        :reduce="reduceSelectOption"
         :options="filteredDateEndMeetingOptions"
+        class="calendar-create-event-modal-form__input-select"
       />
     </div>
     <VSelect
       v-model="roomMeeting"
       placeholder="Search for a room"
+      :options="meetingRooms"
       class="calendar-create-event-modal-form__input-select"
-      :options="roomMeetingOptions"
     />
     <TextareaComponent
       v-model="eventDescription"
@@ -55,20 +56,20 @@ import formatDates from '@/utils/helpers/formatDates'
 
 const get24hoursDividedBy30Minutes = (eventDayDate) => {
   if (eventDayDate) {
-    const D = new Date(eventDayDate)
-    D.setHours(0, 0, 0, 0)
-    const oneDay = 86400000
-    const Till = new Date(D.getTime() + oneDay)
-    Till.setHours(0, 30, 0, 0)
+    const startDate = new Date(eventDayDate)
+    startDate.setHours(0, 0, 0, 0)
+    const oneDayInMilliSeconds = 24 * 60 * 60 * 1000
+    const endDate = new Date(startDate.getTime() + oneDayInMilliSeconds)
+    endDate.setHours(0, 30, 0, 0)
     const halfHour = 30 * 60 * 1000
-    const result = []
+    const endOptions = []
 
-    while (D.getTime() < Till.getTime()) {
-      result.push({ label: formatDates.to12HoursWithMinutesFormat(new Date(D)), value: new Date(D) })
-      D.setTime(new Date(D.getTime() + halfHour))
+    while (startDate.getTime() < endDate.getTime()) {
+      endOptions.push({ label: formatDates.to12HoursWithMinutesFormat(new Date(startDate)), value: new Date(startDate) })
+      startDate.setTime(new Date(startDate.getTime() + halfHour))
     }
 
-    return { startOptions: result.slice(0, result.length - 1), endOptions: result }
+    return { startOptions: endOptions.slice(0, endOptions.length - 1), endOptions }
   }
 }
 
@@ -85,10 +86,14 @@ export default {
     eventDayDate: {
       type: Date,
       required: true
+    },
+    meetingRooms: {
+      type: Array,
+      required: true
     }
   },
 
-  data: function () {
+  data () {
     return {
       eventTitle: '',
       eventDate: formatDates.setCurrentTime(this.eventDayDate),
@@ -98,8 +103,7 @@ export default {
       dateEndMeetingOptions: get24hoursDividedBy30Minutes(this.eventDayDate).endOptions,
       eventParticipants: [],
       eventDescription: '',
-      roomMeeting: null,
-      roomMeetingOptions: [300, 301, 302, 303, 304, 305]
+      roomMeeting: null
     }
   },
 
@@ -129,6 +133,9 @@ export default {
         eventParticipants: this.eventParticipants,
         eventDescription: this.eventDescription
       })
+    },
+    reduceSelectOption (option) {
+      return option.value
     }
   }
 
