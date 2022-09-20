@@ -4,9 +4,9 @@
     name="event"
   >
     <ButtonComponent
-      class="calendar-component-body-cell-event"
       :title="titleText"
-      @click.stop="onClickEvent"
+      class="calendar-component-body-cell-event"
+      @click.stop="onClickTitle"
     >
       <div class="calendar-component-body-cell-event__time">
         {{ formattedStartDate }}
@@ -54,6 +54,12 @@ export default {
     },
     titleText () {
       return `${this.eventTitle}\nfrom ${this.formattedStartDate} to ${this.formattedEndDate} `
+    }
+  },
+
+  methods: {
+    onClickTitle () {
+      this.onClickEvent({ startDate: this.startDate, endDate: this.endDate, eventTitle: this.eventTitle })
     }
   }
 }

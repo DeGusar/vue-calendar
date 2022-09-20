@@ -8,24 +8,24 @@
     <p>Change your profile picture</p>
     <div class="user-settings-component-modal__wrapper">
       <img
-        class="user-settings-component-modal__wrapper-img"
-        :src="profilePicture"
         alt="User avatar"
+        :src="profilePicture"
+        class="user-settings-component-modal__wrapper-img"
       >
     </div>
     <div class="user-settings-component-modal__controls">
       <input
         ref="inputFile"
         type="file"
-        :disabled="isSaving"
         accept="image/*"
+        :disabled="isSaving"
         class="user-settings-component-modal__controls-input"
         @change="onChangeUpload"
       >
 
       <ButtonComponent
-        class="user-settings-component-modal__controls-button"
         variant="contained"
+        class="user-settings-component-modal__controls-button"
         @click="$modal.hide('user-settings-component-modal')"
       >
         Close

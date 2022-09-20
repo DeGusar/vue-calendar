@@ -10,9 +10,12 @@ const getDocument = (collectionName, searchParam) => db.collection(collectionNam
 
 const deleteDocumentById = (collectionName, documentId) => db.collection(collectionName).delete({ id: documentId })
 
+const getCollection = (collectionName) => db.collection(collectionName).get()
+
 export {
   saveDocument,
   updateDocumentById,
   getDocument,
-  deleteDocumentById
+  deleteDocumentById,
+  getCollection
 }

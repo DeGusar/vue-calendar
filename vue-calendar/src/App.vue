@@ -38,6 +38,7 @@ export default {
 @import "./assets/styles/common/index";
 
 #app {
+  height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   font-size: $font-size-large;
 }

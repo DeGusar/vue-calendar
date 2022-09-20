@@ -8,6 +8,9 @@ import VModal from 'vue-js-modal'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VCalendar from 'v-calendar'
+import vSelect from 'vue-select'
+
+Vue.component('VSelect', vSelect)
 
 Vue.config.productionTip = false
 

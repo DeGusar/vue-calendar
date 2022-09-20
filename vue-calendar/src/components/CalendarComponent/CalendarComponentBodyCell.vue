@@ -2,6 +2,7 @@
   <div
     ref="calendarCell"
     class="calendar-component-body-cell__wrapper"
+    :style="wrapperHeightStyle"
   >
     <div
       class="calendar-component-body-cell"
@@ -37,7 +38,8 @@
 
 <script>
 import formatDates from '@/utils/helpers/formatDates'
-import CalendarComponentBodyCellEvent from './CalendarComponentBodyCellEvent.vue'
+import CalendarComponentBodyCellEvent from './CalendarComponentBodyCellEvent'
+
 import { ButtonComponent } from '@/components/basicComponents'
 
 export default {
@@ -80,6 +82,10 @@ export default {
     eventsMaxQuantity: {
       type: Number,
       required: true
+    },
+    rowsQuantityInCalendar: {
+      type: Number,
+      required: true
     }
   },
 
@@ -108,11 +114,13 @@ export default {
       const rootClass = 'calendar-component-body-cell'
       const isToday = formatDates.areDatesEqual(this.cellDate, this.currentDay)
       const isBeforeToday = formatDates.isFirstDateBeforeSecondDate(this.cellDate, this.currentDay)
+      const isCellDateInActiveMonth = formatDates.areSameMonths(this.cellDate, this.pickedDay)
 
       return {
         [`${rootClass}--today`]: isToday,
         [`${rootClass}--past-day`]: isBeforeToday && !isToday,
-        [`${rootClass}--picked-day`]: this.isPickedDay
+        [`${rootClass}--picked-day`]: this.isPickedDay,
+        [`${rootClass}--other-month`]: !isCellDateInActiveMonth
       }
     },
 
@@ -131,6 +139,10 @@ export default {
 
     eventsLimited () {
       return this.eventsData.slice(0, this.eventsMaxQuantity)
+    },
+
+    wrapperHeightStyle () {
+      return { height: `calc((100% / ${this.rowsQuantityInCalendar}))` }
     }
   },
 
@@ -165,7 +177,7 @@ export default {
 
     onClickCell () {
       if (this.isPickedDay) {
-        this.onClickPickedCell()
+        this.onClickPickedCell(this.cellDate)
       } else {
         this.onClickUnpickedCell(this.cellDate)
       }
@@ -181,12 +193,9 @@ export default {
 
 <style lang="scss">
 .calendar-component-body-cell {
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   text-align: left;
-  align-items: flex-start;
   padding: 10px 5px;
   background-color: $color-white;
   overflow: hidden;
@@ -199,7 +208,6 @@ export default {
 
   &__wrapper {
     width: calc(100% / 7);
-    height: calc((100% / 5));
     border-bottom: 1px solid $color-black-light;
     overflow: hidden;
     position: relative;
@@ -262,6 +270,10 @@ export default {
 
   &--picked-day {
     background-color: $color-blue-light;
+  }
+
+  &--other-month {
+    opacity: 0.5;
   }
 }
 

@@ -8,6 +8,7 @@
       @input="$emit('input', $event)"
     />
     <p
+      v-if="invalid"
       class="input-component-with-error-text__text"
     >
       {{ errorMessage }}
@@ -55,7 +56,7 @@ export default {
     &__text {
       color: $color-red;
       font-size: $font-size-small;
-      padding: 5px 0 0  16px;
+      padding: 5px 0 0  15px;
     }
   }
 </style>

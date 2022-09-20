@@ -12,6 +12,7 @@
       :on-click-event="onClickEvent"
       :events-data="eventsData"
       :events-max-quantity="eventsMaxQuantity"
+      :rows-quantity-in-calendar="rowsQuantityInCalendar"
       @max-events-change="onEventsMaxQuantityChange"
     />
   </div>
@@ -47,6 +48,10 @@ export default {
     },
     onClickEvent: {
       type: Function,
+      required: true
+    },
+    rowsQuantityInCalendar: {
+      type: Number,
       required: true
     }
   },

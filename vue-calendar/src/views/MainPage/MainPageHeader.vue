@@ -57,11 +57,6 @@ export default {
 </script>
 
 <style lang="scss">
-@mixin icon($content: "", $background) {
-  content: $content;
-  background: no-repeat center/100% $background;
-}
-
 .main-page-header {
   background-color: $color-grey;
   height: $main-page-header;

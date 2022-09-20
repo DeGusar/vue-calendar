@@ -3,8 +3,9 @@
     <CalendarComponentHeader />
     <CalendarComponentBody
       :picked-day="pickedDay"
-      :current-day="currentDay"
       :dates-data="datesData"
+      :rows-quantity-in-calendar="rowsQuantity"
+      :current-day="currentDay"
       :on-click-unpicked-cell="onClickUnpickedCell"
       :on-click-picked-cell="onClickPickedCell"
       :on-click-event="onClickEvent"
@@ -16,10 +17,11 @@
 import CalendarComponentHeader from './CalendarComponentHeader'
 import CalendarComponentBody from './CalendarComponentBody'
 
-const validateDatesData = (propData) => {
+function validateDatesData (propData) {
   const daysQuantity = 35
+  const daysQuantityInExtendedCalendar = 42
 
-  return propData.length === daysQuantity && propData.every(object => {
+  return (propData.length === daysQuantity || propData.length === daysQuantityInExtendedCalendar) && propData.every(object => {
     return (
       (Object.prototype.hasOwnProperty.call(object, 'date') && object.date instanceof Date) &&
       object.eventsData.every(e => {
@@ -62,8 +64,15 @@ export default {
       type: Function,
       required: true
     }
-  }
+  },
 
+  computed: {
+    rowsQuantity () {
+      const oneWeekInDays = 7
+
+      return this.datesData.length / oneWeekInDays
+    }
+  }
 }
 </script>
 

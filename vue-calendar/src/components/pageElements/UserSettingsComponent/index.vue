@@ -5,10 +5,10 @@
       @click.stop="onClickAvatar"
     >
       <AvatarComponent
-        class="user-settings-component__avatar"
         :user-full-name="userFullName"
         :avatar-image-src="userData.userAvatarSrc"
         :status-image-src="userData.userStatusSrc"
+        class="user-settings-component__avatar"
       />
     </div>
     <UserSettingsComponentPopup

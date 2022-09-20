@@ -1,7 +1,7 @@
 <template>
   <form
-    class="registration-page-form"
     novalidate
+    class="registration-page-form"
     @submit.prevent="submitRegistration"
   >
     <p class="registration-page-form__title">
@@ -10,17 +10,17 @@
     <div class="registration-page-form__names">
       <InputComponentWithErrorText
         v-model="firstName"
-        class="registration-page-form__names-input"
         place-holder="First Name"
         :invalid="$v.firstName.$error"
         :error-message="firstNameError"
+        class="registration-page-form__names-input"
       />
       <InputComponentWithErrorText
         v-model="lastName"
-        class="registration-page-form__names-input"
         place-holder="Last Name"
         :invalid="$v.lastName.$error"
         :error-message="lastNameErrors"
+        class="registration-page-form__names-input"
       />
     </div>
 
@@ -47,15 +47,15 @@
     />
     <ButtonComponent
       type="submit"
-      class="registration-page-form__button"
-      :disabled="$v.$error"
       variant="contained"
+      :disabled="$v.$error"
+      class="registration-page-form__button"
     >
       SignUP
     </ButtonComponent>
     <RouterLinkComponent
-      class="registration-page-form__link"
       :to="routeLoginPage"
+      class="registration-page-form__link"
     >
       Already have an account? Sign in
     </RouterLinkComponent>

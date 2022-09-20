@@ -1,6 +1,5 @@
 import { uploadImage } from '@/api/imageApi'
-import { getCurrentUserData } from '@/api/authApi'
-import { updateUserSettings } from '@/api/userSettingsApi'
+import { updateUserSettings, getCurrentUserData } from '@/api/userDataApi'
 import { imageSources } from '@/utils/constants'
 
 const userDataHandler = ({ firstName, lastName, email, userStatusText, userStatusSrc, userAvatarSrc }) => {
@@ -20,6 +19,7 @@ export default {
 
   state: {
     isSaving: false,
+    isLoading: false,
     userData: {
       firstName: '',
       lastName: '',
@@ -35,6 +35,9 @@ export default {
     },
     userData (state) {
       return state.userData
+    },
+    isLoading (state) {
+      return state.isLoading
     }
   },
 
@@ -67,6 +70,7 @@ export default {
 
     async getUserData ({ commit }) {
       try {
+        commit('setIsLoading', true)
         const userData = await getCurrentUserData()
 
         if (userData) {
@@ -76,6 +80,8 @@ export default {
         }
       } catch (e) {
         return { result: false, message: e.message }
+      } finally {
+        commit('setIsLoading', false)
       }
     }
   },
@@ -86,6 +92,9 @@ export default {
     },
     setUserData (state, userData) {
       state.userData = userData
+    },
+    setIsLoading (state, isLoading) {
+      state.isLoading = isLoading
     }
   }
 
