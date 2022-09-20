@@ -19,8 +19,7 @@ export default {
     currentDay: new Date(),
     pickedDay: new Date(),
     usersList: [],
-    eventsList: [],
-    rowsQuantityInCalendar: 5
+    eventsList: []
   },
 
   getters: {
@@ -38,9 +37,6 @@ export default {
 
     eventsList (state) {
       return state.eventsList
-    },
-    rowsQuantityInCalendar (state) {
-      return state.rowsQuantityInCalendar
     }
   },
 
@@ -59,9 +55,6 @@ export default {
       } catch (e) {
         return { result: false, message: e.message }
       }
-    },
-    updateRowsQuantityInCalendar ({ commit }, rowsQuantityInCalendar) {
-      commit('setRowsQuantityInCalendar', rowsQuantityInCalendar)
     }
   },
 
@@ -76,10 +69,6 @@ export default {
 
     setEventsList (state, eventsList) {
       state.eventsList = eventsList
-    },
-
-    setRowsQuantityInCalendar (state, rowsQuantityInCalendar) {
-      state.rowsQuantityInCalendar = rowsQuantityInCalendar
     }
   }
 

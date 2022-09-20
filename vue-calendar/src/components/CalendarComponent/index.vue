@@ -3,12 +3,12 @@
     <CalendarComponentHeader />
     <CalendarComponentBody
       :picked-day="pickedDay"
-      :current-day="currentDay"
       :dates-data="datesData"
+      :rows-quantity-in-calendar="rowsQuantity"
+      :current-day="currentDay"
       :on-click-unpicked-cell="onClickUnpickedCell"
       :on-click-picked-cell="onClickPickedCell"
       :on-click-event="onClickEvent"
-      :rows-quantity-in-calendar="rowsQuantityInCalendar"
     />
   </div>
 </template>
@@ -43,10 +43,6 @@ export default {
       type: Date,
       required: true
     },
-    rowsQuantityInCalendar: {
-      type: Number,
-      required: true
-    },
     pickedDay: {
       type: Date,
       required: true
@@ -68,7 +64,14 @@ export default {
       type: Function,
       required: true
     }
+  },
 
+  computed: {
+    rowsQuantity () {
+      const oneWeekInDays = 7
+
+      return this.datesData.length / oneWeekInDays
+    }
   }
 }
 </script>

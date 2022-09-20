@@ -94,31 +94,54 @@ export const addHalfHour = (dateValue) => {
   return newDate
 }
 
-export const getFirstCellInCalendar = (dateValue) => {
-  let rowsQuantity = 5
-  const date = new Date(dateValue)
-  date.setDate(1)
+const getDateOfTheFirstMondayInMonth = (pickedDate) => {
+  pickedDate.setDate(1)
 
-  while (date.getDay() !== 1) {
-    date.setDate(date.getDate() + 1)
-  }
-  const dateOfTheFirstMonday = date.getDate()
-
-  if (dateOfTheFirstMonday !== 1) {
-    date.setDate(date.getDate() - 7)
+  while (pickedDate.getDay() !== 1) {
+    pickedDate.setDate(pickedDate.getDate() + 1)
   }
 
-  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 2, 0).getDate()
+  return pickedDate.getDate()
+}
 
-  if (dateOfTheFirstMonday === 2 || (dateOfTheFirstMonday === 3 && daysInMonth === 31)) {
-    rowsQuantity = 6
+const getCalendarSize = (date) => {
+  const newDate = new Date(date)
+  const secondOfTheMonth = 2
+  const thirdOfTheMonth = 3
+  const dateOfTheFirstMonday = getDateOfTheFirstMondayInMonth(newDate)
+  const daysInMonth = new Date(newDate.getFullYear(), newDate.getMonth() + 1, 0).getDate()
+
+  if (dateOfTheFirstMonday === secondOfTheMonth || (dateOfTheFirstMonday === thirdOfTheMonth && daysInMonth === 31)) {
+    return 42
   }
 
-  return { date, rowsQuantity }
+  return 35
+}
+
+export const getActiveMonthDatesInterval = (pickedDay) => {
+  const startingDate = new Date(pickedDay)
+  const oneWeekInDays = 7
+  const firstOfTheMonth = 1
+  const calendarSize = getCalendarSize(pickedDay)
+
+  const dateOfTheFirstMonday = getDateOfTheFirstMondayInMonth(startingDate)
+
+  if (dateOfTheFirstMonday !== firstOfTheMonth) {
+    startingDate.setDate(startingDate.getDate() - oneWeekInDays)
+  }
+
+  const lastDate = new Date(startingDate)
+  lastDate.setDate(lastDate.getDate() + calendarSize)
+
+  return [startingDate, lastDate]
 }
 
 export const isFirstDateBeforeSecondDate = (date1, date2) => {
   return new Date(date1).getTime() <= new Date(date2).getTime()
+}
+
+export const areSameMonths = (firstDate, secondDate) => {
+  return new Date(firstDate).getMonth() === new Date(secondDate).getMonth()
 }
 
 export default {
@@ -133,6 +156,7 @@ export default {
   setCurrentTime,
   addHalfHour,
   areDatesEqual,
-  getFirstCellInCalendar,
+  areSameMonths,
+  getActiveMonthDatesInterval,
   isFirstDateBeforeSecondDate
 }

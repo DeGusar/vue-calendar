@@ -12,13 +12,12 @@
         @change-month="onChangeMonth"
       />
       <CalendarComponent
-        :dates-data="datesData"
         :current-day="currentDay"
         :picked-day="pickedDay"
+        :dates-data="datesData"
         :on-click-event="onClickEvent"
         :on-click-unpicked-cell="onClickUnpickedCell"
         :on-click-picked-cell="onClickPickedCell"
-        :rows-quantity-in-calendar="rowsQuantityInCalendar"
       />
     </div>
     <CalendarCreateEventModal
@@ -39,15 +38,13 @@ import CalendarComponent from '@/components/CalendarComponent'
 import { CalendarCreateEventModal, CalendarViewEventModal } from '@/views/MainPage/MainPageModals'
 
 // TODO function will be removed
-const getData = (firstDayOfTheCalendar, rowsQuantity) => {
-  const D = new Date(firstDayOfTheCalendar)
-  const Till = new Date(firstDayOfTheCalendar)
-  const calendarSize = 7 * rowsQuantity
-  Till.setDate(Till.getDate() + calendarSize)
+const getData = (firstDayOfTheCalendar, lastDayOfTheCalendar) => {
+  const startDate = new Date(firstDayOfTheCalendar)
+  const endDate = new Date(lastDayOfTheCalendar)
   const result = []
-  while (D.getTime() < Till.getTime()) {
-    result.push({ date: new Date(D), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: 'Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: '123' }] })
-    D.setDate(D.getDate() + 1)
+  while (startDate.getTime() < endDate.getTime()) {
+    result.push({ date: new Date(startDate), eventsData: [{ startDate: new Date(), endDate: new Date(), eventTitle: ' Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test' }, { startDate: new Date(), endDate: new Date(), eventTitle: '123' }] })
+    startDate.setDate(startDate.getDate() + 1)
   }
 
   return result
@@ -59,29 +56,23 @@ export default {
   components: { MainPageHeader, MainPageSidebar, CalendarComponent, CalendarCreateEventModal, CalendarViewEventModal },
 
   data: () => ({
-    firstDayOfTheCalendar: formatDates.getFirstCellInCalendar(new Date()).date,
+    activeMonthDatesInterval: formatDates.getActiveMonthDatesInterval(new Date()),
     meetingRooms: [300, 301, 302, 303, 304, 305]
   }),
 
   computed: {
-    ...mapGetters('mainPageModule', ['currentDay', 'pickedDay', 'usersList', 'rowsQuantityInCalendar']),
+    ...mapGetters('mainPageModule', ['currentDay', 'pickedDay', 'usersList']),
     datesData () {
-      return getData(this.firstDayOfTheCalendar, this.rowsQuantityInCalendar)
+      return getData(...this.activeMonthDatesInterval)
     }
-
   },
 
   watch: {
-    pickedDay (newPickedDay) {
-      const [lastItem] = this.datesData.slice(-1)
-      const lastDayOfTheCalendar = lastItem.date
-      const isPickedDateBeforeFirstDayOfTheCalendar = formatDates.isFirstDateBeforeSecondDate(newPickedDay, this.firstDayOfTheCalendar)
-      const isPickedDateAfterLastDayOfTheCalendar = formatDates.isFirstDateBeforeSecondDate(lastDayOfTheCalendar, newPickedDay)
+    pickedDay (newPickedDay, oldPickedDay) {
+      const isMonthOfPickedDateSameAsCurrentMonth = formatDates.areSameMonths(newPickedDay, oldPickedDay)
 
-      if (isPickedDateBeforeFirstDayOfTheCalendar || isPickedDateAfterLastDayOfTheCalendar) {
-        const { date, rowsQuantity } = formatDates.getFirstCellInCalendar(newPickedDay)
-        this.firstDayOfTheCalendar = date
-        this.updateRowsQuantityInCalendar(rowsQuantity)
+      if (!isMonthOfPickedDateSameAsCurrentMonth) {
+        this.activeMonthDatesInterval = formatDates.getActiveMonthDatesInterval(newPickedDay)
       }
     }
   },
@@ -93,8 +84,7 @@ export default {
   methods: {
     ...mapActions('mainPageModule', {
       onUpdatePickedDate: 'updatePickedDay',
-      getUsersList: 'getUsersList',
-      updateRowsQuantityInCalendar: 'updateRowsQuantityInCalendar'
+      getUsersList: 'getUsersList'
     }),
     onClickUnpickedCell (cellDate) {
       this.onUpdatePickedDate(cellDate)
@@ -112,7 +102,8 @@ export default {
     },
     onChangeMonth (monthsDifference) {
       const changedMonth = new Date(this.pickedDay)
-      changedMonth.setDate(1)
+      const firstOfTheMonth = 1
+      changedMonth.setDate(firstOfTheMonth)
       changedMonth.setMonth(this.pickedDay.getMonth() + monthsDifference)
 
       const isSameMonth = changedMonth.getMonth() === this.currentDay.getMonth()

@@ -114,11 +114,13 @@ export default {
       const rootClass = 'calendar-component-body-cell'
       const isToday = formatDates.areDatesEqual(this.cellDate, this.currentDay)
       const isBeforeToday = formatDates.isFirstDateBeforeSecondDate(this.cellDate, this.currentDay)
+      const isCellDateInActiveMonth = formatDates.areSameMonths(this.cellDate, this.pickedDay)
 
       return {
         [`${rootClass}--today`]: isToday,
         [`${rootClass}--past-day`]: isBeforeToday && !isToday,
-        [`${rootClass}--picked-day`]: this.isPickedDay
+        [`${rootClass}--picked-day`]: this.isPickedDay,
+        [`${rootClass}--other-month`]: !isCellDateInActiveMonth
       }
     },
 
@@ -191,12 +193,9 @@ export default {
 
 <style lang="scss">
 .calendar-component-body-cell {
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
   height: 100%;
   text-align: left;
-  align-items: flex-start;
   padding: 10px 5px;
   background-color: $color-white;
   overflow: hidden;
@@ -271,6 +270,10 @@ export default {
 
   &--picked-day {
     background-color: $color-blue-light;
+  }
+
+  &--other-month {
+    opacity: 0.5;
   }
 }
 

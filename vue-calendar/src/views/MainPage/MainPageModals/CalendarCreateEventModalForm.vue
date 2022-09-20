@@ -56,17 +56,17 @@ import formatDates from '@/utils/helpers/formatDates'
 
 const get24hoursDividedBy30Minutes = (eventDayDate) => {
   if (eventDayDate) {
-    const startDate = new Date(eventDayDate)
-    startDate.setHours(0, 0, 0, 0)
     const oneDayInMilliSeconds = 24 * 60 * 60 * 1000
-    const endDate = new Date(startDate.getTime() + oneDayInMilliSeconds)
-    endDate.setHours(0, 30, 0, 0)
-    const halfHour = 30 * 60 * 1000
+    const halfHourInMilliSeconds = 30 * 60 * 1000
     const endOptions = []
+    const startDate = new Date(eventDayDate)
+    const endDate = new Date(startDate.getTime() + oneDayInMilliSeconds)
+    startDate.setHours(0, 0, 0, 0)
+    endDate.setHours(0, 30, 0, 0)
 
     while (startDate.getTime() < endDate.getTime()) {
       endOptions.push({ label: formatDates.to12HoursWithMinutesFormat(new Date(startDate)), value: new Date(startDate) })
-      startDate.setTime(new Date(startDate.getTime() + halfHour))
+      startDate.setTime(new Date(startDate.getTime() + halfHourInMilliSeconds))
     }
 
     return { startOptions: endOptions.slice(0, endOptions.length - 1), endOptions }
